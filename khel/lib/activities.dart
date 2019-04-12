@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 
-class Activites extends StatelessWidget {
+class Activities extends StatelessWidget {
+  final List<String> activities;
+
+  Activities(this.activities);
+
   @override
-  Widget build(BuildContext context){
-   return Column(
-                children: _activities
-                    .map((element) => Card(
-                          child: Column(
-                            children: <Widget>[
-                              Image.asset('assets/food.jpg'),
-                              Text(element)
-                            ],
-                          ),
-                        ))
-                    .toList(),
-              )
-              }
+  Widget build(BuildContext context) {
+    return Column(
+      children: activities
+          .map(
+            (element) => Card(
+                  child: Column(
+                    children: <Widget>[
+                      Image.asset('assets/food.jpg'),
+                      Text(element)
+                    ],
+                  ),
+                ),
+          )
+          .toList(),
+    );
+  }
 }
