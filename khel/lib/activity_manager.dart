@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ActivityManager extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return null;
+    return _ActivityManagerState();
   }
 }
 
@@ -11,7 +11,6 @@ class _ActivityManagerState extends State<ActivityManager> {
   List<String> _activities = ['Food'];
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
       margin: EdgeInsets.all(8),
       child: RaisedButton(
