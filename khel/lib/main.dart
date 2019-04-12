@@ -10,7 +10,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List<String> _activities = ['Food', 'Swimming', 'Dhimka'];
+  List<String> _activities = ['Food'];
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +23,10 @@ class _MyAppState extends State<MyApp> {
                 margin: EdgeInsets.all(8),
                 child: RaisedButton(
                   onPressed: () {
-                    _activities.add('Advanced Activites');
-                    print(_activities);
+                    setState(() {
+                      _activities.add('Advanced Activites');
+                      print(_activities);
+                    });
                   },
                   child: Text('Finished?'),
                 ),
