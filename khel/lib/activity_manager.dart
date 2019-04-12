@@ -15,12 +15,13 @@ class ActivityManager extends StatefulWidget {
 
 class _ActivityManagerState extends State<ActivityManager> {
   List<String> _activities = [];
-  
+
   @override
   void initState() {
     super.initState();
     _activities.add(widget.startingActivity);
   }
+
   @override
   Widget build(BuildContext context) {
     return Column(
