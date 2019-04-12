@@ -18,8 +18,8 @@ class _ActivityManagerState extends State<ActivityManager> {
   
   @override
   void initState() {
-    _activities.add(widget.startingActivity);
     super.initState();
+    _activities.add(widget.startingActivity);
   }
   @override
   Widget build(BuildContext context) {
