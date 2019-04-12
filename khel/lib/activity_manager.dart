@@ -17,6 +17,12 @@ class ActivityManager extends StatefulWidget {
 class _ActivityManagerState extends State<ActivityManager> {
   List<String> _activities = [];
 
+  void _addActivities(String activity) {
+    setState(() {
+      _activities.add('Advanced Activites');
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -29,7 +35,7 @@ class _ActivityManagerState extends State<ActivityManager> {
       children: [
         Container(
           margin: EdgeInsets.all(10),
-          child: ActivityControl(),
+          child: ActivityControl(_addActivities),
         ),
         Activities(_activities)
       ],
