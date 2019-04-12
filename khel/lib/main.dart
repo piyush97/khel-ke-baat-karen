@@ -5,7 +5,6 @@ void main() => {runApp(MyApp())};
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _MyAppState();
   }
 }
@@ -23,21 +22,25 @@ class _MyAppState extends State<MyApp> {
               Container(
                 margin: EdgeInsets.all(8),
                 child: RaisedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _activities.add('Advanced Activites');
+                    print(_activities);
+                  },
                   child: Text('Finished?'),
                 ),
               ),
               Column(
-                  children: _activities
-                      .map((element) => Card(
-                            child: Column(
-                              children: <Widget>[
-                                Image.asset('assets/food.jpg'),
-                                Text(element)
-                              ],
-                            ),
-                          ))
-                      .toList())
+                children: _activities
+                    .map((element) => Card(
+                          child: Column(
+                            children: <Widget>[
+                              Image.asset('assets/food.jpg'),
+                              Text(element)
+                            ],
+                          ),
+                        ))
+                    .toList(),
+              )
             ],
           )),
     );
