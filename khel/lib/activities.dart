@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 class Activities extends StatelessWidget {
   final List<String> activities;
 
-  Activities(this.activities);
+  Activities(this.activities) {
+    print('[Activities widget Constructor]');
+  }
 
   @override
   Widget build(BuildContext context) {
+    print('Build');
     return Column(
       children: activities
           .map(
