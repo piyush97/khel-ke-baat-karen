@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import './activity_control.dart';
 import './activities.dart';
 
 class ActivityManager extends StatefulWidget {
@@ -27,17 +28,8 @@ class _ActivityManagerState extends State<ActivityManager> {
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.all(8),
-          child: RaisedButton(
-            color: Theme.of(context).secondaryHeaderColor,
-            onPressed: () {
-              setState(() {
-                _activities.add('Advanced Activites');
-                print(_activities);
-              });
-            },
-            child: Text('Finished?'),
-          ),
+          margin: EdgeInsets.all(10),
+          child: ActivityControl(),
         ),
         Activities(_activities)
       ],
