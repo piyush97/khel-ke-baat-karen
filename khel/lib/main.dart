@@ -11,6 +11,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  List<String> activities = ['Food', 'Swimming'];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
