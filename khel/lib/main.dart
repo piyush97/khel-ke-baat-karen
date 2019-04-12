@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() => {
-  runApp(MyApp())
-};
+void main() => {runApp(MyApp())};
 
 class MyApp extends StatelessWidget {
   @override
@@ -10,6 +8,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: Text('K2BK')),
+        body: Card(
+          child: Column(
+            children: <Widget>[
+              Image(),
+              Text('Food')
+            ],
+          ),
+        ),
       ),
     );
   }
