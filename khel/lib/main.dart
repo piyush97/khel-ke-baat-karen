@@ -11,7 +11,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List<String> _activities = ['Food', 'Swimming'];
+  List<String> _activities = ['Food', 'Swimming', 'Dhimka'];
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +27,17 @@ class _MyAppState extends State<MyApp> {
                   child: Text('Finished?'),
                 ),
               ),
-              _activities.map(element => Card(
-                child: Column(
-                  children: <Widget>[
-                    Image.asset('assets/food.jpg'),
-                    Text('Food')
-                  ],
-                ),
-              ),) 
+              Column(
+                  children: _activities
+                      .map((element) => Card(
+                            child: Column(
+                              children: <Widget>[
+                                Image.asset('assets/food.jpg'),
+                                Text(element)
+                              ],
+                            ),
+                          ))
+                      .toList())
             ],
           )),
     );
