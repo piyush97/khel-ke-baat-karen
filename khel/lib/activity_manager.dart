@@ -28,6 +28,7 @@ class _ActivityManagerState extends State<ActivityManager> {
         Container(
           margin: EdgeInsets.all(8),
           child: RaisedButton(
+            color: Theme.of(context).secondaryHeaderColor,
             onPressed: () {
               setState(() {
                 _activities.add('Advanced Activites');
