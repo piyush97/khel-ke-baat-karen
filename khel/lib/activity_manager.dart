@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './activities.dart';
+
 class ActivityManager extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -11,7 +13,7 @@ class _ActivityManagerState extends State<ActivityManager> {
   List<String> _activities = ['Food'];
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Column(children: [Container(
       margin: EdgeInsets.all(8),
       child: RaisedButton(
         onPressed: () {
@@ -22,6 +24,8 @@ class _ActivityManagerState extends State<ActivityManager> {
         },
         child: Text('Finished?'),
       ),
-    );
+    ),
+    Activities(_activities)
+    ],) ;
   }
 }
