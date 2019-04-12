@@ -10,28 +10,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List<String> _activities = ['Food'];
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(title: Text('K2BK')),
           body: Column(
-            children: [
-              Container(
-                margin: EdgeInsets.all(8),
-                child: RaisedButton(
-                  onPressed: () {
-                    setState(() {
-                      _activities.add('Advanced Activites');
-                      print(_activities);
-                    });
-                  },
-                  child: Text('Finished?'),
-                ),
-              ),
-            ],
+            children: [],
           )),
     );
   }
