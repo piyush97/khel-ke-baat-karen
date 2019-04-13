@@ -9,7 +9,6 @@ class ActivityControl extends StatelessWidget {
       color: Theme.of(context).secondaryHeaderColor,
       onPressed: () {
         addActivity('Sleep');
-
       },
       child: Text('Finished?'),
     );
