@@ -20,13 +20,14 @@ class Activities extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('Build');
-    Widget activityCard =
-        Center(child: Text('Yayyy! No activities to do for now!'));
+    Widget activityCard;
     if (activities.length > 0) {
       activityCard = ListView.builder(
         itemBuilder: _buildActivityItem,
         itemCount: activities.length,
       );
+    } else {
+      activityCard = Center(child: Text('Yayyy! No activities to do for now!'));
     }
     return activityCard;
   }
