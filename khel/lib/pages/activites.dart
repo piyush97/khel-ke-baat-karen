@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import './activites_admin.dart';
 import '../activity_manager.dart';
 
 class ActivitiesPage extends StatelessWidget {
@@ -15,6 +16,13 @@ class ActivitiesPage extends StatelessWidget {
             ),
             ListTile(
               title: Text('Manage Activites'),
+              onTap: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            ActivitiesAdminPage()));
+              },
             )
           ],
         ),
@@ -25,4 +33,4 @@ class ActivitiesPage extends StatelessWidget {
       body: ActivityManager(),
     );
   }
-} 
+}

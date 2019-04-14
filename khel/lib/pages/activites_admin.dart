@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import './activites.dart';
 
-class ProductsAdminPage extends StatelessWidget {
+class ActivitiesAdminPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
