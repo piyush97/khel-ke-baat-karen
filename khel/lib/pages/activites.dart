@@ -17,11 +17,7 @@ class ActivitiesPage extends StatelessWidget {
             ListTile(
               title: Text('Manage Activites'),
               onTap: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            ActivitiesAdminPage()));
+                Navigator.pushReplacementNamed(context, '/admin');
               },
             )
           ],

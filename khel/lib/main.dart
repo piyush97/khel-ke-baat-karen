@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import './pages/auth.dart';
+import './pages/activites_admin.dart';
+import './pages/activites.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,7 +16,10 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
           primarySwatch: Colors.lime,
           secondaryHeaderColor: Colors.amber),
-      home: AuthPage(),
+      routes: {
+        '/': (BuildContext context) => ActivitiesPage(),
+        '/admin': (BuildContext context) => ActivitiesAdminPage(),
+      },
     );
   }
 }
