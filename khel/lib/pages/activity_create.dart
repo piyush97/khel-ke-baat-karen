@@ -62,7 +62,8 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
               final Map<String, dynamic> activity = {
                 'title': titleValue,
                 'description': descriptionValue,
-                'time': time
+                'time': time,
+                'image': 'assets/food.jpg'
               };
               widget.addActivity(activity);
             },
