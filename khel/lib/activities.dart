@@ -22,11 +22,7 @@ class Activities extends StatelessWidget {
                 child: Text('Details'),
                 onPressed: () => Navigator.push<bool>(
                       context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => ActivityPage(
-                            activities[index]['title'],
-                            activities[index]['image']),
-                      ),
+
                     ).then((bool value) {
                       if(value) {
                         deleteActivity(index);

@@ -1,15 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:khel/pages/activity.dart';
 
-import './pages/auth.dart';
 import './pages/activites_admin.dart';
 import './pages/activites.dart';
-import './activities.dart';
+import 'pages/activites.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _MyAppState();
+  }
+}
+
+class _MyAppState extends State<MyApp> {
+  List<Map<String, String>> _activities = [];
+
+  void _addActivities(Map<String, String> activity) {
+    setState(() {
+      _activities.add(activity);
+    });
+  }
+
+  void _deleteActivities(int index) {
+    setState(() {
+      _activities.removeAt(index);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,7 +40,8 @@ class MyApp extends StatelessWidget {
           secondaryHeaderColor: Colors.amber),
       // home: AuthPage(),
       routes: {
-        '/': (BuildContext context) => ActivitiesPage(),
+        '/': (BuildContext context) =>
+            ActivitiesPage(_activities, _addActivities, _deleteActivities),
         '/admin': (BuildContext context) => ActivitiesAdminPage(),
       },
       onGenerateRoute: (RouteSettings settings) {
@@ -31,7 +53,7 @@ class MyApp extends StatelessWidget {
           final int index = int.parse(pathElements[2]);
           return MaterialPageRoute(
             builder: (BuildContext context) => ActivityPage(
-                activities[index]['title'], activities[index]['image']),
+                _activities[index]['title'], _activities[index]['image']),
           );
         }
         return null;
