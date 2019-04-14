@@ -12,7 +12,7 @@ class ActivityControl extends StatelessWidget {
       onPressed: () {
         addActivity({'title:': 'Eat Chocolate', 'image': 'assets/food.jpg'});
       },
-      child: Text('Finished?'),
+      child: Text('add activity?'),
     );
   }
 }

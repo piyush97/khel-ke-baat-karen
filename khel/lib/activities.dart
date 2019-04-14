@@ -4,8 +4,8 @@ import './pages/activity.dart';
 
 class Activities extends StatelessWidget {
   final List<Map<String, String>> activities;
-
-  Activities([this.activities = const []]) {
+  final Function deleteActivity;
+  Activities(this.activities, {this.deleteActivity}) {
     print('[Activities widget Constructor]');
   }
 
@@ -28,7 +28,9 @@ class Activities extends StatelessWidget {
                             activities[index]['image']),
                       ),
                     ).then((bool value) {
-                      print(value);
+                      if(value) {
+                        deleteActivity(index);
+                      }
                     }),
               )
             ],

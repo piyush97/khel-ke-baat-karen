@@ -18,7 +18,7 @@ class ActivityManager extends StatefulWidget {
 
 class _ActivityManagerState extends State<ActivityManager> {
   List<Map<String, String>> _activities = [];
-  
+
   @override
   void initState() {
     if (widget.startingActivity != null) {
@@ -30,6 +30,12 @@ class _ActivityManagerState extends State<ActivityManager> {
   void _addActivities(Map<String, String> activity) {
     setState(() {
       _activities.add(activity);
+    });
+  }
+
+  void _deleteActivities(int index) {
+    setState(() {
+      _activities.removeAt(index);
     });
   }
 
@@ -46,7 +52,7 @@ class _ActivityManagerState extends State<ActivityManager> {
           margin: EdgeInsets.all(10),
           child: ActivityControl(_addActivities),
         ),
-        Expanded(child: Activities(_activities))
+        Expanded(child: Activities(_activities, deleteActivity: _deleteActivities))
       ],
     );
   }

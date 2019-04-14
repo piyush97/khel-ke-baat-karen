@@ -24,7 +24,7 @@ class ActivityPage extends StatelessWidget {
             padding: EdgeInsets.all(10.0),
             child: RaisedButton(
               color: Theme.of(context).accentColor,
-              child: Text('DELETE' ?? ''),
+              child: Text('Finished?' ?? ''),
               onPressed: () => Navigator.pop(context, true),
             ),
           )
