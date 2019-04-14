@@ -28,22 +28,22 @@ class ActivitiesAdminPage extends StatelessWidget {
           ),
         ),
         appBar: AppBar(
-          title: Text('Manage Products'),
+          title: Text('Manage Activities'),
           bottom: TabBar(
             tabs: <Widget>[
               Tab(
                 icon: Icon(Icons.create),
-                text: 'Create Product',
+                text: 'Create an Activity',
               ),
               Tab(
                 icon: Icon(Icons.list),
-                text: 'My Products',
+                text: 'My Child\'s activities',
               ),
             ],
           ),
         ),
         body: Text(
-            // children: <Widget>[ProductCreatePage(), ProductListPage()],
+            children: <Widget>[ActivityCreatePage(), ActivityListPage()],
             'Test'),
       ),
     );
