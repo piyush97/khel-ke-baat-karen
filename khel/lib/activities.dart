@@ -10,7 +10,7 @@ class Activities extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('Build');
-    return Column(
+    return ListView(
       children: activities
           .map(
             (element) => Card(
