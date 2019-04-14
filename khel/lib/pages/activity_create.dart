@@ -15,7 +15,7 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(19.0),
-      child: Column(
+      child: ListView(
         children: <Widget>[
           TextField(
             decoration: InputDecoration(

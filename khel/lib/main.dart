@@ -40,9 +40,9 @@ class _MyAppState extends State<MyApp> {
           secondaryHeaderColor: Colors.amber),
       // home: AuthPage(),
       routes: {
-        '/': (BuildContext context) =>
-            ActivitiesPage(_activities, _addActivities, _deleteActivities),
-        '/admin': (BuildContext context) => ActivitiesAdminPage(),
+        '/': (BuildContext context) => ActivitiesPage(_activities),
+        '/admin': (BuildContext context) =>
+            ActivitiesAdminPage(_addActivities, _deleteActivities),
       },
       onGenerateRoute: (RouteSettings settings) {
         final List<String> pathElements = settings.name.split('/');
