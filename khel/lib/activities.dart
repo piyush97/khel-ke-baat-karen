@@ -7,22 +7,22 @@ class Activities extends StatelessWidget {
     print('[Activities widget Constructor]');
   }
 
+  Widget _buildActivityItem(BuildContext context, int index) {
+    return Card(
+        child: Column(
+      children: <Widget>[
+        Image.asset('assets/food.jpg'),
+        Text(activities[index])
+      ],
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     print('Build');
-    return ListView(
-      children: activities
-          .map(
-            (element) => Card(
-                  child: Column(
-                    children: <Widget>[
-                      Image.asset('assets/food.jpg'),
-                      Text(element)
-                    ],
-                  ),
-                ),
-          )
-          .toList(),
+    return ListView.builder(
+      itemBuilder: _buildActivityItem,
+      itemCount: activities.length,
     );
   }
 }
