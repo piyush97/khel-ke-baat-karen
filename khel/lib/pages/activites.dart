@@ -25,4 +25,4 @@ class ActivitiesPage extends StatelessWidget {
       body: ActivityManager(),
     );
   }
-}
+} 
