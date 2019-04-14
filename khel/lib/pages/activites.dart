@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../activity_manager.dart';
 
-class HomePage extends StatelessWidget {
+class ActivitiesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
