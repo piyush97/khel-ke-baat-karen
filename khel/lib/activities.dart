@@ -22,9 +22,8 @@ class Activities extends StatelessWidget {
                 child: Text('Details'),
                 onPressed: () => Navigator.push<bool>(
                       context,
-
                     ).then((bool value) {
-                      if(value) {
+                      if (value) {
                         deleteActivity(index);
                       }
                     }),
