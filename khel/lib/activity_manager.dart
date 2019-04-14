@@ -4,7 +4,7 @@ import './activity_control.dart';
 import './activities.dart';
 
 class ActivityManager extends StatefulWidget {
-  final String startingActivity;
+  final Map<String, String> startingActivity;
 
   ActivityManager({this.startingActivity}) {
     print('Activity manager contructor call');
@@ -17,20 +17,25 @@ class ActivityManager extends StatefulWidget {
 }
 
 class _ActivityManagerState extends State<ActivityManager> {
-  List<String> _activities = [];
+  List<Map<String, String>> _activities = [];
+  
+  @override
+  void initState() {
+    if (widget.startingActivity != null) {
+      _activities.add(widget.startingActivity);
+    }
+    super.initState();
+  }
 
-  void _addActivities(String activity) {
+  void _addActivities(Map<String, String> activity) {
     setState(() {
-      _activities.add('Advanced Activites');
+      _activities.add(activity);
     });
   }
 
   @override
-  void initState() {
-    if (widget.startingActivity != null) {
-    _activities.add(widget.startingActivity);
-    }
-    super.initState();
+  void didUpdateWidget(ActivityManager oldWidget) {
+    super.didUpdateWidget(oldWidget);
   }
 
   @override

@@ -3,33 +3,39 @@ import 'package:flutter/material.dart';
 import './pages/activity.dart';
 
 class Activities extends StatelessWidget {
-  final List<String> activities;
+  final List<Map<String, String>> activities;
 
-  Activities(this.activities) {
+  Activities([this.activities = const []]) {
     print('[Activities widget Constructor]');
   }
 
   Widget _buildActivityItem(BuildContext context, int index) {
     return Card(
-        child: Column(
-      children: <Widget>[
-        Image.asset('assets/food.jpg'),
-        Text(activities[index]),
-        ButtonBar(
-          children: <Widget>[
-            FlatButton(
-              child: Text('Progress'),
-              onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => ActivityPage(),
-                    ),
-                  ),
-            )
-          ],
-        )
-      ],
-    ));
+      child: Column(
+        children: <Widget>[
+          Image.asset(activities[index]['image'] ?? ''),
+          Text(activities[index]['title'] ?? ''),
+          ButtonBar(
+            alignment: MainAxisAlignment.center,
+            children: <Widget>[
+              FlatButton(
+                child: Text('Details'),
+                onPressed: () => Navigator.push<bool>(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => ActivityPage(
+                            activities[index]['title'],
+                            activities[index]['image']),
+                      ),
+                    ).then((bool value) {
+                      print(value);
+                    }),
+              )
+            ],
+          )
+        ],
+      ),
+    );
   }
 
   Widget _buildActivityList() {
@@ -40,8 +46,7 @@ class Activities extends StatelessWidget {
         itemCount: activities.length,
       );
     } else {
-      activityCards =
-          Center(child: Text('Yayyy! No activities to do for now!'));
+      activityCards = Container();
     }
     return activityCards;
   }

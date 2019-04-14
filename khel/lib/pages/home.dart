@@ -6,7 +6,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Khel Ke Baat Karen')),
+      appBar: AppBar(
+        title: Text('Khel Ke Baat Karen'),
+      ),
       body: ActivityManager(),
     );
   }
