@@ -7,14 +7,20 @@ class ActivityPage extends StatelessWidget {
       appBar: AppBar(title: Text('Activity Detail')),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text('Details'),
-            RaisedButton(
-              child: Text('Back'),
-              onPressed: () => Navigator.pop(context),
-            )
+            Image.asset('assets/food.jpg'),
+            Container(
+              padding: EdgeInsets.all(10.0),
+              child: Text('Details'),
+            ),
+            Container(
+                padding: EdgeInsets.all(10.0),
+                child: RaisedButton(
+                  child: Text('Back'),
+                  onPressed: () => Navigator.pop(context),
+                ))
           ],
         ),
       ),
