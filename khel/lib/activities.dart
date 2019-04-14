@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './pages/activity.dart';
+
 class Activities extends StatelessWidget {
   final List<String> activities;
 
@@ -15,7 +17,15 @@ class Activities extends StatelessWidget {
         Text(activities[index]),
         ButtonBar(
           children: <Widget>[
-            FlatButton(child: Text('Progress'), onPressed: () => {})
+            FlatButton(
+              child: Text('Progress'),
+              onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => ActivityPage(),
+                    ),
+                  ),
+            )
           ],
         )
       ],
