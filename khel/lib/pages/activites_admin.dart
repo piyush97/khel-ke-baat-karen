@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import './activites.dart';
 import './activity_list.dart';
 import './activity_create.dart';
 
@@ -18,7 +17,7 @@ class ActivitiesAdminPage extends StatelessWidget {
                 title: Text('Choose'),
               ),
               ListTile(
-                title: Text('All Products'),
+                title: Text('All Activities'),
                 onTap: () {
                   Navigator.pushReplacementNamed(context, '/');
                 },
