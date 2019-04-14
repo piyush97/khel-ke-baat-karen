@@ -35,7 +35,7 @@ class Activities extends StatelessWidget {
     );
   }
 
-  Widget _buildActivityList() {
+  Widget _buildActivityList() { 
     Widget activityCards;
     if (activities.length > 0) {
       activityCards = ListView.builder(
