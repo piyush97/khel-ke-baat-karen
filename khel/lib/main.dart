@@ -58,6 +58,12 @@ class _MyAppState extends State<MyApp> {
         }
         return null;
       },
+      onUnknownRoute: (RouteSettings settings) {
+        return MaterialPageRoute(
+          builder: (BuildContext context) =>
+              ActivitiesPage(_activities, _addActivities, _deleteActivities),
+        );
+      },
     );
   }
 }
