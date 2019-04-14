@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import './activites.dart';
+import './activity_list.dart';
+import './activity_create.dart';
 
 class ActivitiesAdminPage extends StatelessWidget {
   @override
@@ -42,9 +44,8 @@ class ActivitiesAdminPage extends StatelessWidget {
             ],
           ),
         ),
-        body: Text(
-            children: <Widget>[ActivityCreatePage(), ActivityListPage()],
-            'Test'),
+        body: TabBarView(
+            children: <Widget>[ActivityCreatePage(), ActivityListPage()]),
       ),
     );
   }
