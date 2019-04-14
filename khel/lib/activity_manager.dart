@@ -6,7 +6,9 @@ import './activities.dart';
 class ActivityManager extends StatefulWidget {
   final String startingActivity;
 
-  ActivityManager(this.startingActivity);
+  ActivityManager({this.startingActivity}) {
+    print('Activity manager contructor call');
+  }
 
   @override
   State<StatefulWidget> createState() {
@@ -25,8 +27,10 @@ class _ActivityManagerState extends State<ActivityManager> {
 
   @override
   void initState() {
-    super.initState();
+    if (widget.startingActivity != null) {
     _activities.add(widget.startingActivity);
+    }
+    super.initState();
   }
 
   @override

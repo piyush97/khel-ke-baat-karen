@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
           secondaryHeaderColor: Colors.amber),
       home: Scaffold(
         appBar: AppBar(title: Text('Khel Ke Baat Karen')),
-        body: ActivityManager('Food'),
+        body: ActivityManager(),
       ),
     );
   }
