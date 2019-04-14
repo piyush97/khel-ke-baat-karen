@@ -4,7 +4,15 @@ class ActivityCreatePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('Create an Activity for your child'),
+      child: RaisedButton(
+          child: Text('Save'),
+          onPressed: () {
+            showModalBottomSheet(
+                context: context,
+                builder: (BuildContext context) {
+                  return Center(child: Text("Adding Activity"));
+                });
+          }),
     );
   }
 }
