@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ActivityPage extends StatelessWidget {
+  final String title;
+  final String imageUrl;
+
+  ActivityPage(this.title, this.imageUrl);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
