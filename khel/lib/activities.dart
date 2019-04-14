@@ -12,7 +12,12 @@ class Activities extends StatelessWidget {
         child: Column(
       children: <Widget>[
         Image.asset('assets/food.jpg'),
-        Text(activities[index])
+        Text(activities[index]),
+        ButtonBar(
+          children: <Widget>[
+            FlatButton(child: Text('Progress'), onPressed: () => {})
+          ],
+        )
       ],
     ));
   }
