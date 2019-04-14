@@ -37,7 +37,7 @@ class _ActivityManagerState extends State<ActivityManager> {
           margin: EdgeInsets.all(10),
           child: ActivityControl(_addActivities),
         ),
-        Activities(_activities)
+        Expanded(child: Activities(_activities))
       ],
     );
   }
