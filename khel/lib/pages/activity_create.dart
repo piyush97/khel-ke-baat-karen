@@ -56,6 +56,9 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
               });
             },
           ),
+          SizedBox(
+            height: 20.0,
+          ),
           RaisedButton(
             child: Text('Create Activity'),
             onPressed: () {
@@ -66,6 +69,7 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
                 'image': 'assets/food.jpg'
               };
               widget.addActivity(activity);
+              Navigator.pushReplacementNamed(context, '/');
             },
           )
         ],
