@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import './pages/activity.dart';
 
 class Activities extends StatelessWidget {
-  final List<Map<String, String>> activities;
-  final Function deleteActivity;
-  Activities(this.activities, {this.deleteActivity}) {
+  final List<Map<String, dynamic>> activities;
+  Activities(this.activities) {
     print('[Activities widget Constructor]');
   }
 
@@ -19,15 +18,9 @@ class Activities extends StatelessWidget {
             alignment: MainAxisAlignment.center,
             children: <Widget>[
               FlatButton(
-                child: Text('Details'),
-                onPressed: () => Navigator.pushNamed<bool>(
-                            context, '/activity/' + index.toString())
-                        .then((bool value) {
-                      if (value) {
-                        deleteActivity(index);
-                      }
-                    }),
-              )
+                  child: Text('Details'),
+                  onPressed: () => Navigator.pushNamed<bool>(
+                      context, '/activity/' + index.toString()))
             ],
           )
         ],

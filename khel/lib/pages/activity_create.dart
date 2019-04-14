@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ActivityCreatePage extends StatefulWidget {
+  final Function addActivity;
+
+  ActivityCreatePage(this.addActivity);
+
   @override
   State<StatefulWidget> createState() {
     return _ActivityCreatePageState();
@@ -52,6 +56,17 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
               });
             },
           ),
+          RaisedButton(
+            child: Text('Create Activity'),
+            onPressed: () {
+              final Map<String, dynamic> activity = {
+                'title': titleValue,
+                'description': descriptionValue,
+                'time': time
+              };
+              widget.addActivity(activity);
+            },
+          )
         ],
       ),
     );

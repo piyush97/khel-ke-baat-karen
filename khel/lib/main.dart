@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:khel/pages/activity.dart';
 
+import './pages/activity.dart';
 import './pages/activites_admin.dart';
 import './pages/activites.dart';
 import 'pages/activites.dart';
@@ -17,9 +17,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List<Map<String, String>> _activities = [];
+  List<Map<String, dynamic>> _activities = [];
 
-  void _addActivities(Map<String, String> activity) {
+  void _addActivities(Map<String, dynamic> activity) {
     setState(() {
       _activities.add(activity);
     });
@@ -60,8 +60,7 @@ class _MyAppState extends State<MyApp> {
       },
       onUnknownRoute: (RouteSettings settings) {
         return MaterialPageRoute(
-          builder: (BuildContext context) =>
-              ActivitiesPage(_activities, _addActivities, _deleteActivities),
+          builder: (BuildContext context) => ActivitiesPage(_activities),
         );
       },
     );

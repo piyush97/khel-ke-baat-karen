@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import '../activity_manager.dart';
 
 class ActivitiesPage extends StatelessWidget {
-  final List<Map<String, String>> activities;
-  final Function addActivities;
-  final Function deleteAcitivites;
+  final List<Map<String, dynamic>> activities;
 
-  ActivitiesPage(this.activities, this.addActivities, this.deleteAcitivites);
+  ActivitiesPage(this.activities);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +29,7 @@ class ActivitiesPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Khel Ke Baat Karen'),
       ),
-      body: ActivityManager(activities, addActivities, deleteAcitivites),
+      body: ActivityManager(activities),
     );
   }
 }
