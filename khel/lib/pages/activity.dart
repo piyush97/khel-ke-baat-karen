@@ -7,6 +7,32 @@ class ActivityPage extends StatelessWidget {
 
   ActivityPage(this.title, this.imageUrl);
 
+  _showWarningDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Are you sure'),
+            content: Text('This cannot be undone'),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Discard'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              FlatButton(
+                child: Text('Continue'),
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pop(context, true);
+                },
+              ),
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -30,10 +56,9 @@ class ActivityPage extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(10.0),
               child: RaisedButton(
-                color: Theme.of(context).accentColor,
-                child: Text('Finished?' ?? ''),
-                onPressed: () => Navigator.pop(context, true),
-              ),
+                  color: Theme.of(context).accentColor,
+                  child: Text('Finished?' ?? ''),
+                  onPressed: () => _showWarningDialog(context)),
             )
           ],
         ),
