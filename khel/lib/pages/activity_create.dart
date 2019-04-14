@@ -69,7 +69,7 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
                 'image': 'assets/food.jpg'
               };
               widget.addActivity(activity);
-              Navigator.pushReplacementNamed(context, '/');
+              Navigator.pushReplacementNamed(context, '/activities');
             },
           )
         ],

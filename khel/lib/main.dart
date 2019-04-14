@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import './pages/activity.dart';
 import './pages/activites_admin.dart';
 import './pages/activites.dart';
-import 'pages/activites.dart';
-
+import './pages/auth.dart';
 void main() {
   runApp(MyApp());
 }
@@ -40,7 +39,8 @@ class _MyAppState extends State<MyApp> {
           secondaryHeaderColor: Colors.amber),
       // home: AuthPage(),
       routes: {
-        '/': (BuildContext context) => ActivitiesPage(_activities),
+        '/': (BuildContext context) => AuthPage(),
+        '/activities': (BuildContext context) => ActivitiesPage(_activities),
         '/admin': (BuildContext context) =>
             ActivitiesAdminPage(_addActivities, _deleteActivities),
       },
