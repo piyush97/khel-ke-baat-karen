@@ -6,6 +6,18 @@ class ActivitiesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: Column(
+          children: <Widget>[
+            AppBar(
+              title: Text('Choose'),
+            ),
+            ListTile(
+              title: Text('Manage Activites'),
+            )
+          ],
+        ),
+      ),
       appBar: AppBar(
         title: Text('Khel Ke Baat Karen'),
       ),
