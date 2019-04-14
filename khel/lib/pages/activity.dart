@@ -5,14 +5,18 @@ class ActivityPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Activity Detail')),
-      body: Column(
-        children: <Widget>[
-          Text('Details'),
-          RaisedButton(
-            child: Text('Back'),
-            onPressed: () => Navigator.pop(context),
-          )
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text('Details'),
+            RaisedButton(
+              child: Text('Back'),
+              onPressed: () => Navigator.pop(context),
+            )
+          ],
+        ),
       ),
     );
   }
