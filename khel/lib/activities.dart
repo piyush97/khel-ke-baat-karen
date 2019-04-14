@@ -20,9 +20,9 @@ class Activities extends StatelessWidget {
             children: <Widget>[
               FlatButton(
                 child: Text('Details'),
-                onPressed: () => Navigator.push<bool>(
-                      context,
-                    ).then((bool value) {
+                onPressed: () => Navigator.pushNamed<bool>(
+                            context, '/activity/' + index.toString())
+                        .then((bool value) {
                       if (value) {
                         deleteActivity(index);
                       }
@@ -35,7 +35,7 @@ class Activities extends StatelessWidget {
     );
   }
 
-  Widget _buildActivityList() { 
+  Widget _buildActivityList() {
     Widget activityCards;
     if (activities.length > 0) {
       activityCards = ListView.builder(
