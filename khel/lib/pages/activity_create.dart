@@ -13,35 +13,47 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
   double time;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        TextField(
-          autofocus: true,
-          onChanged: (String value) {
-            setState(() {
-              titleValue = value;
-            });
-          },
-        ),
-        TextField(
-          maxLines: 4,
-          onChanged: (String value) {
-            setState(() {
-              descriptionValue = value;
-            });
-          },
-        ),
-        TextField(
-          keyboardType: TextInputType.number,
-          autocorrect: true,
-          autofocus: true,
-          onChanged: (String value) {
-            setState(() {
-              time = double.parse(value);
-            });
-          },
-        ),
-      ],
+    return Container(
+      margin: EdgeInsets.all(19.0),
+      child: Column(
+        children: <Widget>[
+          TextField(
+            decoration: InputDecoration(
+              labelText: 'Activity Name',
+            ),
+            autofocus: true,
+            onChanged: (String value) {
+              setState(() {
+                titleValue = value;
+              });
+            },
+          ),
+          TextField(
+            decoration: InputDecoration(
+              labelText: 'Activity Description',
+            ),
+            maxLines: 4,
+            onChanged: (String value) {
+              setState(() {
+                descriptionValue = value;
+              });
+            },
+          ),
+          TextField(
+            decoration: InputDecoration(
+              labelText: 'Activity Time',
+            ),
+            keyboardType: TextInputType.number,
+            autocorrect: true,
+            autofocus: true,
+            onChanged: (String value) {
+              setState(() {
+                time = double.parse(value);
+              });
+            },
+          ),
+        ],
+      ),
     );
   }
 }
