@@ -16,6 +16,27 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
   String _descriptionValue;
   double _time;
 
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.all(19.0),
+      child: ListView(
+        children: <Widget>[
+          _buildTitleTextField(),
+          _buildDescriptionTextField(),
+          _buildTimeTextField(),
+          SizedBox(
+            height: 20.0,
+          ),
+          RaisedButton(
+            child: Text('Create Activity'),
+            onPressed: _submitForm,
+          )
+        ],
+      ),
+    );
+  }
+
   Widget _buildTitleTextField() {
     return TextField(
         decoration: InputDecoration(
@@ -43,6 +64,17 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
     );
   }
 
+  void _submitForm() {
+    final Map<String, dynamic> activity = {
+      'title': _titleValue,
+      'description': _descriptionValue,
+      'time': _time,
+      'image': 'assets/food.jpg'
+    };
+    widget.addActivity(activity);
+    Navigator.pushReplacementNamed(context, '/activities');
+  }
+
   Widget _buildTimeTextField() {
     return TextField(
       decoration: InputDecoration(
@@ -56,36 +88,6 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
           _time = double.parse(value);
         });
       },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(19.0),
-      child: ListView(
-        children: <Widget>[
-          _buildTitleTextField(),
-          _buildDescriptionTextField(),
-          _buildTimeTextField(),
-          SizedBox(
-            height: 20.0,
-          ),
-          RaisedButton(
-            child: Text('Create Activity'),
-            onPressed: () {
-              final Map<String, dynamic> activity = {
-                'title': _titleValue,
-                'description': _descriptionValue,
-                'time': _time,
-                'image': 'assets/food.jpg'
-              };
-              widget.addActivity(activity);
-              Navigator.pushReplacementNamed(context, '/activities');
-            },
-          )
-        ],
-      ),
     );
   }
 }
