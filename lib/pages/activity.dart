@@ -28,7 +28,7 @@ class ActivityPage extends StatelessWidget {
           ),
         ),
         Text(
-          '\$' + time.toString(),
+          'Time: ' + time.toString(),
           style: TextStyle(fontFamily: 'Oswald', color: Colors.grey),
         )
       ],

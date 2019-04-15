@@ -12,10 +12,70 @@ class ActivityCreatePage extends StatefulWidget {
 }
 
 class _ActivityCreatePageState extends State<ActivityCreatePage> {
-  String _titleValue;
-  String _descriptionValue;
-  double _time;
+  final Map<String, dynamic> _formData = {
+    'title': null,
+    'description': null,
+    'time': null,
+    'image': 'assets/food.jpg'
+  };
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  Widget _buildTitleTextField() {
+    return TextFormField(
+        decoration: InputDecoration(
+          labelText: 'Activity Name',
+        ),
+        autofocus: true,
+        validator: (String value) {
+          if (value.isEmpty || value.length > 20) {
+            return 'Activity Title is Required and should be lesser than 20 characters';
+          }
+        },
+        onSaved: (String value) {
+          _formData['title'] = value;
+        });
+  }
+
+  Widget _buildDescriptionTextField() {
+    return TextFormField(
+      maxLines: 4,
+      decoration: InputDecoration(
+        labelText: 'Activity Description',
+      ),
+      onSaved: (String value) {
+        _formData['description'] = value;
+      },
+    );
+  }
+
+  void _submitForm() {
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
+    _formKey.currentState.save();
+    final Map<String, dynamic> activity = _formData;
+    widget.addActivity(activity);
+    Navigator.pushReplacementNamed(context, '/activities');
+  }
+
+  Widget _buildTimeTextField() {
+    return TextFormField(
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Required and should be 12 hour clock time';
+        }
+      },
+      decoration: InputDecoration(
+        labelText: 'Activity Time',
+      ),
+      keyboardType: TextInputType.number,
+      autocorrect: true,
+      autofocus: true,
+      onSaved: (String value) {
+        _formData['time'] = double.parse(value);
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,75 +109,6 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildTitleTextField() {
-    return TextFormField(
-        decoration: InputDecoration(
-          labelText: 'Activity Name',
-        ),
-        autofocus: true,
-        validator: (String value) {
-          if (value.isEmpty || value.length > 20) {
-            return 'Activity Title is Required and should be lesser than 20 characters';
-          }
-        },
-        onSaved: (String value) {
-          setState(() {
-            _titleValue = value;
-          });
-        });
-  }
-
-  Widget _buildDescriptionTextField() {
-    return TextFormField(
-      maxLines: 4,
-      decoration: InputDecoration(
-        labelText: 'Activity Description',
-      ),
-      onSaved: (String value) {
-        setState(() {
-          _descriptionValue = value;
-        });
-      },
-    );
-  }
-
-  void _submitForm() {
-    if (!_formKey.currentState.validate()) {
-      return;
-    }
-    _formKey.currentState.save();
-    final Map<String, dynamic> activity = {
-      'title': _titleValue,
-      'description': _descriptionValue,
-      'time': _time,
-      'image': 'assets/food.jpg'
-    };
-    widget.addActivity(activity);
-    Navigator.pushReplacementNamed(context, '/activities');
-  }
-
-  Widget _buildTimeTextField() {
-    return TextFormField(
-      validator: (String value) {
-        if (value.isEmpty ||
-            !RegExp(r'^(1[0-2]|0?[1-9]):[0-5][0-9] (AM|PM)$').hasMatch(value)) {
-          return 'Required and should be 12 hour clock time';
-        }
-      },
-      decoration: InputDecoration(
-        labelText: 'Activity Time',
-      ),
-      keyboardType: TextInputType.number,
-      autocorrect: true,
-      autofocus: true,
-      onSaved: (String value) {
-        setState(() {
-          _time = double.parse(value);
-        });
-      },
     );
   }
 }
