@@ -13,6 +13,9 @@ class Activities extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Image.asset(activities[index]['image'] ?? ''),
+          SizedBox(
+            height: 10.0,
+          ),
           Text(activities[index]['title'] ?? ''),
           ButtonBar(
             alignment: MainAxisAlignment.center,
