@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './activity_list.dart';
-import './activity_create.dart';
+import './activity_edit.dart';
 
 class ActivitiesAdminPage extends StatelessWidget {
   final Function addActivity;
@@ -51,7 +51,7 @@ class ActivitiesAdminPage extends StatelessWidget {
           ),
         ),
         body: TabBarView(children: <Widget>[
-          ActivityCreatePage(addActivity),
+          ActivityEditPage(addActivity: addActivity),
           ActivityListPage(activities)
         ]),
       ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './activity_edit.dart';
+
 class ActivityListPage extends StatelessWidget {
   final List<Map<String, dynamic>> activities;
 
@@ -12,7 +14,17 @@ class ActivityListPage extends StatelessWidget {
         ListTile(
           leading: Image.asset(activities[index]['image']),
           title: Text(activities[index]['title']),
-          trailing: IconButton(icon: Icon(Icons.edit), onPressed: () {}),
+          trailing: IconButton(
+              icon: Icon(Icons.edit),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return ActivityEditPage(activity: activities[index]);
+                    },
+                  ),
+                );
+              }),
         );
       },
       itemCount: activities.length,

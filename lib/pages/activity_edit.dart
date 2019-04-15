@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
-class ActivityCreatePage extends StatefulWidget {
+class ActivityEditPage extends StatefulWidget {
   final Function addActivity;
-
-  ActivityCreatePage(this.addActivity);
+  final Function updateActivity;
+  final Map<String, dynamic> activity;
+  ActivityEditPage({this.addActivity, this.updateActivity, this.activity});
 
   @override
   State<StatefulWidget> createState() {
-    return _ActivityCreatePageState();
+    return _ActivityEditPageState();
   }
 }
 
-class _ActivityCreatePageState extends State<ActivityCreatePage> {
+class _ActivityEditPageState extends State<ActivityEditPage> {
   final Map<String, dynamic> _formData = {
     'title': null,
     'description': null,
