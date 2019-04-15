@@ -6,6 +6,9 @@ import './activity_create.dart';
 class ActivitiesAdminPage extends StatelessWidget {
   final Function addActivity;
   final Function deleteActivity;
+  final List<Map<String, dynamic>> activities;
+
+  ActivitiesAdminPage(this.addActivity, this.deleteActivity, this.activities);
 
   Widget _buildSideDrawer(BuildContext context) {
     return Drawer(
@@ -26,7 +29,6 @@ class ActivitiesAdminPage extends StatelessWidget {
     );
   }
 
-  ActivitiesAdminPage(this.addActivity, this.deleteActivity);
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -50,7 +52,7 @@ class ActivitiesAdminPage extends StatelessWidget {
         ),
         body: TabBarView(children: <Widget>[
           ActivityCreatePage(addActivity),
-          ActivityListPage()
+          ActivityListPage(activities)
         ]),
       ),
     );
