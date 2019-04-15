@@ -66,7 +66,7 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
     if (widget.activity == null) {
       widget.addActivity(_formData);
     } else {
-      widget.updateActivity(widget.activityIndex,_formData);
+      widget.updateActivity(widget.activityIndex, _formData);
     }
     Navigator.pushReplacementNamed(context, '/activities');
   }
