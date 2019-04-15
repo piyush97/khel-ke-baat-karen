@@ -36,7 +36,8 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
           RaisedButton(
             child: Text('Create Activity'),
             onPressed: _submitForm,
-          )
+          ),
+          //@Todo: Gesture Detector
         ],
       ),
     );
