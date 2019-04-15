@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import './pages/activity.dart';
+import './time.dart';
 
 class Activities extends StatelessWidget {
   final List<Map<String, dynamic>> activities;
@@ -31,17 +30,7 @@ class Activities extends StatelessWidget {
                 SizedBox(
                   width: 8.0,
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 3.5),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).accentColor,
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  child: Text(
-                    'Time to do: ${activities[index]['time'].toString()} ',
-                    style: TextStyle(color: Colors.black, fontSize: 22),
-                  ),
-                )
+                TimeTag(activities[index]['time'].toString()),
               ],
             ),
           ),
@@ -57,10 +46,22 @@ class Activities extends StatelessWidget {
           ButtonBar(
             alignment: MainAxisAlignment.center,
             children: <Widget>[
-              FlatButton(
-                  child: Text('Details'),
-                  onPressed: () => Navigator.pushNamed<bool>(
-                      context, '/activity/' + index.toString()))
+              IconButton(
+                icon: Icon(Icons.info),
+                color: Theme.of(context).accentColor,
+                onPressed: () => Navigator.pushNamed<bool>(
+                      context,
+                      '/activity/' + index.toString(),
+                    ),
+              ),
+              IconButton(
+                icon: Icon(Icons.favorite_border),
+                color: Colors.red,
+                onPressed: () => Navigator.pushNamed<bool>(
+                      context,
+                      '/activity/' + index.toString(),
+                    ),
+              )
             ],
           )
         ],
