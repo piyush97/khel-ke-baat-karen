@@ -30,7 +30,7 @@ class ActivitiesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: _buildSideDrawer(),
+      drawer: _buildSideDrawer(context),
       appBar: AppBar(
         title: Text('Khel Ke Baat Karen'),
         actions: <Widget>[
