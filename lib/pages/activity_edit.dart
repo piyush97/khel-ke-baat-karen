@@ -61,6 +61,8 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
 
   Widget _buildTimeTextField() {
     return TextFormField(
+      initialValue:
+          widget.activity == null ? '' : widget.activity['time'].toString(),
       validator: (String value) {
         if (value.isEmpty) {
           return 'Required and should be 12 hour clock time';
@@ -83,7 +85,7 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
     final double deviceWidth = MediaQuery.of(context).size.width;
     final double targetWidth = deviceWidth > 550 ? 500 : deviceWidth * 0.98;
     final double targetPadding = deviceWidth - targetWidth;
-    return GestureDetector(
+    final Widget pageContent = GestureDetector(
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
       },
@@ -111,5 +113,6 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
         ),
       ),
     );
+    return widget.activity == null ? pageContent : Scaffold(appBar: AppBar(title: Text('Edit Activity'),),body: pageContent,);
   }
 }
