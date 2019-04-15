@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/helpers/ensure_visible.dart';
+
 class ActivityEditPage extends StatefulWidget {
   final Function addActivity;
   final Function updateActivity;
@@ -26,9 +28,15 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
     'image': 'assets/food.jpg'
   };
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final _titleFocusNode = FocusNode();
+  final _descFocusNode = FocusNode();
+  final _timeFocusNode = FocusNode();
 
   Widget _buildTitleTextField() {
-    return TextFormField(
+    return EnsureVisibleWhenFocused(
+      focusNode: _titleFocusNode,
+      child: TextFormField(
+        focusNode: _titleFocusNode,
         initialValue: widget.activity == null ? '' : widget.activity['title'],
         decoration: InputDecoration(
           labelText: 'Activity Name',
@@ -41,20 +49,26 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
         },
         onSaved: (String value) {
           _formData['title'] = value;
-        });
+        },
+      ),
+    );
   }
 
   Widget _buildDescriptionTextField() {
-    return TextFormField(
-      initialValue:
-          widget.activity == null ? '' : widget.activity['description'],
-      maxLines: 4,
-      decoration: InputDecoration(
-        labelText: 'Activity Description',
+    return EnsureVisibleWhenFocused(
+      focusNode: _descFocusNode,
+      child: TextFormField(
+        focusNode: _descFocusNode,
+        initialValue:
+            widget.activity == null ? '' : widget.activity['description'],
+        maxLines: 4,
+        decoration: InputDecoration(
+          labelText: 'Activity Description',
+        ),
+        onSaved: (String value) {
+          _formData['description'] = value;
+        },
       ),
-      onSaved: (String value) {
-        _formData['description'] = value;
-      },
     );
   }
 
@@ -72,23 +86,27 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
   }
 
   Widget _buildTimeTextField() {
-    return TextFormField(
-      initialValue:
-          widget.activity == null ? '' : widget.activity['time'].toString(),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Required and should be 12 hour clock time';
-        }
-      },
-      decoration: InputDecoration(
-        labelText: 'Activity Time',
+    return EnsureVisibleWhenFocused(
+      focusNode: _descFocusNode,
+      child: TextFormField(
+        focusNode: _descFocusNode,
+        initialValue:
+            widget.activity == null ? '' : widget.activity['time'].toString(),
+        validator: (String value) {
+          if (value.isEmpty) {
+            return 'Required and should be 12 hour clock time';
+          }
+        },
+        decoration: InputDecoration(
+          labelText: 'Activity Time',
+        ),
+        keyboardType: TextInputType.number,
+        autocorrect: true,
+        autofocus: true,
+        onSaved: (String value) {
+          _formData['time'] = double.parse(value);
+        },
       ),
-      keyboardType: TextInputType.number,
-      autocorrect: true,
-      autofocus: true,
-      onSaved: (String value) {
-        _formData['time'] = double.parse(value);
-      },
     );
   }
 
