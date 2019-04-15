@@ -45,6 +45,15 @@ class Activities extends StatelessWidget {
               ],
             ),
           ),
+          DecoratedBox(
+            decoration: BoxDecoration(
+                border: Border.all(color: Theme.of(context).accentColor),
+                borderRadius: BorderRadius.circular(6.0)),
+            child: Padding(
+              child: Text('Hurry Up!'),
+              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.5),
+            ),
+          ),
           ButtonBar(
             alignment: MainAxisAlignment.center,
             children: <Widget>[
