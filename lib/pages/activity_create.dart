@@ -15,6 +15,7 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
   String _titleValue;
   String _descriptionValue;
   double _time;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -24,32 +25,35 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
     return Container(
       width: targetWidth,
       margin: EdgeInsets.all(10.0),
-      child: ListView(
-        padding: EdgeInsets.symmetric(horizontal: targetPadding / 2),
-        children: <Widget>[
-          _buildTitleTextField(),
-          _buildDescriptionTextField(),
-          _buildTimeTextField(),
-          SizedBox(
-            height: 10.0,
-          ),
-          RaisedButton(
-            child: Text('Create Activity'),
-            onPressed: _submitForm,
-          ),
-          //@Todo: Gesture Detector
-        ],
+      child: Form(
+        key: _formKey,
+        child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: targetPadding / 2),
+          children: <Widget>[
+            _buildTitleTextField(),
+            _buildDescriptionTextField(),
+            _buildTimeTextField(),
+            SizedBox(
+              height: 10.0,
+            ),
+            RaisedButton(
+              child: Text('Create Activity'),
+              onPressed: _submitForm,
+            ),
+            //@Todo: Gesture Detector
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildTitleTextField() {
-    return TextField(
+    return TextFormField(
         decoration: InputDecoration(
           labelText: 'Activity Name',
         ),
         autofocus: true,
-        onChanged: (String value) {
+        onSaved: (String value) {
           setState(() {
             _titleValue = value;
           });
@@ -57,12 +61,12 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
   }
 
   Widget _buildDescriptionTextField() {
-    return TextField(
+    return TextFormField(
+      maxLines: 4,
       decoration: InputDecoration(
         labelText: 'Activity Description',
       ),
-      maxLines: 4,
-      onChanged: (String value) {
+      onSaved: (String value) {
         setState(() {
           _descriptionValue = value;
         });
@@ -71,6 +75,7 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
   }
 
   void _submitForm() {
+    _formKey.currentState.save();
     final Map<String, dynamic> activity = {
       'title': _titleValue,
       'description': _descriptionValue,
@@ -82,14 +87,14 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
   }
 
   Widget _buildTimeTextField() {
-    return TextField(
+    return TextFormField(
       decoration: InputDecoration(
         labelText: 'Activity Time',
       ),
       keyboardType: TextInputType.number,
       autocorrect: true,
       autofocus: true,
-      onChanged: (String value) {
+      onSaved: (String value) {
         setState(() {
           _time = double.parse(value);
         });
