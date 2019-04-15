@@ -1,64 +1,66 @@
 import 'package:flutter/material.dart';
+
 import 'dart:async';
+
+import '../widgets/ui_elements/title_default.dart';
 
 class ActivityPage extends StatelessWidget {
   final String title;
   final String imageUrl;
+  final double time;
+  final String description;
 
-  ActivityPage(this.title, this.imageUrl);
+  ActivityPage(this.title, this.imageUrl, this.time, this.description);
 
-  _showWarningDialog(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Are you sure'),
-            content: Text('This cannot be undone'),
-            actions: <Widget>[
-              FlatButton(
-                child: Text('Discard'),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-              FlatButton(
-                child: Text('Continue'),
-                onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.pop(context, true);
-                },
-              ),
-            ],
-          );
-        });
+  Widget _buildActivityTimeRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          'Swimming is good for health',
+          style: TextStyle(fontFamily: 'Oswald', color: Colors.grey),
+        ),
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 5.0),
+          child: Text(
+            '|',
+            style: TextStyle(color: Colors.grey),
+          ),
+        ),
+        Text(
+          '\$' + time.toString(),
+          style: TextStyle(fontFamily: 'Oswald', color: Colors.grey),
+        )
+      ],
+    );
   }
-
-  @override
+@override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        print('Back Button Pressed');
+        print('Back button pressed!');
         Navigator.pop(context, false);
         return Future.value(false);
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(title ?? ''),
+          title: Text(title),
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Image.asset(imageUrl) ?? '',
+            Image.asset(imageUrl),
             Container(
               padding: EdgeInsets.all(10.0),
-              child: Text(title ?? ''),
+              child: TitleDefault(title),
             ),
+            _buildActivityTimeRow(),
             Container(
               padding: EdgeInsets.all(10.0),
-              child: RaisedButton(
-                  color: Theme.of(context).accentColor,
-                  child: Text('Finished?' ?? ''),
-                  onPressed: () => _showWarningDialog(context)),
+              child: Text(
+                description,
+                textAlign: TextAlign.center,
+              ),
             )
           ],
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './time.dart';
+import '../ui_elements/title_default.dart';
 
 class ActivityCard extends StatelessWidget {
   final Map<String, dynamic> activity;
@@ -21,13 +22,7 @@ class ActivityCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                Text(
-                  activity['title'] ?? '',
-                  style: TextStyle(
-                      fontSize: 26.0,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Oswald'),
-                ),
+                TitleDefault(activity['title']),
                 SizedBox(
                   width: 8.0,
                 ),
