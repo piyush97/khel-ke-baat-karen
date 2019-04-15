@@ -32,6 +32,12 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void _updateActivities(int index, Map<String, dynamic> activity) {
+    setState(() {
+      _activities[index] = activity;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -45,8 +51,8 @@ class _MyAppState extends State<MyApp> {
       routes: {
         '/': (BuildContext context) => AuthPage(),
         '/activities': (BuildContext context) => ActivitiesPage(_activities),
-        '/admin': (BuildContext context) =>
-            ActivitiesAdminPage(_addActivities, _deleteActivities, _activities),
+        '/admin': (BuildContext context) => ActivitiesAdminPage(
+            _addActivities,_updateActivities, _deleteActivities, _activities, ),
       },
       onGenerateRoute: (RouteSettings settings) {
         final List<String> pathElements = settings.name.split('/');

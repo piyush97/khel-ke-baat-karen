@@ -4,7 +4,13 @@ class ActivityEditPage extends StatefulWidget {
   final Function addActivity;
   final Function updateActivity;
   final Map<String, dynamic> activity;
-  ActivityEditPage({this.addActivity, this.updateActivity, this.activity});
+  final int activityIndex;
+
+  ActivityEditPage(
+      {this.addActivity,
+      this.updateActivity,
+      this.activity,
+      this.activityIndex});
 
   @override
   State<StatefulWidget> createState() {
@@ -23,6 +29,7 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
 
   Widget _buildTitleTextField() {
     return TextFormField(
+        initialValue: widget.activity == null ? '' : widget.activity['title'],
         decoration: InputDecoration(
           labelText: 'Activity Name',
         ),
@@ -39,6 +46,8 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
 
   Widget _buildDescriptionTextField() {
     return TextFormField(
+      initialValue:
+          widget.activity == null ? '' : widget.activity['description'],
       maxLines: 4,
       decoration: InputDecoration(
         labelText: 'Activity Description',
@@ -54,8 +63,11 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
       return;
     }
     _formKey.currentState.save();
-    final Map<String, dynamic> activity = _formData;
-    widget.addActivity(activity);
+    if (widget.activity == null) {
+      widget.addActivity(_formData);
+    } else {
+      widget.updateActivity(widget.activityIndex,_formData);
+    }
     Navigator.pushReplacementNamed(context, '/activities');
   }
 
@@ -113,6 +125,13 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
         ),
       ),
     );
-    return widget.activity == null ? pageContent : Scaffold(appBar: AppBar(title: Text('Edit Activity'),),body: pageContent,);
+    return widget.activity == null
+        ? pageContent
+        : Scaffold(
+            appBar: AppBar(
+              title: Text('Edit Activity'),
+            ),
+            body: pageContent,
+          );
   }
 }

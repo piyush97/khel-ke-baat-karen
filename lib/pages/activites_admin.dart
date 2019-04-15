@@ -5,10 +5,11 @@ import './activity_edit.dart';
 
 class ActivitiesAdminPage extends StatelessWidget {
   final Function addActivity;
+  final Function updateActivity;
   final Function deleteActivity;
   final List<Map<String, dynamic>> activities;
 
-  ActivitiesAdminPage(this.addActivity, this.deleteActivity, this.activities);
+  ActivitiesAdminPage(this.addActivity,this.updateActivity, this.deleteActivity, this.activities);
 
   Widget _buildSideDrawer(BuildContext context) {
     return Drawer(
@@ -52,7 +53,7 @@ class ActivitiesAdminPage extends StatelessWidget {
         ),
         body: TabBarView(children: <Widget>[
           ActivityEditPage(addActivity: addActivity),
-          ActivityListPage(activities)
+          ActivityListPage(activities, updateActivity)
         ]),
       ),
     );
