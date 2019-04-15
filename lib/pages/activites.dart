@@ -7,26 +7,30 @@ class ActivitiesPage extends StatelessWidget {
 
   ActivitiesPage(this.activities);
 
+  Widget _buildSideDrawer(BuildContext context) {
+    return Drawer(
+      child: Column(
+        children: <Widget>[
+          AppBar(
+            automaticallyImplyLeading: false,
+            title: Text('Choose'),
+          ),
+          ListTile(
+            leading: Icon(Icons.local_activity),
+            title: Text('Manage Activites'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/admin');
+            },
+          )
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: Column(
-          children: <Widget>[
-            AppBar(
-              automaticallyImplyLeading: false,
-              title: Text('Choose'),
-            ),
-            ListTile(
-              leading: Icon(Icons.local_activity),
-              title: Text('Manage Activites'),
-              onTap: () {
-                Navigator.pushReplacementNamed(context, '/admin');
-              },
-            )
-          ],
-        ),
-      ),
+      drawer: _buildSideDrawer(),
       appBar: AppBar(
         title: Text('Khel Ke Baat Karen'),
         actions: <Widget>[
