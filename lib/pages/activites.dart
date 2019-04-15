@@ -35,7 +35,7 @@ class ActivitiesPage extends StatelessWidget {
         title: Text('Khel Ke Baat Karen'),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.favorite),
+            icon: Icon(Icons.edit),
             onPressed: () {},
           )
         ],
