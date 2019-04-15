@@ -11,33 +11,40 @@ class ActivityListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (BuildContext context, int index) {
-        return Column(
-          children: <Widget>[
-            ListTile(
-              leading: CircleAvatar(
-                backgroundImage: AssetImage(activities[index]['image']),
+        return Dismissible(
+          key: Key(
+            activities[index]['time'].toString(),
+          ),
+          background: Container(color: Colors.red),
+          child: Column(
+            children: <Widget>[
+              ListTile(
+                leading: CircleAvatar(
+                  backgroundImage: AssetImage(activities[index]['image']),
+                ),
+                title: Text(activities[index]['title']),
+                subtitle:
+                    Text('Time: ${activities[index]['price'].toString()}'),
+                trailing: IconButton(
+                  icon: Icon(Icons.edit),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return ActivityEditPage(
+                            activity: activities[index],
+                            updateActivity: updateActivity,
+                            activityIndex: index,
+                          );
+                        },
+                      ),
+                    );
+                  },
+                ),
               ),
-              title: Text(activities[index]['title']),
-              subtitle: Text('Time: ${activities[index]['price'].toString()}'),
-              trailing: IconButton(
-                icon: Icon(Icons.edit),
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return ActivityEditPage(
-                          activity: activities[index],
-                          updateActivity: updateActivity,
-                          activityIndex: index,
-                        );
-                      },
-                    ),
-                  );
-                },
-              ),
-            ),
-            Divider()
-          ],
+              Divider()
+            ],
+          ),
         );
       },
       itemCount: activities.length,
