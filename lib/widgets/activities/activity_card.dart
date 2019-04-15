@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import './time.dart';
 import '../ui_elements/title_default.dart';
+import './description_tag.dart';
 
 class ActivityCard extends StatelessWidget {
   final Map<String, dynamic> activity;
@@ -30,15 +31,7 @@ class ActivityCard extends StatelessWidget {
               ],
             ),
           ),
-          DecoratedBox(
-            decoration: BoxDecoration(
-                border: Border.all(color: Theme.of(context).accentColor),
-                borderRadius: BorderRadius.circular(6.0)),
-            child: Padding(
-              child: Text('Hurry Up!'),
-              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.5),
-            ),
-          ),
+          DescriptionTag('Swimming is good for health'),
           ButtonBar(
             alignment: MainAxisAlignment.center,
             children: <Widget>[
