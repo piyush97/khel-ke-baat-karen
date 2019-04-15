@@ -18,9 +18,23 @@ class Activities extends StatelessWidget {
           ),
           Container(
             padding: EdgeInsets.only(top: 10.0),
-            child: Text(
-              activities[index]['title'] ?? '',
-              style: TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold, fontFamily: 'Oswald'),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Text(
+                  activities[index]['title'] ?? '',
+                  style: TextStyle(
+                      fontSize: 26.0,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Oswald'),
+                ),
+                SizedBox(
+                  width: 8.0,
+                ),
+                Text(
+                  activities[index]['time'].toString(),
+                )
+              ],
             ),
           ),
           ButtonBar(
