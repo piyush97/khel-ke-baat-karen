@@ -72,6 +72,9 @@ class _AuthPageState extends State<AuthPage> {
 
   @override
   Widget build(BuildContext context) {
+    final double _layoutLogic = MediaQuery.of(context).size.width > 768.0
+        ? 500.0
+        : MediaQuery.of(context).size.width * 0.95;
     return Scaffold(
       appBar: AppBar(
         title: Text('Login'),
@@ -84,7 +87,7 @@ class _AuthPageState extends State<AuthPage> {
         child: Center(
           child: SingleChildScrollView(
             child: Container(
-              width: 480.0,
+              width: _layoutLogic,
               child: Column(
                 children: <Widget>[
                   _buildEmailTextField(),
