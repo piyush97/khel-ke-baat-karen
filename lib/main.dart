@@ -4,6 +4,7 @@ import './pages/activity.dart';
 import './pages/activites_admin.dart';
 import './pages/activites.dart';
 import './pages/auth.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -53,7 +54,11 @@ class _MyAppState extends State<MyApp> {
           final int index = int.parse(pathElements[2]);
           return MaterialPageRoute<bool>(
             builder: (BuildContext context) => ActivityPage(
-                _activities[index]['title'], _activities[index]['image']),
+                  _activities[index]['title'],
+                  _activities[index]['image'],
+                  _activities[index]['time'],
+                  _activities[index]['description'],
+                ),
           );
         }
         return null;
