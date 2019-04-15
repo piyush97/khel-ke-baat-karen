@@ -18,15 +18,20 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
 
   @override
   Widget build(BuildContext context) {
+    final double deviceWidth = MediaQuery.of(context).size.width;
+    final double targetWidth = deviceWidth > 550 ? 500 : deviceWidth * 0.98;
+    final double targetPadding = deviceWidth - targetWidth;
     return Container(
-      margin: EdgeInsets.all(19.0),
+      width: targetWidth,
+      margin: EdgeInsets.all(10.0),
       child: ListView(
+        padding: EdgeInsets.symmetric(horizontal: targetPadding / 2),
         children: <Widget>[
           _buildTitleTextField(),
           _buildDescriptionTextField(),
           _buildTimeTextField(),
           SizedBox(
-            height: 20.0,
+            height: 10.0,
           ),
           RaisedButton(
             child: Text('Create Activity'),
