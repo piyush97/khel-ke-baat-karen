@@ -87,9 +87,9 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
 
   Widget _buildTimeTextField() {
     return EnsureVisibleWhenFocused(
-      focusNode: _descFocusNode,
+      focusNode: _timeFocusNode,
       child: TextFormField(
-        focusNode: _descFocusNode,
+        focusNode: _timeFocusNode,
         initialValue:
             widget.activity == null ? '' : widget.activity['time'].toString(),
         validator: (String value) {

@@ -53,7 +53,7 @@ class ActivitiesAdminPage extends StatelessWidget {
         ),
         body: TabBarView(children: <Widget>[
           ActivityEditPage(addActivity: addActivity),
-          ActivityListPage(activities, updateActivity)
+          ActivityListPage(activities, updateActivity, deleteActivity)
         ]),
       ),
     );

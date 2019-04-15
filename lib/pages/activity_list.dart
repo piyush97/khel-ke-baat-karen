@@ -5,13 +5,18 @@ import './activity_edit.dart';
 class ActivityListPage extends StatelessWidget {
   final Function updateActivity;
   final List<Map<String, dynamic>> activities;
+  final Function deleteActivity;
 
-  ActivityListPage(this.activities, this.updateActivity);
+  ActivityListPage(this.activities, this.updateActivity, this.deleteActivity);
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (BuildContext context, int index) {
         return Dismissible(
+          onDismissed: (DismissDirection direction) {
+              deleteActivity(index);
+          },
           key: Key(
             activities[index]['time'].toString(),
           ),
