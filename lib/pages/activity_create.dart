@@ -12,9 +12,10 @@ class ActivityCreatePage extends StatefulWidget {
 }
 
 class _ActivityCreatePageState extends State<ActivityCreatePage> {
-  String titleValue;
-  String descriptionValue;
-  double time;
+  String _titleValue;
+  String _descriptionValue;
+  double _time;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,7 +29,7 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
             autofocus: true,
             onChanged: (String value) {
               setState(() {
-                titleValue = value;
+                _titleValue = value;
               });
             },
           ),
@@ -39,7 +40,7 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
             maxLines: 4,
             onChanged: (String value) {
               setState(() {
-                descriptionValue = value;
+                _descriptionValue = value;
               });
             },
           ),
@@ -52,7 +53,7 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
             autofocus: true,
             onChanged: (String value) {
               setState(() {
-                time = double.parse(value);
+                _time = double.parse(value);
               });
             },
           ),
@@ -63,9 +64,9 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
             child: Text('Create Activity'),
             onPressed: () {
               final Map<String, dynamic> activity = {
-                'title': titleValue,
-                'description': descriptionValue,
-                'time': time,
+                'title': _titleValue,
+                'description': _descriptionValue,
+                'time': _time,
                 'image': 'assets/food.jpg'
               };
               widget.addActivity(activity);
