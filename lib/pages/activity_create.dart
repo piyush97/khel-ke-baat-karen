@@ -22,26 +22,31 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
     final double deviceWidth = MediaQuery.of(context).size.width;
     final double targetWidth = deviceWidth > 550 ? 500 : deviceWidth * 0.98;
     final double targetPadding = deviceWidth - targetWidth;
-    return Container(
-      width: targetWidth,
-      margin: EdgeInsets.all(10.0),
-      child: Form(
-        key: _formKey,
-        child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: targetPadding / 2),
-          children: <Widget>[
-            _buildTitleTextField(),
-            _buildDescriptionTextField(),
-            _buildTimeTextField(),
-            SizedBox(
-              height: 10.0,
-            ),
-            RaisedButton(
-              child: Text('Create Activity'),
-              onPressed: _submitForm,
-            ),
-            //@Todo: Gesture Detector
-          ],
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: Container(
+        width: targetWidth,
+        margin: EdgeInsets.all(10.0),
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            padding: EdgeInsets.symmetric(horizontal: targetPadding / 2),
+            children: <Widget>[
+              _buildTitleTextField(),
+              _buildDescriptionTextField(),
+              _buildTimeTextField(),
+              SizedBox(
+                height: 10.0,
+              ),
+              RaisedButton(
+                child: Text('Create Activity'),
+                onPressed: _submitForm,
+              ),
+              //@Todo: Gesture Detector
+            ],
+          ),
         ),
       ),
     );
@@ -97,7 +102,8 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
   Widget _buildTimeTextField() {
     return TextFormField(
       validator: (String value) {
-        if (value.isEmpty || !RegExp(r'^(1[0-2]|0?[1-9]):[0-5][0-9] (AM|PM)$').hasMatch(value)) {
+        if (value.isEmpty ||
+            !RegExp(r'^(1[0-2]|0?[1-9]):[0-5][0-9] (AM|PM)$').hasMatch(value)) {
           return 'Required and should be 12 hour clock time';
         }
       },
