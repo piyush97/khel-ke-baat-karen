@@ -7,28 +7,32 @@ class ActivitiesAdminPage extends StatelessWidget {
   final Function addActivity;
   final Function deleteActivity;
 
+  Widget _buildSideDrawer(BuildContext context) {
+    return Drawer(
+      child: Column(
+        children: <Widget>[
+          AppBar(
+            automaticallyImplyLeading: false,
+            title: Text('Choose'),
+          ),
+          ListTile(
+            title: Text('All Activities'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/');
+            },
+          )
+        ],
+      ),
+    );
+  }
+
   ActivitiesAdminPage(this.addActivity, this.deleteActivity);
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        drawer: Drawer(
-          child: Column(
-            children: <Widget>[
-              AppBar(
-                automaticallyImplyLeading: false,
-                title: Text('Choose'),
-              ),
-              ListTile(
-                title: Text('All Activities'),
-                onTap: () {
-                  Navigator.pushReplacementNamed(context, '/');
-                },
-              )
-            ],
-          ),
-        ),
+        drawer: _buildSideDrawer(context),
         appBar: AppBar(
           title: Text('Manage Activities'),
           bottom: TabBar(
@@ -44,8 +48,10 @@ class ActivitiesAdminPage extends StatelessWidget {
             ],
           ),
         ),
-        body: TabBarView(
-            children: <Widget>[ActivityCreatePage(addActivity), ActivityListPage()]),
+        body: TabBarView(children: <Widget>[
+          ActivityCreatePage(addActivity),
+          ActivityListPage()
+        ]),
       ),
     );
   }
