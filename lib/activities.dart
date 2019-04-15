@@ -31,8 +31,16 @@ class Activities extends StatelessWidget {
                 SizedBox(
                   width: 8.0,
                 ),
-                Text(
-                  activities[index]['time'].toString(),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 3.5),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).accentColor,
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  child: Text(
+                    'Time to do: ${activities[index]['time'].toString()} ',
+                    style: TextStyle(color: Colors.black, fontSize: 22),
+                  ),
                 )
               ],
             ),
