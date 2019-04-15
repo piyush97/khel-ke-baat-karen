@@ -18,7 +18,7 @@ class ActivitiesAdminPage extends StatelessWidget {
           ListTile(
             title: Text('All Activities'),
             onTap: () {
-              Navigator.pushReplacementNamed(context, '/');
+              Navigator.pushReplacementNamed(context, '/activities');
             },
           )
         ],

@@ -53,6 +53,11 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
           labelText: 'Activity Name',
         ),
         autofocus: true,
+        validator: (String value) {
+          if (value.isEmpty || value.length > 20) {
+            return 'Activity Title is Required and should be lesser than 20 characters';
+          }
+        },
         onSaved: (String value) {
           setState(() {
             _titleValue = value;
@@ -75,6 +80,9 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
   }
 
   void _submitForm() {
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
     _formKey.currentState.save();
     final Map<String, dynamic> activity = {
       'title': _titleValue,
@@ -88,6 +96,11 @@ class _ActivityCreatePageState extends State<ActivityCreatePage> {
 
   Widget _buildTimeTextField() {
     return TextFormField(
+      validator: (String value) {
+        if (value.isEmpty || !RegExp(r'^(1[0-2]|0?[1-9]):[0-5][0-9] (AM|PM)$').hasMatch(value)) {
+          return 'Required and should be 12 hour clock time';
+        }
+      },
       decoration: InputDecoration(
         labelText: 'Activity Time',
       ),
