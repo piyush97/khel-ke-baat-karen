@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
 import './pages/activity.dart';
 import './pages/activites_admin.dart';
 import './pages/activites.dart';
 import './pages/auth.dart';
 
 void main() {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
   runApp(MyApp());
 }
 
