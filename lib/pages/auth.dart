@@ -33,7 +33,10 @@ class _AuthPageState extends State<AuthPage> {
             child: Column(
               children: <Widget>[
                 TextField(
-                  decoration: InputDecoration(labelText: 'E-Mail'),
+                  decoration: InputDecoration(
+                      labelText: 'E-Mail',
+                      filled: true,
+                      fillColor: Colors.black38),
                   keyboardType: TextInputType.emailAddress,
                   onChanged: (String value) {
                     setState(() {
@@ -41,8 +44,14 @@ class _AuthPageState extends State<AuthPage> {
                     });
                   },
                 ),
+                SizedBox(
+                  height: 17.0,
+                ),
                 TextField(
-                  decoration: InputDecoration(labelText: 'Password'),
+                  decoration: InputDecoration(
+                      labelText: 'Password',
+                      filled: true,
+                      fillColor: Colors.black38),
                   obscureText: true,
                   onChanged: (String value) {
                     setState(() {
