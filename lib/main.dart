@@ -20,24 +20,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   List<Activity> _activities = [];
 
-  void _addActivities(Activity activity) {
-    setState(() {
-      _activities.add(activity);
-    });
-  }
-
-  void _deleteActivities(int index) {
-    setState(() {
-      _activities.removeAt(index);
-    });
-  }
-
-  void _updateActivities(int index, Activity activity) {
-    setState(() {
-      _activities[index] = activity;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
