@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 import './activity_card.dart';
 import '../../models/activity.dart';
+import '../../scoped-models/activites.dart';
 
 class Activities extends StatelessWidget {
-  final List<Activity> activities;
-  Activities(this.activities);
-
-  Widget _buildActivityList() {
+  Widget _buildActivityList(List<Activity> activities) {
     Widget activityCards;
     if (activities.length > 0) {
       activityCards = ListView.builder(
@@ -23,6 +22,10 @@ class Activities extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _buildActivityList();
+    return ScopedModelDescendant<ActivityModel>(
+      builder: (BuildContext context, Widget child, ActivityModel model) {
+        return _buildActivityList(model.activities);
+      },
+    );
   }
 }

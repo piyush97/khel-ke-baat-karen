@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/activities/activities.dart';
-import '../models/activity.dart';
 
 class ActivitiesPage extends StatelessWidget {
-  final List<Activity> activities;
-
-  ActivitiesPage(this.activities);
-
+  
   Widget _buildSideDrawer(BuildContext context) {
     return Drawer(
       child: Column(
@@ -41,7 +37,7 @@ class ActivitiesPage extends StatelessWidget {
           )
         ],
       ),
-      body: Activities(activities),
+      body: Activities(),
     );
   }
 }

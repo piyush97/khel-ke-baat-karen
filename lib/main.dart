@@ -5,6 +5,7 @@ import './pages/activites_admin.dart';
 import './pages/activites.dart';
 import './pages/auth.dart';
 import './models/activity.dart';
+
 void main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
   runApp(MyApp());
@@ -18,8 +19,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List<Activity> _activities = [];
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,9 +31,8 @@ class _MyAppState extends State<MyApp> {
       // home: AuthPage(),
       routes: {
         '/': (BuildContext context) => AuthPage(),
-        '/activities': (BuildContext context) => ActivitiesPage(_activities),
-        '/admin': (BuildContext context) => ActivitiesAdminPage(
-            _addActivities,_updateActivities, _deleteActivities, _activities, ),
+        '/activities': (BuildContext context) => ActivitiesPage(),
+        '/admin': (BuildContext context) => ActivitiesAdminPage(),
       },
       onGenerateRoute: (RouteSettings settings) {
         final List<String> pathElements = settings.name.split('/');
@@ -44,19 +42,15 @@ class _MyAppState extends State<MyApp> {
         if (pathElements[1] == 'activity') {
           final int index = int.parse(pathElements[2]);
           return MaterialPageRoute<bool>(
-            builder: (BuildContext context) => ActivityPage(
-                  _activities[index].title,
-                  _activities[index].image,
-                  _activities[index].time,
-                  _activities[index].description,
-                ),
+            builder: (BuildContext context) =>
+                ActivityPage(null, null, null, null),
           );
         }
         return null;
       },
       onUnknownRoute: (RouteSettings settings) {
         return MaterialPageRoute(
-          builder: (BuildContext context) => ActivitiesPage(_activities),
+          builder: (BuildContext context) => ActivitiesPage(),
         );
       },
     );

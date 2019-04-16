@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 import '../widgets/helpers/ensure_visible.dart';
 import '../models/activity.dart';
+import '../scoped-models/activites.dart';
 
 class ActivityEditPage extends StatefulWidget {
   final Function addActivity;
@@ -73,19 +75,19 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
     );
   }
 
-  void _submitForm() {
+  void _submitForm(Function addActivity, Function updateActivity) {
     if (!_formKey.currentState.validate()) {
       return;
     }
     _formKey.currentState.save();
     if (widget.activity == null) {
-      widget.addActivity(Activity(
+      addActivity(Activity(
           title: _formData['title'],
           description: _formData['description'],
           time: _formData['time'],
           image: _formData['image']));
     } else {
-      widget.updateActivity(
+      updateActivity(
           widget.activityIndex,
           Activity(
               title: _formData['title'],
@@ -121,6 +123,18 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
     );
   }
 
+  Widget _buildSubmitButton() {
+    return ScopedModelDescendant<ActivityModel>(
+      builder: (BuildContext context, Widget child, ActivityModel model) {
+        return RaisedButton(
+          child: Text('Create Activity'),
+          onPressed: () =>
+              _submitForm(model.addActivities, model.updateActivities),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final double deviceWidth = MediaQuery.of(context).size.width;
@@ -144,10 +158,7 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
               SizedBox(
                 height: 10.0,
               ),
-              RaisedButton(
-                child: Text('Create Activity'),
-                onPressed: _submitForm,
-              ),
+              _buildSubmitButton(),
               //@Todo: Gesture Detector
             ],
           ),
