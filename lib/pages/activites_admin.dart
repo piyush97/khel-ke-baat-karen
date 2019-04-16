@@ -5,14 +5,6 @@ import './activity_edit.dart';
 import '../models/activity.dart';
 
 class ActivitiesAdminPage extends StatelessWidget {
-  final Function addActivity;
-  final Function updateActivity;
-  final Function deleteActivity;
-  final List<Activity> activities;
-
-  ActivitiesAdminPage(this.addActivity, this.updateActivity,
-      this.deleteActivity, this.activities);
-
   Widget _buildSideDrawer(BuildContext context) {
     return Drawer(
       child: Column(

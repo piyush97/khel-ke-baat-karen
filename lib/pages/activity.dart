@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
-
+import 'package:scoped_model/scoped_model.dart';
 import 'dart:async';
 
+import '../models/activity.dart';
+import '../scoped-models/activites.dart';
 import '../widgets/ui_elements/title_default.dart';
 
 class ActivityPage extends StatelessWidget {
-  final String title;
-  final String imageUrl;
-  final double time;
-  final String description;
+  final int activityIndex;
+  ActivityPage(this.activityIndex);
 
-  ActivityPage(this.title, this.imageUrl, this.time, this.description);
-
-  Widget _buildActivityTimeRow() {
+  Widget _buildActivityTimeRow(double time) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Text(
-          'Swimming is good for health',
+          'Healthy Food',
           style: TextStyle(fontFamily: 'Oswald', color: Colors.grey),
         ),
         Container(
@@ -34,34 +32,40 @@ class ActivityPage extends StatelessWidget {
       ],
     );
   }
-@override
+
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
         Navigator.pop(context, false);
         return Future.value(false);
       },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(title),
-        ),
-        body: ListView(
-          children: <Widget>[
-            Image.asset(imageUrl),
-            Container(
-              padding: EdgeInsets.all(10.0),
-              child: TitleDefault(title),
+      child: ScopedModelDescendant<ActivityModel>(
+        builder: (BuildContext context, Widget child, ActivityModel model) {
+          final Activity activities = model.activities[activityIndex];
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(activities.title),
             ),
-            _buildActivityTimeRow(),
-            Container(
-              padding: EdgeInsets.all(10.0),
-              child: Text(
-                description,
-                textAlign: TextAlign.center,
-              ),
-            )
-          ],
-        ),
+            body: ListView(
+              children: <Widget>[
+                Image.asset(activities.image),
+                Container(
+                  padding: EdgeInsets.all(10.0),
+                  child: TitleDefault(activities.title),
+                ),
+                _buildActivityTimeRow(activities.time),
+                Container(
+                  padding: EdgeInsets.all(10.0),
+                  child: Text(
+                    activities.description,
+                    textAlign: TextAlign.center,
+                  ),
+                )
+              ],
+            ),
+          );
+        },
       ),
     );
   }
