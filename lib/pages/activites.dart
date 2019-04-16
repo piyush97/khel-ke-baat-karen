@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/activities/activities.dart';
+import '../models/activity.dart';
 
 class ActivitiesPage extends StatelessWidget {
-  final List<Map<String, dynamic>> activities;
+  final List<Activity> activities;
 
   ActivitiesPage(this.activities);
 

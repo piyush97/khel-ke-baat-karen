@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import './time.dart';
 import '../ui_elements/title_default.dart';
 import './description_tag.dart';
+import '../../models/activity.dart';
 
 class ActivityCard extends StatelessWidget {
-  final Map<String, dynamic> activity;
+  final Activity activity;
   final int activityIndex;
   ActivityCard(this.activity, this.activityIndex);
 
@@ -15,11 +16,11 @@ class ActivityCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          TitleDefault(activity['title']),
+          TitleDefault(activity.title),
           SizedBox(
             width: 8.0,
           ),
-          TimeTag(activity['time'].toString()),
+          TimeTag(activity.time.toString()),
         ],
       ),
     );
@@ -54,7 +55,7 @@ class ActivityCard extends StatelessWidget {
     return Card(
       child: Column(
         children: <Widget>[
-          Image.asset(activity['image'] ?? ''),
+          Image.asset(activity.image ?? ''),
           SizedBox(
             height: 10.0,
           ),

@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 
 import './activity_list.dart';
 import './activity_edit.dart';
+import '../models/activity.dart';
 
 class ActivitiesAdminPage extends StatelessWidget {
   final Function addActivity;
   final Function updateActivity;
   final Function deleteActivity;
-  final List<Map<String, dynamic>> activities;
+  final List<Activity> activities;
 
-  ActivitiesAdminPage(this.addActivity,this.updateActivity, this.deleteActivity, this.activities);
+  ActivitiesAdminPage(this.addActivity, this.updateActivity,
+      this.deleteActivity, this.activities);
 
   Widget _buildSideDrawer(BuildContext context) {
     return Drawer(

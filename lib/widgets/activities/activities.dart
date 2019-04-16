@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
 import './activity_card.dart';
+import '../../models/activity.dart';
 
 class Activities extends StatelessWidget {
-  final List<Map<String, dynamic>> activities;
-  Activities(this.activities) {
-    print('[Activities widget Constructor]');
-  }
+  final List<Activity> activities;
+  Activities(this.activities);
 
   Widget _buildActivityList() {
     Widget activityCards;

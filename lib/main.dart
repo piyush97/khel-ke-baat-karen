@@ -4,7 +4,7 @@ import './pages/activity.dart';
 import './pages/activites_admin.dart';
 import './pages/activites.dart';
 import './pages/auth.dart';
-
+import './models/activity.dart';
 void main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
   runApp(MyApp());
@@ -18,9 +18,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List<Map<String, dynamic>> _activities = [];
+  List<Activity> _activities = [];
 
-  void _addActivities(Map<String, dynamic> activity) {
+  void _addActivities(Activity activity) {
     setState(() {
       _activities.add(activity);
     });
@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  void _updateActivities(int index, Map<String, dynamic> activity) {
+  void _updateActivities(int index, Activity activity) {
     setState(() {
       _activities[index] = activity;
     });
@@ -63,10 +63,10 @@ class _MyAppState extends State<MyApp> {
           final int index = int.parse(pathElements[2]);
           return MaterialPageRoute<bool>(
             builder: (BuildContext context) => ActivityPage(
-                  _activities[index]['title'],
-                  _activities[index]['image'],
-                  _activities[index]['time'],
-                  _activities[index]['description'],
+                  _activities[index].title,
+                  _activities[index].image,
+                  _activities[index].time,
+                  _activities[index].description,
                 ),
           );
         }

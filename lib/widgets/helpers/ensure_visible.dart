@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:meta/meta.dart';
@@ -29,7 +29,8 @@ class EnsureVisibleWhenFocused extends StatefulWidget {
   /// Defaults to 100 milliseconds.
   final Duration duration;
 
-  EnsureVisibleWhenFocusedState createState() => new EnsureVisibleWhenFocusedState();
+  EnsureVisibleWhenFocusedState createState() =>
+      new EnsureVisibleWhenFocusedState();
 }
 
 class EnsureVisibleWhenFocusedState extends State<EnsureVisibleWhenFocused> {
@@ -52,8 +53,7 @@ class EnsureVisibleWhenFocusedState extends State<EnsureVisibleWhenFocused> {
     // the need insert a delay here.
     await Future.delayed(const Duration(milliseconds: 300));
 
-    if (!widget.focusNode.hasFocus)
-      return;
+    if (!widget.focusNode.hasFocus) return;
 
     final RenderObject object = context.findRenderObject();
     final RenderAbstractViewport viewport = RenderAbstractViewport.of(object);
@@ -64,16 +64,9 @@ class EnsureVisibleWhenFocusedState extends State<EnsureVisibleWhenFocused> {
 
     ScrollPosition position = scrollableState.position;
     double alignment;
-    if (position.pixels > viewport.getOffsetToReveal(object, 0.0)) {
-      // Move down to the top of the viewport
-      alignment = 0.0;
-    } else if (position.pixels < viewport.getOffsetToReveal(object, 1.0)) {
-      // Move up to the bottom of the viewport
-      alignment = 1.0;
-    } else {
-      // No scrolling is necessary to reveal the child
-      return;
-    }
+
+    alignment = 1.0;
+
     position.ensureVisible(
       object,
       alignment: alignment,

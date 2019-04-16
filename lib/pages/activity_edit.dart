@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/helpers/ensure_visible.dart';
+import '../models/activity.dart';
 
 class ActivityEditPage extends StatefulWidget {
   final Function addActivity;
   final Function updateActivity;
-  final Map<String, dynamic> activity;
+  final Activity activity;
   final int activityIndex;
 
   ActivityEditPage(
@@ -37,7 +38,7 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
       focusNode: _titleFocusNode,
       child: TextFormField(
         focusNode: _titleFocusNode,
-        initialValue: widget.activity == null ? '' : widget.activity['title'],
+        initialValue: widget.activity == null ? '' : widget.activity.title,
         decoration: InputDecoration(
           labelText: 'Activity Name',
         ),
@@ -60,7 +61,7 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
       child: TextFormField(
         focusNode: _descFocusNode,
         initialValue:
-            widget.activity == null ? '' : widget.activity['description'],
+            widget.activity == null ? '' : widget.activity.description,
         maxLines: 4,
         decoration: InputDecoration(
           labelText: 'Activity Description',
@@ -78,9 +79,19 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
     }
     _formKey.currentState.save();
     if (widget.activity == null) {
-      widget.addActivity(_formData);
+      widget.addActivity(Activity(
+          title: _formData['title'],
+          description: _formData['description'],
+          time: _formData['time'],
+          image: _formData['image']));
     } else {
-      widget.updateActivity(widget.activityIndex, _formData);
+      widget.updateActivity(
+          widget.activityIndex,
+          Activity(
+              title: _formData['title'],
+              description: _formData['description'],
+              time: _formData['time'],
+              image: _formData['image']));
     }
     Navigator.pushReplacementNamed(context, '/activities');
   }
@@ -91,7 +102,7 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
       child: TextFormField(
         focusNode: _timeFocusNode,
         initialValue:
-            widget.activity == null ? '' : widget.activity['time'].toString(),
+            widget.activity == null ? '' : widget.activity.time.toString(),
         validator: (String value) {
           if (value.isEmpty) {
             return 'Required and should be 12 hour clock time';
