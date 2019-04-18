@@ -47,9 +47,10 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
         if (model.displayActivities.length > 0 && !model.isLoading) {
           content = Activities();
         } else if (model.isLoading) {
-          content = Center(child:CircularProgressIndicator());
+          content = Center(child: CircularProgressIndicator());
         }
-        return content;
+        return RefreshIndicator(
+            onRefresh: model.fetchActivities, child: content);
       },
     );
   }

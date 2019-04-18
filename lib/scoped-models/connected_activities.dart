@@ -90,10 +90,10 @@ class ActivityModel extends ConnectedActivitiesModel {
     });
   }
 
-  void fetchActivities() {
+  Future<Null> fetchActivities() {
     _isLoading = true;
     notifyListeners();
-    http
+    return http
         .get('https://khel-ke-baat-karen.firebaseio.com/activities.json')
         .then((http.Response response) {
       final List<Activity> fetchedActivityList = [];
