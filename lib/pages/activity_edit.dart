@@ -6,7 +6,6 @@ import '../models/activity.dart';
 import '../scoped-models/main.dart';
 
 class ActivityEditPage extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() {
     return _ActivityEditPageState();
@@ -14,7 +13,7 @@ class ActivityEditPage extends StatefulWidget {
 }
 
 class _ActivityEditPageState extends State<ActivityEditPage> {
- final Map<String, dynamic> _formData = {
+  final Map<String, dynamic> _formData = {
     'title': null,
     'description': null,
     'time': null,
@@ -76,7 +75,7 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
         initialValue: activity == null ? '' : activity.time.toString(),
         validator: (String value) {
           // if (value.trim().length <= 0) {
-          if (value.isEmpty ) {
+          if (value.isEmpty) {
             return 'Activity Time not valid';
           }
         },
@@ -93,8 +92,8 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
         return RaisedButton(
           child: Text('Save'),
           textColor: Colors.white,
-          onPressed: () => _submitForm(model.addActivities, model.updateActivities,
-              model.selectedActivityIndex),
+          onPressed: () => _submitForm(model.addActivities,
+              model.updateActivities, model.selectedActivityIndex),
         );
       },
     );
@@ -145,19 +144,17 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
     _formKey.currentState.save();
     if (selectedActivityIndex == null) {
       addActivities(
-        Activity(
-            title: _formData['title'],
-            description: _formData['description'],
-            time: _formData['time'],
-            image: _formData['image']),
+        _formData['title'],
+        _formData['description'],
+        _formData['image'],
+        _formData['time'],
       );
     } else {
       updateActivities(
-        Activity(
-            title: _formData['title'],
-            description: _formData['description'],
-            time: _formData['time'],
-            image: _formData['image']),
+        _formData['title'],
+        _formData['description'],
+        _formData['image'],
+        _formData['time'],
       );
     }
 

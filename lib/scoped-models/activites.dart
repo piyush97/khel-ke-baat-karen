@@ -4,7 +4,7 @@ import '../models/activity.dart';
 import './connected_activities.dart';
 
 class ActivityModel extends ConnectedActivities {
-   bool showFavorites = false;
+  bool showFavorites = false;
 
   List<Activity> get allActivities {
     return List.from(activities);
@@ -20,7 +20,7 @@ class ActivityModel extends ConnectedActivities {
   }
 
   int get selectedActivityIndex {
-    return selectedActivityIndex;
+    return selActivityIndex;
   }
 
   Activity get selectedActivity {
@@ -36,13 +36,22 @@ class ActivityModel extends ConnectedActivities {
 
   void deleteActivities() {
     activities.removeAt(selectedActivityIndex);
-    selectedActivityIndex = null;
+    selActivityIndex = null;
     notifyListeners();
   }
 
-  void updateActivities(Activity activity) {
-    activities[selectedActivityIndex] = activity;
-    selectedActivityIndex = null;
+  void updateActivities(
+      String title, String description, String image, double time) {
+    final Activity updatedActivity = Activity(
+      title: title,
+      description: description,
+      image: image,
+      time: time,
+      userEmail: selectedActivity.userEmail,
+      userId: selectedActivity.userId,
+    );
+    activities[selectedActivityIndex] = updatedActivity;
+    selActivityIndex = null;
     notifyListeners();
   }
 
@@ -50,20 +59,21 @@ class ActivityModel extends ConnectedActivities {
     final bool isCurrentlyFavorite = selectedActivity.isFavorite;
     final bool newFavStatus = !isCurrentlyFavorite;
     final Activity updatedActivity = Activity(
-      title: selectedActivity.title,
-      description: selectedActivity.description,
-      time: selectedActivity.time,
-      image: selectedActivity.image,
-      isFavorite: newFavStatus,
-    );
+        title: selectedActivity.title,
+        description: selectedActivity.description,
+        time: selectedActivity.time,
+        image: selectedActivity.image,
+        isFavorite: newFavStatus,
+        userEmail: selectedActivity.userEmail,
+        userId: selectedActivity.userId);
     activities[selectedActivityIndex] = updatedActivity;
-    selectedActivityIndex = null;
+    selActivityIndex = null;
     notifyListeners();
-    selectedActivityIndex = null;
+    selActivityIndex = null;
   }
 
   void selectActivity(int index) {
-    selectedActivityIndex = index;
+    selActivityIndex = index;
     notifyListeners();
   }
 

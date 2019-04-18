@@ -5,7 +5,7 @@ import '../models/user.dart';
 class ConnectedActivities extends Model {
   List<Activity> activities = [];
   User authenticatedUser;
-  int selectedActivityIndex;
+  int selActivityIndex;
 
   void addActivities(
       String title, String description, String image, double time) {
@@ -18,7 +18,7 @@ class ConnectedActivities extends Model {
       userId: authenticatedUser.id,
     );
     activities.add(newActivity);
-    selectedActivityIndex = null;
+    selActivityIndex = null;
     notifyListeners();
   }
 }
