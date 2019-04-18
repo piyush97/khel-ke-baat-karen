@@ -66,6 +66,7 @@ class ActivityCard extends StatelessWidget {
           ),
           _buildTitleTimeRow(),
           DescriptionTag('Swimming is good for health'),
+          Text(activity.userEmail),
           _buildActionButtons(context),
         ],
       ),

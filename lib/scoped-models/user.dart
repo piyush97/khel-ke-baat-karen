@@ -1,10 +1,10 @@
 import 'package:scoped_model/scoped_model.dart';
 import '../models/user.dart';
+import './connected_activities.dart';
 
-class UserModel extends Model {
-  User _authenticatedUser;
+class UserModel extends ConnectedActivities {
   void login(String email, String password) {
-    _authenticatedUser = User(
+    authenticatedUser = User(
       id: 'Piyush',
       email: email,
       password: password,

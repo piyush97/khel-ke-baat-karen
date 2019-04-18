@@ -1,55 +1,48 @@
 import 'package:scoped_model/scoped_model.dart';
 
 import '../models/activity.dart';
+import './connected_activities.dart';
 
-class ActivityModel extends Model {
-  List<Activity> _activities = [];
-  int _selectedActivityIndex;
-  bool _showFavorites = false;
+class ActivityModel extends ConnectedActivities {
+   bool showFavorites = false;
 
-  List<Activity> get activities {
-    return List.from(_activities);
+  List<Activity> get allActivities {
+    return List.from(activities);
   }
 
   List<Activity> get displayActivities {
-    if (_showFavorites) {
+    if (showFavorites) {
       return List.from(
-        _activities.where((Activity activity) => activity.isFavorite).toList(),
+        activities.where((Activity activity) => activity.isFavorite).toList(),
       );
     }
-    return List.from(_activities);
+    return List.from(activities);
   }
 
   int get selectedActivityIndex {
-    return _selectedActivityIndex;
+    return selectedActivityIndex;
   }
 
   Activity get selectedActivity {
-    if (_selectedActivityIndex == null) {
+    if (selectedActivityIndex == null) {
       return null;
     }
-    return _activities[_selectedActivityIndex];
+    return activities[selectedActivityIndex];
   }
 
   bool get displayFavoritesOnly {
-    return _showFavorites;
-  }
-
-  void addActivities(Activity activity) {
-    _activities.add(activity);
-    _selectedActivityIndex = null;
-    notifyListeners();
+    return showFavorites;
   }
 
   void deleteActivities() {
-    _activities.removeAt(_selectedActivityIndex);
-    _selectedActivityIndex = null;
+    activities.removeAt(selectedActivityIndex);
+    selectedActivityIndex = null;
     notifyListeners();
   }
 
   void updateActivities(Activity activity) {
-    _activities[_selectedActivityIndex] = activity;
-    _selectedActivityIndex = null;
+    activities[selectedActivityIndex] = activity;
+    selectedActivityIndex = null;
     notifyListeners();
   }
 
@@ -63,19 +56,19 @@ class ActivityModel extends Model {
       image: selectedActivity.image,
       isFavorite: newFavStatus,
     );
-    _activities[_selectedActivityIndex] = updatedActivity;
-    _selectedActivityIndex = null;
+    activities[selectedActivityIndex] = updatedActivity;
+    selectedActivityIndex = null;
     notifyListeners();
-    _selectedActivityIndex = null;  
+    selectedActivityIndex = null;
   }
 
   void selectActivity(int index) {
-    _selectedActivityIndex = index;
+    selectedActivityIndex = index;
     notifyListeners();
   }
 
   void toggleDisplayMode() {
-    _showFavorites = !_showFavorites;
+    showFavorites = !showFavorites;
     notifyListeners();
   }
 }

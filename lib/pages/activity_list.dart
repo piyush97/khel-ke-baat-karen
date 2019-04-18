@@ -29,7 +29,7 @@ class ActivityListPage extends StatelessWidget {
         return ListView.builder(
           itemBuilder: (BuildContext context, int index) {
             return Dismissible(
-              key: Key(model.activities[index].title),
+              key: Key(model.allActivities[index].title),
               onDismissed: (DismissDirection direction) {
                 if (direction == DismissDirection.endToStart) {
                   model.selectActivity(index);
@@ -46,11 +46,11 @@ class ActivityListPage extends StatelessWidget {
                   ListTile(
                     leading: CircleAvatar(
                       backgroundImage:
-                          AssetImage(model.activities[index].image),
+                          AssetImage(model.allActivities[index].image),
                     ),
-                    title: Text(model.activities[index].title),
+                    title: Text(model.allActivities[index].title),
                     subtitle:
-                        Text('\$${model.activities[index].time.toString()}'),
+                        Text('\$${model.allActivities[index].time.toString()}'),
                     trailing: _buildEditButton(context, index, model),
                   ),
                   Divider()
@@ -58,7 +58,7 @@ class ActivityListPage extends StatelessWidget {
               ),
             );
           },
-          itemCount: model.activities.length,
+          itemCount: model.allActivities.length,
         );
       },
     );
