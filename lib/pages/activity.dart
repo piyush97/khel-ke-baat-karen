@@ -43,7 +43,7 @@ class ActivityPage extends StatelessWidget {
       },
       child: ScopedModelDescendant<MainModel>(
         builder: (BuildContext context, Widget child, MainModel model) {
-          final Activity activity = model.allA ctivities[activityIndex];
+          final Activity activity = model.allActivities[activityIndex];
           return Scaffold(
             appBar: AppBar(
               title: Text(activity.title),

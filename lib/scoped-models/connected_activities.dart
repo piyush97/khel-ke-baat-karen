@@ -18,7 +18,6 @@ class ConnectedActivitiesModel extends Model {
       userId: _authenticatedUser.id,
     );
     _activities.add(newActivity);
-    _selActivityIndex = null;
     notifyListeners();
   }
 }
@@ -56,7 +55,6 @@ class ActivityModel extends ConnectedActivitiesModel {
 
   void deleteActivities() {
     _activities.removeAt(selectedActivityIndex);
-    _selActivityIndex = null;
     notifyListeners();
   }
 
@@ -71,7 +69,6 @@ class ActivityModel extends ConnectedActivitiesModel {
       userId: selectedActivity.userId,
     );
     _activities[selectedActivityIndex] = updatedActivity;
-    _selActivityIndex = null;
     notifyListeners();
   }
 
@@ -87,9 +84,7 @@ class ActivityModel extends ConnectedActivitiesModel {
         userEmail: selectedActivity.userEmail,
         userId: selectedActivity.userId);
     _activities[selectedActivityIndex] = updatedActivity;
-    _selActivityIndex = null;
     notifyListeners();
-    _selActivityIndex = null;
   }
 
   void selectActivity(int index) {

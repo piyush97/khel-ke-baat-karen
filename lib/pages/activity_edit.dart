@@ -92,8 +92,12 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
         return RaisedButton(
           child: Text('Save'),
           textColor: Colors.white,
-          onPressed: () => _submitForm(model.addActivities,
-              model.updateActivities, model.selectedActivityIndex),
+          onPressed: () => _submitForm(
+                model.addActivities,
+                model.updateActivities,
+                model.selectActivity,
+                model.selectedActivityIndex,
+              ),
         );
       },
     );
@@ -137,6 +141,7 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
   }
 
   void _submitForm(Function addActivities, Function updateActivities,
+      Function setSelectedActivity,
       [int selectedActivityIndex]) {
     if (!_formKey.currentState.validate()) {
       return;
@@ -158,7 +163,8 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
       );
     }
 
-    Navigator.pushReplacementNamed(context, '/activities');
+    Navigator.pushReplacementNamed(context, '/activities')
+        .then((_) => setSelectedActivity(null));
   }
 
   @override
