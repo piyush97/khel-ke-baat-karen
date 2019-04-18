@@ -157,8 +157,30 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
         _formData['description'],
         _formData['image'],
         _formData['time'],
-      ).then((_) => Navigator.pushReplacementNamed(context, '/activities')
-          .then((_) => setSelectedActivity(null)));
+      ).then(
+        (bool success) {
+          if (success) {
+            Navigator.pushReplacementNamed(context, '/activities')
+                .then((_) => setSelectedActivity(null));
+          } else {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text('Something looks fishy'),
+                  content: Text("Please try again"),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text('Okay'),
+                      onPressed: () => Navigator.of(context).pop(),
+                    )
+                  ],
+                );
+              },
+            );
+          }
+        },
+      );
     } else {
       updateActivities(
         _formData['title'],

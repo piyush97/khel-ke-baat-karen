@@ -11,7 +11,7 @@ class ConnectedActivitiesModel extends Model {
   String _selActivityId;
   bool _isLoading = false;
 
-  Future<Null> addActivities(
+  Future<bool> addActivities(
       String title, String description, String image, double time) {
     _isLoading = true;
     notifyListeners();
@@ -27,6 +27,11 @@ class ConnectedActivitiesModel extends Model {
         .post('https://khel-ke-baat-karen.firebaseio.com/activities.json',
             body: json.encode(activityData))
         .then((http.Response response) {
+      if (response.statusCode != 200 || response.statusCode != 201) {
+        _isLoading = false;
+        notifyListeners();
+        return false;
+      }
       final Map<String, dynamic> responseData = json.decode(response.body);
       final Activity newActivity = Activity(
         id: responseData['name'],
