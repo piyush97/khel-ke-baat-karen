@@ -4,7 +4,21 @@ import 'package:scoped_model/scoped_model.dart';
 import '../widgets/activities/activities.dart';
 import '../scoped-models/main.dart';
 
-class ActivitiesPage extends StatelessWidget {
+class ActivitiesPage extends StatefulWidget {
+  final MainModel model;
+  ActivitiesPage(this.model);
+  @override
+  State<StatefulWidget> createState() {
+    return _ActivitiesPageState();
+  }
+}
+
+class _ActivitiesPageState extends State<ActivitiesPage> {
+  @override
+  initState(){
+    widget.model.fetchActivities();
+    super.initState();
+  }
   Widget _buildSideDrawer(BuildContext context) {
     return Drawer(
       child: Column(
@@ -33,8 +47,7 @@ class ActivitiesPage extends StatelessWidget {
         title: Text('Khel Ke Baat Karen'),
         actions: <Widget>[
           ScopedModelDescendant<MainModel>(
-            builder:
-                (BuildContext context, Widget widget, MainModel model) {
+            builder: (BuildContext context, Widget widget, MainModel model) {
               return IconButton(
                 icon: Icon(model.displayFavoritesOnly
                     ? Icons.favorite

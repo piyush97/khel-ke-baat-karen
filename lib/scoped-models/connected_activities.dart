@@ -74,6 +74,14 @@ class ActivityModel extends ConnectedActivitiesModel {
     notifyListeners();
   }
 
+  void fetchActivities() {
+    http
+        .get('https://khel-ke-baat-karen.firebaseio.com/activities.json')
+        .then((http.Response response) {
+      print(json.decode(response.body));
+    });
+  }
+
   void updateActivities(
       String title, String description, String image, double time) {
     final Activity updatedActivity = Activity(
