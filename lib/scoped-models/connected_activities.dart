@@ -12,7 +12,7 @@ class ConnectedActivitiesModel extends Model {
   bool _isLoading = false;
 
   Future<bool> addActivities(
-      String title, String description, String image, double time) {
+      String title, String description, String image, double time) async {
     _isLoading = true;
     notifyListeners();
     final Map<String, dynamic> activityData = {
@@ -23,35 +23,40 @@ class ConnectedActivitiesModel extends Model {
       'userEmail': _authenticatedUser.email,
       'userId': _authenticatedUser.id,
     };
-    return http
-        .post('https://khel-ke-baat-karen.firebaseio.com/activities.json',
-            body: json.encode(activityData))
-        .then((http.Response response) {
-      if (response.statusCode != 200 || response.statusCode != 201) {
-        _isLoading = false;
-        notifyListeners();
-        return false;
-      }
-      final Map<String, dynamic> responseData = json.decode(response.body);
-      final Activity newActivity = Activity(
-        id: responseData['name'],
-        title: title,
-        description: description,
-        image: image,
-        time: time,
-        userEmail: _authenticatedUser.email,
-        userId: _authenticatedUser.id,
-      );
-      _activities.add(newActivity);
-      _isLoading = false;
-      notifyListeners();
-      return true;
-    }).catchError((error) {
+    try{
+    final http.Response response = await http.post(
+        'https://khel-ke-baat-karen.firebaseio.com/activities.json',
+        body: json.encode(activityData));
+    if (response.statusCode != 200 || response.statusCode != 201) {
       _isLoading = false;
       notifyListeners();
       return false;
-    });
-  }
+    }
+    final Map<String, dynamic> responseData = json.decode(response.body);
+    final Activity newActivity = Activity(
+      id: responseData['name'],
+      title: title,
+      description: description,
+      image: image,
+      time: time,
+      userEmail: _authenticatedUser.email,
+      userId: _authenticatedUser.id,
+    );
+    _activities.add(newActivity);
+    _isLoading = false;
+    notifyListeners();
+    return true;
+    } catch (error) {
+      _isLoading = false;
+      notifyListeners();
+      return false;
+    }
+    // .catchError((error) {
+    //   _isLoading = false;
+    //   notifyListeners();
+    //   return false;
+    // });
+}
 }
 
 class ActivityModel extends ConnectedActivitiesModel {
