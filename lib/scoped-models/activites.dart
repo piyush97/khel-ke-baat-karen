@@ -66,6 +66,7 @@ class ActivityModel extends Model {
     _activities[_selectedActivityIndex] = updatedActivity;
     _selectedActivityIndex = null;
     notifyListeners();
+    _selectedActivityIndex = null;  
   }
 
   void selectActivity(int index) {
