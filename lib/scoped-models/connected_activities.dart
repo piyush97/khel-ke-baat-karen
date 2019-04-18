@@ -111,18 +111,36 @@ class ActivityModel extends ConnectedActivitiesModel {
     });
   }
 
-  void updateActivities(
+  Future<Null> updateActivities(
       String title, String description, String image, double time) {
-    final Activity updatedActivity = Activity(
-      title: title,
-      description: description,
-      image: image,
-      time: time,
-      userEmail: selectedActivity.userEmail,
-      userId: selectedActivity.userId,
-    );
-    _activities[selectedActivityIndex] = updatedActivity;
-    notifyListeners();
+    _isLoading = true;
+    final Map<String, dynamic> updateData = {
+      'title': title,
+      'description': description,
+      'image': 'http://images.huffingtonpost.com/2013-12-27-food12.jpg',
+      'time': time,
+      'userEmail': selectedActivity.userEmail,
+      'userId': selectedActivity.userId,
+    };
+    return http
+        .put(
+      'https://khel-ke-baat-karen.firebaseio.com/activities/${selectedActivity.id}.json',
+      body: json.encode(updateData),
+    )
+        .then((http.Response response) {
+      _isLoading = false;
+      final Activity updatedActivity = Activity(
+        id: selectedActivity.id,
+        title: title,
+        description: description,
+        image: image,
+        time: time,
+        userEmail: selectedActivity.userEmail,
+        userId: selectedActivity.userId,
+      );
+      _activities[selectedActivityIndex] = updatedActivity;
+      notifyListeners();
+    });
   }
 
   void toggleFavActivity() {

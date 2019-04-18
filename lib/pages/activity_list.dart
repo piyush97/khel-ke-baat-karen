@@ -4,9 +4,25 @@ import 'package:scoped_model/scoped_model.dart';
 import './activity_edit.dart';
 import '../scoped-models/main.dart';
 
-class ActivityListPage extends StatelessWidget {
-  Widget _buildEditButton(
-      BuildContext context, int index, MainModel model) {
+class ActivityListPage extends StatefulWidget {
+  final MainModel model;
+
+  ActivityListPage(this.model);
+
+  @override
+  State<StatefulWidget> createState() {
+    return _ActivityListPageState();
+  }
+}
+
+class _ActivityListPageState extends State<ActivityListPage> {
+  @override
+  initState() {
+    widget.model.fetchActivities();
+    super.initState();
+  }
+
+  Widget _buildEditButton(BuildContext context, int index, MainModel model) {
     return IconButton(
       icon: Icon(Icons.edit),
       onPressed: () {

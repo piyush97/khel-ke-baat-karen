@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 
 import './activity_list.dart';
 import './activity_edit.dart';
+import '../scoped-models/main.dart';
 
 class ActivitiesAdminPage extends StatelessWidget {
+  final MainModel model;
+
+  ActivitiesAdminPage(this.model);
+
   Widget _buildSideDrawer(BuildContext context) {
     return Drawer(
       child: Column(
@@ -45,7 +50,7 @@ class ActivitiesAdminPage extends StatelessWidget {
           ),
         ),
         body: TabBarView(
-            children: <Widget>[ActivityEditPage(), ActivityListPage()]),
+            children: <Widget>[ActivityEditPage(), ActivityListPage(model)]),
       ),
     );
   }
