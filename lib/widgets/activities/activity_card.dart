@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 import './time.dart';
 import '../ui_elements/title_default.dart';
 import './description_tag.dart';
 import '../../models/activity.dart';
+import '../../scoped-models/activites.dart';
 
 class ActivityCard extends StatelessWidget {
   final Activity activity;
@@ -38,14 +40,17 @@ class ActivityCard extends StatelessWidget {
                 '/activity/' + activityIndex.toString(),
               ),
         ),
-        IconButton(
-          icon: Icon(Icons.favorite_border),
-          color: Colors.red,
-          onPressed: () => Navigator.pushNamed<bool>(
-                context,
-                '/activity/' + activityIndex.toString(),
-              ),
-        )
+        ScopedModelDescendant<ActivityModel>(
+            builder: (BuildContext context, Widget child, ActivityModel model) {
+          return IconButton(
+            icon: Icon(model.activities[activityIndex].isFavorite ? Icons.favorite : Icons.favorite_border),
+            color: Colors.red,
+            onPressed: () {
+              model.selectActivity(activityIndex);
+              model.toggleFavActivity();
+            },
+          );
+        }),
       ],
     );
   }

@@ -24,16 +24,19 @@ class ActivityModel extends Model {
   void addActivities(Activity activity) {
     _activities.add(activity);
     _selectedActivityIndex = null;
+    notifyListeners();
   }
 
   void deleteActivities() {
     _activities.removeAt(_selectedActivityIndex);
     _selectedActivityIndex = null;
+    notifyListeners();
   }
 
   void updateActivities(Activity activity) {
     _activities[_selectedActivityIndex] = activity;
     _selectedActivityIndex = null;
+    notifyListeners();
   }
 
   void toggleFavActivity() {
@@ -48,6 +51,7 @@ class ActivityModel extends Model {
     );
     _activities[_selectedActivityIndex] = updatedActivity;
     _selectedActivityIndex = null;
+    notifyListeners();
   }
 
   void selectActivity(int index) {
