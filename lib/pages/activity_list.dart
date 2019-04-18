@@ -46,7 +46,7 @@ class ActivityListPage extends StatelessWidget {
                   ListTile(
                     leading: CircleAvatar(
                       backgroundImage:
-                          AssetImage(model.allActivities[index].image),
+                          NetworkImage(model.allActivities[index].image),
                     ),
                     title: Text(model.allActivities[index].title),
                     subtitle:

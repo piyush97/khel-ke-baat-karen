@@ -60,7 +60,7 @@ class ActivityCard extends StatelessWidget {
     return Card(
       child: Column(
         children: <Widget>[
-          Image.asset(activity.image ?? ''),
+          Image.network(activity.image ?? ''),
           SizedBox(
             height: 10.0,
           ),

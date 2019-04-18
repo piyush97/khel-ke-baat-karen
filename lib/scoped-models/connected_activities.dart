@@ -16,7 +16,9 @@ class ConnectedActivitiesModel extends Model {
       'title': title,
       'description': description,
       'image': 'http://images.huffingtonpost.com/2013-12-27-food12.jpg',
-      'time': time
+      'time': time,
+      'userEmail': _authenticatedUser.email,
+      'userId':_authenticatedUser.id,
     };
     http
         .post('https://khel-ke-baat-karen.firebaseio.com/activities.json',
@@ -31,6 +33,7 @@ class ConnectedActivitiesModel extends Model {
         time: time,
         userEmail: _authenticatedUser.email,
         userId: _authenticatedUser.id,
+
       );
       _activities.add(newActivity);
       notifyListeners();
@@ -78,7 +81,22 @@ class ActivityModel extends ConnectedActivitiesModel {
     http
         .get('https://khel-ke-baat-karen.firebaseio.com/activities.json')
         .then((http.Response response) {
-      print(json.decode(response.body));
+          final List<Activity> fetchedActivityList = [];
+      final Map<String, dynamic> activityListData =
+          json.decode(response.body);
+          activityListData.forEach((String activityId, dynamic activityData) {
+            final Activity activity = Activity( 
+            id: activityId,
+            title: activityData['title'],
+            description: activityData['description'],
+            image: activityData['image'],
+            time: activityData['time'],
+            userEmail: activityData['userEmail'],
+            userId: activityData['userId'],);
+            fetchedActivityList.add(activity);
+          });
+          _activities = fetchedActivityList;
+          notifyListeners();
     });
   }
 
