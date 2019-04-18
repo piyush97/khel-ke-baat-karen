@@ -81,7 +81,7 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
           }
         },
         onSaved: (String value) {
-          _formData['price'] = double.parse(value);
+          _formData['time'] = double.parse(value);
         },
       ),
     );

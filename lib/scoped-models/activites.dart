@@ -36,6 +36,20 @@ class ActivityModel extends Model {
     _selectedActivityIndex = null;
   }
 
+  void toggleFavActivity() {
+    final bool isCurrentlyFavorite = selectedActivity.isFavorite;
+    final bool newFavStatus = !isCurrentlyFavorite;
+    final Activity updatedActivity = Activity(
+      title: selectedActivity.title,
+      description: selectedActivity.description,
+      time: selectedActivity.time,
+      image: selectedActivity.image,
+      isFavorite: newFavStatus,
+    );
+    _activities[_selectedActivityIndex] = updatedActivity;
+    _selectedActivityIndex = null;
+  }
+
   void selectActivity(int index) {
     _selectedActivityIndex = index;
   }
