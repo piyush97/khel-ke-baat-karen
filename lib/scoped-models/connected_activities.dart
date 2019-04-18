@@ -18,18 +18,23 @@ class ConnectedActivitiesModel extends Model {
       'image': 'http://images.huffingtonpost.com/2013-12-27-food12.jpg',
       'time': time
     };
-    http.post('https://khel-ke-baat-karen.firebaseio.com/activities.json',
-        body: json.encode(activityData));
-    final Activity newActivity = Activity(
-      title: title,
-      description: description,
-      image: image,
-      time: time,
-      userEmail: _authenticatedUser.email,
-      userId: _authenticatedUser.id,
-    );
-    _activities.add(newActivity);
-    notifyListeners();
+    http
+        .post('https://khel-ke-baat-karen.firebaseio.com/activities.json',
+            body: json.encode(activityData))
+        .then((http.Response response) {
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      final Activity newActivity = Activity(
+        id: responseData['name'],
+        title: title,
+        description: description,
+        image: image,
+        time: time,
+        userEmail: _authenticatedUser.email,
+        userId: _authenticatedUser.id,
+      );
+      _activities.add(newActivity);
+      notifyListeners();
+    });
   }
 }
 
