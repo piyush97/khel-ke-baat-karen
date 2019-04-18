@@ -10,53 +10,6 @@ class ConnectedActivitiesModel extends Model {
   User _authenticatedUser;
   String _selActivityId;
   bool _isLoading = false;
-
-  Future<bool> addActivities(
-      String title, String description, String image, double time) async {
-    _isLoading = true;
-    notifyListeners();
-    final Map<String, dynamic> activityData = {
-      'title': title,
-      'description': description,
-      'image': 'http://images.huffingtonpost.com/2013-12-27-food12.jpg',
-      'time': time,
-      'userEmail': _authenticatedUser.email,
-      'userId': _authenticatedUser.id,
-    };
-    try{
-    final http.Response response = await http.post(
-        'https://khel-ke-baat-karen.firebaseio.com/activities.json',
-        body: json.encode(activityData));
-    if (response.statusCode != 200 || response.statusCode != 201) {
-      _isLoading = false;
-      notifyListeners();
-      return false;
-    }
-    final Map<String, dynamic> responseData = json.decode(response.body);
-    final Activity newActivity = Activity(
-      id: responseData['name'],
-      title: title,
-      description: description,
-      image: image,
-      time: time,
-      userEmail: _authenticatedUser.email,
-      userId: _authenticatedUser.id,
-    );
-    _activities.add(newActivity);
-    _isLoading = false;
-    notifyListeners();
-    return true;
-    } catch (error) {
-      _isLoading = false;
-      notifyListeners();
-      return false;
-    }
-    // .catchError((error) {
-    //   _isLoading = false;
-    //   notifyListeners();
-    //   return false;
-    // });
-}
 }
 
 class ActivityModel extends ConnectedActivitiesModel {
@@ -96,6 +49,53 @@ class ActivityModel extends ConnectedActivitiesModel {
 
   bool get displayFavoritesOnly {
     return showFavorites;
+  }
+
+  Future<bool> addActivities(
+      String title, String description, String image, double time) async {
+    _isLoading = true;
+    notifyListeners();
+    final Map<String, dynamic> activityData = {
+      'title': title,
+      'description': description,
+      'image': 'http://images.huffingtonpost.com/2013-12-27-food12.jpg',
+      'time': time,
+      'userEmail': _authenticatedUser.email,
+      'userId': _authenticatedUser.id,
+    };
+    try {
+      final http.Response response = await http.post(
+          'https://khel-ke-baat-karen.firebaseio.com/activities.json',
+          body: json.encode(activityData));
+      if (response.statusCode != 200 || response.statusCode != 201) {
+        _isLoading = false;
+        notifyListeners();
+        return false;
+      }
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      final Activity newActivity = Activity(
+        id: responseData['name'],
+        title: title,
+        description: description,
+        image: image,
+        time: time,
+        userEmail: _authenticatedUser.email,
+        userId: _authenticatedUser.id,
+      );
+      _activities.add(newActivity);
+      _isLoading = false;
+      notifyListeners();
+      return true;
+    } catch (error) {
+      _isLoading = false;
+      notifyListeners();
+      return false;
+    }
+    // .catchError((error) {
+    //   _isLoading = false;
+    //   notifyListeners();
+    //   return false;
+    // });
   }
 
   void deleteActivities() {
