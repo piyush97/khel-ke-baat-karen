@@ -89,16 +89,20 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
   Widget _buildSubmitButton() {
     return ScopedModelDescendant<MainModel>(
       builder: (BuildContext context, Widget child, MainModel model) {
-        return RaisedButton(
-          child: Text('Save'),
-          textColor: Colors.white,
-          onPressed: () => _submitForm(
-                model.addActivities,
-                model.updateActivities,
-                model.selectActivity,
-                model.selectedActivityIndex,
-              ),
-        );
+        return model.isLoading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : RaisedButton(
+                child: Text('Save'),
+                textColor: Colors.white,
+                onPressed: () => _submitForm(
+                      model.addActivities,
+                      model.updateActivities,
+                      model.selectActivity,
+                      model.selectedActivityIndex,
+                    ),
+              );
       },
     );
   }
@@ -153,7 +157,8 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
         _formData['description'],
         _formData['image'],
         _formData['time'],
-      );
+      ).then((_) => Navigator.pushReplacementNamed(context, '/activities')
+          .then((_) => setSelectedActivity(null)));
     } else {
       updateActivities(
         _formData['title'],
@@ -162,9 +167,6 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
         _formData['time'],
       );
     }
-
-    Navigator.pushReplacementNamed(context, '/activities')
-        .then((_) => setSelectedActivity(null));
   }
 
   @override
