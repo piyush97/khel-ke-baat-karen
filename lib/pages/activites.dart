@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import '../widgets/activities/activities.dart';
-import '../scoped-models/activites.dart';
+import '../scoped-models/main.dart';
 
 class ActivitiesPage extends StatelessWidget {
   Widget _buildSideDrawer(BuildContext context) {
@@ -32,9 +32,9 @@ class ActivitiesPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Khel Ke Baat Karen'),
         actions: <Widget>[
-          ScopedModelDescendant<ActivityModel>(
+          ScopedModelDescendant<MainModel>(
             builder:
-                (BuildContext context, Widget widget, ActivityModel model) {
+                (BuildContext context, Widget widget, MainModel model) {
               return IconButton(
                 icon: Icon(model.displayFavoritesOnly
                     ? Icons.favorite

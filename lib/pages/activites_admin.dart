@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import './activity_list.dart';
 import './activity_edit.dart';
-import '../models/activity.dart';
 
 class ActivitiesAdminPage extends StatelessWidget {
   Widget _buildSideDrawer(BuildContext context) {

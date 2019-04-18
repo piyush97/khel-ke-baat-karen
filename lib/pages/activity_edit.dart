@@ -3,7 +3,7 @@ import 'package:scoped_model/scoped_model.dart';
 
 import '../widgets/helpers/ensure_visible.dart';
 import '../models/activity.dart';
-import '../scoped-models/activites.dart';
+import '../scoped-models/main.dart';
 
 class ActivityEditPage extends StatefulWidget {
 
@@ -88,8 +88,8 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
   }
 
   Widget _buildSubmitButton() {
-    return ScopedModelDescendant<ActivityModel>(
-      builder: (BuildContext context, Widget child, ActivityModel model) {
+    return ScopedModelDescendant<MainModel>(
+      builder: (BuildContext context, Widget child, MainModel model) {
         return RaisedButton(
           child: Text('Save'),
           textColor: Colors.white,
@@ -166,8 +166,8 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<ActivityModel>(
-      builder: (BuildContext context, Widget child, ActivityModel model) {
+    return ScopedModelDescendant<MainModel>(
+      builder: (BuildContext context, Widget child, MainModel model) {
         final Widget pageContent =
             _buildPageContent(context, model.selectedActivity);
         return model.selectedActivityIndex == null

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import './activity_edit.dart';
-import '../scoped-models/activites.dart';
+import '../scoped-models/main.dart';
 
 class ActivityListPage extends StatelessWidget {
   Widget _buildEditButton(
-      BuildContext context, int index, ActivityModel model) {
+      BuildContext context, int index, MainModel model) {
     return IconButton(
       icon: Icon(Icons.edit),
       onPressed: () {
@@ -24,8 +24,8 @@ class ActivityListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<ActivityModel>(
-      builder: (BuildContext context, Widget child, ActivityModel model) {
+    return ScopedModelDescendant<MainModel>(
+      builder: (BuildContext context, Widget child, MainModel model) {
         return ListView.builder(
           itemBuilder: (BuildContext context, int index) {
             return Dismissible(

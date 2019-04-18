@@ -6,9 +6,7 @@ import './pages/activity.dart';
 import './pages/activites_admin.dart';
 import './pages/activites.dart';
 import './pages/auth.dart';
-import './models/activity.dart';
-import './scoped-models/activites.dart';
-
+import './scoped-models/main.dart';
 void main() {
   runApp(MyApp());
 }
@@ -23,8 +21,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return ScopedModel<ActivityModel>(
-      model: ActivityModel(),
+    return ScopedModel<MainModel>(
+      model: MainModel(),
       child: MaterialApp(
         theme: ThemeData(
           brightness: Brightness.dark,
