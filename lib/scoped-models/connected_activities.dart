@@ -126,6 +126,7 @@ class ActivityModel extends ConnectedActivitiesModel {
       _activities = fetchedActivityList;
       _isLoading = false;
       notifyListeners();
+      _selActivityId = null;
     });
   }
 
