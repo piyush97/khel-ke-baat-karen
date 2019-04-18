@@ -51,7 +51,6 @@ class _ActivityListPageState extends State<ActivityListPage> {
                   model.selectActivity(model.allActivities[index].id);
                   model.deleteActivities();
                 } else if (direction == DismissDirection.startToEnd) {
-                  print('Swiped start to end');
                 } else {
                   print('Other swiping');
                 }
