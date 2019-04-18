@@ -167,8 +167,8 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: Text('Something looks fishy'),
-                  content: Text("Please try again"),
+                  title: Text('Great!'),
+                  content: Text("Activity Added"),
                   actions: <Widget>[
                     FlatButton(
                       child: Text('Okay'),
