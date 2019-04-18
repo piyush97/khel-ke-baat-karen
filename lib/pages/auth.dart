@@ -27,7 +27,7 @@ class _AuthPageState extends State<AuthPage> {
   Widget _buildEmailTextField() {
     return TextFormField(
       decoration: InputDecoration(
-          labelText: 'E-Mail', filled: true, fillColor: Colors.white),
+          labelText: 'E-Mail', filled: true, fillColor: Colors.black45),
       keyboardType: TextInputType.emailAddress,
       validator: (String value) {
         if (value.isEmpty ||
@@ -45,7 +45,7 @@ class _AuthPageState extends State<AuthPage> {
   Widget _buildPasswordTextField() {
     return TextFormField(
       decoration: InputDecoration(
-          labelText: 'Password', filled: true, fillColor: Colors.white),
+          labelText: 'Password', filled: true, fillColor: Colors.black45),
       obscureText: true,
       validator: (String value) {
         if (value.isEmpty || value.length < 6) {

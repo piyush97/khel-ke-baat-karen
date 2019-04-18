@@ -6,16 +6,6 @@ import '../models/activity.dart';
 import '../scoped-models/activites.dart';
 
 class ActivityEditPage extends StatefulWidget {
-  final Function addActivity;
-  final Function updateActivity;
-  final Activity activity;
-  final int activityIndex;
-
-  ActivityEditPage(
-      {this.addActivity,
-      this.updateActivity,
-      this.activity,
-      this.activityIndex});
 
   @override
   State<StatefulWidget> createState() {
@@ -24,7 +14,7 @@ class ActivityEditPage extends StatefulWidget {
 }
 
 class _ActivityEditPageState extends State<ActivityEditPage> {
-  final Map<String, dynamic> _formData = {
+ final Map<String, dynamic> _formData = {
     'title': null,
     'description': null,
     'time': null,
@@ -32,22 +22,20 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
   };
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _titleFocusNode = FocusNode();
-  final _descFocusNode = FocusNode();
-  final _timeFocusNode = FocusNode();
+  final _descriptionFocusNode = FocusNode();
+  final _priceFocusNode = FocusNode();
 
-  Widget _buildTitleTextField() {
+  Widget _buildTitleTextField(Activity activity) {
     return EnsureVisibleWhenFocused(
       focusNode: _titleFocusNode,
       child: TextFormField(
         focusNode: _titleFocusNode,
-        initialValue: widget.activity == null ? '' : widget.activity.title,
-        decoration: InputDecoration(
-          labelText: 'Activity Name',
-        ),
-        autofocus: true,
+        decoration: InputDecoration(labelText: 'Activity Title'),
+        initialValue: activity == null ? '' : activity.title,
         validator: (String value) {
-          if (value.isEmpty || value.length > 20) {
-            return 'Activity Title is Required and should be lesser than 20 characters';
+          // if (value.trim().length <= 0) {
+          if (value.isEmpty || value.length < 5) {
+            return 'Title is required and should be 5+ characters long.';
           }
         },
         onSaved: (String value) {
@@ -57,17 +45,20 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
     );
   }
 
-  Widget _buildDescriptionTextField() {
+  Widget _buildDescriptionTextField(Activity activity) {
     return EnsureVisibleWhenFocused(
-      focusNode: _descFocusNode,
+      focusNode: _descriptionFocusNode,
       child: TextFormField(
-        focusNode: _descFocusNode,
-        initialValue:
-            widget.activity == null ? '' : widget.activity.description,
+        focusNode: _descriptionFocusNode,
         maxLines: 4,
-        decoration: InputDecoration(
-          labelText: 'Activity Description',
-        ),
+        decoration: InputDecoration(labelText: 'Product Description'),
+        initialValue: activity == null ? '' : activity.description,
+        validator: (String value) {
+          // if (value.trim().length <= 0) {
+          if (value.isEmpty || value.length < 10) {
+            return 'Description is required and should be 10+ characters long.';
+          }
+        },
         onSaved: (String value) {
           _formData['description'] = value;
         },
@@ -75,49 +66,22 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
     );
   }
 
-  void _submitForm(Function addActivity, Function updateActivity) {
-    if (!_formKey.currentState.validate()) {
-      return;
-    }
-    _formKey.currentState.save();
-    if (widget.activity == null) {
-      addActivity(Activity(
-          title: _formData['title'],
-          description: _formData['description'],
-          time: _formData['time'],
-          image: _formData['image']));
-    } else {
-      updateActivity(
-          widget.activityIndex,
-          Activity(
-              title: _formData['title'],
-              description: _formData['description'],
-              time: _formData['time'],
-              image: _formData['image']));
-    }
-    Navigator.pushReplacementNamed(context, '/activities');
-  }
-
-  Widget _buildTimeTextField() {
+  Widget _buildPriceTextField(Activity activity) {
     return EnsureVisibleWhenFocused(
-      focusNode: _timeFocusNode,
+      focusNode: _priceFocusNode,
       child: TextFormField(
-        focusNode: _timeFocusNode,
-        initialValue:
-            widget.activity == null ? '' : widget.activity.time.toString(),
+        focusNode: _priceFocusNode,
+        keyboardType: TextInputType.number,
+        decoration: InputDecoration(labelText: 'Activity Time'),
+        initialValue: activity == null ? '' : activity.time.toString(),
         validator: (String value) {
-          if (value.isEmpty) {
-            return 'Required and should be 12 hour clock time';
+          // if (value.trim().length <= 0) {
+          if (value.isEmpty ) {
+            return 'Activity Time not valid';
           }
         },
-        decoration: InputDecoration(
-          labelText: 'Activity Time',
-        ),
-        keyboardType: TextInputType.number,
-        autocorrect: true,
-        autofocus: true,
         onSaved: (String value) {
-          _formData['time'] = double.parse(value);
+          _formData['price'] = double.parse(value);
         },
       ),
     );
@@ -127,51 +91,94 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
     return ScopedModelDescendant<ActivityModel>(
       builder: (BuildContext context, Widget child, ActivityModel model) {
         return RaisedButton(
-          child: Text('Create Activity'),
-          onPressed: () =>
-              _submitForm(model.addActivities, model.updateActivities),
+          child: Text('Save'),
+          textColor: Colors.white,
+          onPressed: () => _submitForm(model.addActivities, model.updateActivities,
+              model.selectedActivityIndex),
         );
       },
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildPageContent(BuildContext context, Activity activity) {
     final double deviceWidth = MediaQuery.of(context).size.width;
-    final double targetWidth = deviceWidth > 550 ? 500 : deviceWidth * 0.98;
+    final double targetWidth = deviceWidth > 550.0 ? 500.0 : deviceWidth * 0.95;
     final double targetPadding = deviceWidth - targetWidth;
-    final Widget pageContent = GestureDetector(
+    return GestureDetector(
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: Container(
-        width: targetWidth,
         margin: EdgeInsets.all(10.0),
         child: Form(
           key: _formKey,
           child: ListView(
             padding: EdgeInsets.symmetric(horizontal: targetPadding / 2),
             children: <Widget>[
-              _buildTitleTextField(),
-              _buildDescriptionTextField(),
-              _buildTimeTextField(),
+              _buildTitleTextField(activity),
+              _buildDescriptionTextField(activity),
+              _buildPriceTextField(activity),
               SizedBox(
                 height: 10.0,
               ),
               _buildSubmitButton(),
-              //@Todo: Gesture Detector
+              // GestureDetector(
+              //   onTap: _submitForm,
+              //   child: Container(
+              //     color: Colors.green,
+              //     padding: EdgeInsets.all(5.0),
+              //     child: Text('My Button'),
+              //   ),
+              // )
             ],
           ),
         ),
       ),
     );
-    return widget.activity == null
-        ? pageContent
-        : Scaffold(
-            appBar: AppBar(
-              title: Text('Edit Activity'),
-            ),
-            body: pageContent,
-          );
+  }
+
+  void _submitForm(Function addActivities, Function updateActivities,
+      [int selectedActivityIndex]) {
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
+    _formKey.currentState.save();
+    if (selectedActivityIndex == null) {
+      addActivities(
+        Activity(
+            title: _formData['title'],
+            description: _formData['description'],
+            time: _formData['time'],
+            image: _formData['image']),
+      );
+    } else {
+      updateActivities(
+        Activity(
+            title: _formData['title'],
+            description: _formData['description'],
+            time: _formData['time'],
+            image: _formData['image']),
+      );
+    }
+
+    Navigator.pushReplacementNamed(context, '/activities');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ScopedModelDescendant<ActivityModel>(
+      builder: (BuildContext context, Widget child, ActivityModel model) {
+        final Widget pageContent =
+            _buildPageContent(context, model.selectedActivity);
+        return model.selectedActivityIndex == null
+            ? pageContent
+            : Scaffold(
+                appBar: AppBar(
+                  title: Text('Edit Activity'),
+                ),
+                body: pageContent,
+              );
+      },
+    );
   }
 }

@@ -4,20 +4,39 @@ import '../models/activity.dart';
 
 class ActivityModel extends Model {
   List<Activity> _activities = [];
+  int _selectedActivityIndex;
 
   List<Activity> get activities {
     return List.from(_activities);
   }
 
+  int get selectedActivityIndex {
+    return _selectedActivityIndex;
+  }
+
+  Activity get selectedActivity {
+    if (_selectedActivityIndex == null) {
+      return null;
+    }
+    return _activities[_selectedActivityIndex];
+  }
+
   void addActivities(Activity activity) {
     _activities.add(activity);
+    _selectedActivityIndex = null;
   }
 
-  void deleteActivities(int index) {
-    _activities.removeAt(index);
+  void deleteActivities() {
+    _activities.removeAt(_selectedActivityIndex);
+    _selectedActivityIndex = null;
   }
 
-  void updateActivities(int index, Activity activity) {
-    _activities[index] = activity;
+  void updateActivities(Activity activity) {
+    _activities[_selectedActivityIndex] = activity;
+    _selectedActivityIndex = null;
+  }
+
+  void selectActivity(int index) {
+    _selectedActivityIndex = index;
   }
 }

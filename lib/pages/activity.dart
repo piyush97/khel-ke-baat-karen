@@ -37,28 +37,30 @@ class ActivityPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
+        print('Back button pressed!');
         Navigator.pop(context, false);
         return Future.value(false);
       },
       child: ScopedModelDescendant<ActivityModel>(
         builder: (BuildContext context, Widget child, ActivityModel model) {
-          final Activity activities = model.activities[activityIndex];
+          final Activity activity = model.activities[activityIndex];
           return Scaffold(
             appBar: AppBar(
-              title: Text(activities.title),
+              title: Text(activity.title),
             ),
-            body: ListView(
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Image.asset(activities.image),
+                Image.asset(activity.image),
                 Container(
                   padding: EdgeInsets.all(10.0),
-                  child: TitleDefault(activities.title),
+                  child: TitleDefault(activity.title),
                 ),
-                _buildActivityTimeRow(activities.time),
+                _buildActivityTimeRow(activity.time),
                 Container(
                   padding: EdgeInsets.all(10.0),
                   child: Text(
-                    activities.description,
+                    activity.description,
                     textAlign: TextAlign.center,
                   ),
                 )

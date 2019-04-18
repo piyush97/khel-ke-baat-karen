@@ -10,7 +10,6 @@ import './models/activity.dart';
 import './scoped-models/activites.dart';
 
 void main() {
-  SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
   runApp(MyApp());
 }
 
