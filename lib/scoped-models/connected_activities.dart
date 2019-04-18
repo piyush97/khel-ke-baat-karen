@@ -9,18 +9,21 @@ class ConnectedActivitiesModel extends Model {
   List<Activity> _activities = [];
   User _authenticatedUser;
   int _selActivityIndex;
+  bool _isLoading = false;
 
-  void addActivities(
+  Future<Null> addActivities(
       String title, String description, String image, double time) {
+    _isLoading = true;
+    notifyListeners();
     final Map<String, dynamic> activityData = {
       'title': title,
       'description': description,
       'image': 'http://images.huffingtonpost.com/2013-12-27-food12.jpg',
       'time': time,
       'userEmail': _authenticatedUser.email,
-      'userId':_authenticatedUser.id,
+      'userId': _authenticatedUser.id,
     };
-    http
+    return http
         .post('https://khel-ke-baat-karen.firebaseio.com/activities.json',
             body: json.encode(activityData))
         .then((http.Response response) {
@@ -33,9 +36,9 @@ class ConnectedActivitiesModel extends Model {
         time: time,
         userEmail: _authenticatedUser.email,
         userId: _authenticatedUser.id,
-
       );
       _activities.add(newActivity);
+      _isLoading = false;
       notifyListeners();
     });
   }
@@ -78,25 +81,33 @@ class ActivityModel extends ConnectedActivitiesModel {
   }
 
   void fetchActivities() {
+    _isLoading = true;
+    notifyListeners();
     http
         .get('https://khel-ke-baat-karen.firebaseio.com/activities.json')
         .then((http.Response response) {
-          final List<Activity> fetchedActivityList = [];
-      final Map<String, dynamic> activityListData =
-          json.decode(response.body);
-          activityListData.forEach((String activityId, dynamic activityData) {
-            final Activity activity = Activity( 
-            id: activityId,
-            title: activityData['title'],
-            description: activityData['description'],
-            image: activityData['image'],
-            time: activityData['time'],
-            userEmail: activityData['userEmail'],
-            userId: activityData['userId'],);
-            fetchedActivityList.add(activity);
-          });
-          _activities = fetchedActivityList;
-          notifyListeners();
+      final List<Activity> fetchedActivityList = [];
+      final Map<String, dynamic> activityListData = json.decode(response.body);
+      if (activityListData == null) {
+        _isLoading = false;
+        notifyListeners();
+        return;
+      }
+      activityListData.forEach((String activityId, dynamic activityData) {
+        final Activity activity = Activity(
+          id: activityId,
+          title: activityData['title'],
+          description: activityData['description'],
+          image: activityData['image'],
+          time: activityData['time'],
+          userEmail: activityData['userEmail'],
+          userId: activityData['userId'],
+        );
+        fetchedActivityList.add(activity);
+      });
+      _activities = fetchedActivityList;
+      _isLoading = false;
+      notifyListeners();
     });
   }
 
@@ -147,5 +158,11 @@ class UserModel extends ConnectedActivitiesModel {
       email: email,
       password: password,
     );
+  }
+}
+
+class UtilityModel extends ConnectedActivitiesModel {
+  bool get isLoading {
+    return _isLoading;
   }
 }

@@ -15,10 +15,11 @@ class ActivitiesPage extends StatefulWidget {
 
 class _ActivitiesPageState extends State<ActivitiesPage> {
   @override
-  initState(){
+  initState() {
     widget.model.fetchActivities();
     super.initState();
   }
+
   Widget _buildSideDrawer(BuildContext context) {
     return Drawer(
       child: Column(
@@ -36,6 +37,20 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
           )
         ],
       ),
+    );
+  }
+
+  Widget _buildActivitiesList() {
+    return ScopedModelDescendant(
+      builder: (BuildContext context, Widget child, MainModel model) {
+        Widget content = Center(child: Text('No Activities for Now!'));
+        if (model.displayActivities.length > 0 && !model.isLoading) {
+          content = Activities();
+        } else if (model.isLoading) {
+          content = Center(child:CircularProgressIndicator());
+        }
+        return content;
+      },
     );
   }
 
@@ -60,7 +75,7 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
           )
         ],
       ),
-      body: Activities(),
+      body: _buildActivitiesList(),
     );
   }
 }
