@@ -45,6 +45,11 @@ class ConnectedActivitiesModel extends Model {
       _activities.add(newActivity);
       _isLoading = false;
       notifyListeners();
+      return true;
+    }).catchError((error) {
+      _isLoading = false;
+      notifyListeners();
+      return false;
     });
   }
 }
@@ -103,12 +108,12 @@ class ActivityModel extends ConnectedActivitiesModel {
     });
   }
 
-  Future<Null> fetchActivities() {
+  Future<bool> fetchActivities() {
     _isLoading = true;
     notifyListeners();
     return http
         .get('https://khel-ke-baat-karen.firebaseio.com/activities.json')
-        .then((http.Response response) {
+        .then<Null>((http.Response response) {
       final List<Activity> fetchedActivityList = [];
       final Map<String, dynamic> activityListData = json.decode(response.body);
       if (activityListData == null) {
@@ -132,10 +137,14 @@ class ActivityModel extends ConnectedActivitiesModel {
       _isLoading = false;
       notifyListeners();
       _selActivityId = null;
+    }).catchError((error) {
+      _isLoading = false;
+      notifyListeners();
+      return;
     });
   }
 
-  Future<Null> updateActivities(
+  Future<bool> updateActivities(
       String title, String description, String image, double time) {
     _isLoading = true;
     final Map<String, dynamic> updateData = {
@@ -168,6 +177,11 @@ class ActivityModel extends ConnectedActivitiesModel {
       });
       _activities[selectedActivityIndex] = updatedActivity;
       notifyListeners();
+      return true;
+    }).catchError((error) {
+      _isLoading = false;
+      notifyListeners();
+      return false;
     });
   }
 
