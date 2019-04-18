@@ -1,4 +1,7 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:scoped_model/scoped_model.dart';
+
 import '../models/activity.dart';
 import '../models/user.dart';
 
@@ -9,6 +12,14 @@ class ConnectedActivitiesModel extends Model {
 
   void addActivities(
       String title, String description, String image, double time) {
+    final Map<String, dynamic> activityData = {
+      'title': title,
+      'description': description,
+      'image': 'http://images.huffingtonpost.com/2013-12-27-food12.jpg',
+      'time': time
+    };
+    http.post('https://khel-ke-baat-karen.firebaseio.com/activities.json',
+        body: json.encode(activityData));
     final Activity newActivity = Activity(
       title: title,
       description: description,
