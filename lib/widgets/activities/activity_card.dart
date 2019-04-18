@@ -43,7 +43,7 @@ class ActivityCard extends StatelessWidget {
         ScopedModelDescendant<MainModel>(
             builder: (BuildContext context, Widget child, MainModel model) {
           return IconButton(
-            icon: Icon(model.activities[activityIndex].isFavorite ? Icons.favorite : Icons.favorite_border),
+            icon: Icon(model.allActivities[activityIndex].isFavorite ? Icons.favorite : Icons.favorite_border),
             color: Colors.red,
             onPressed: () {
               model.selectActivity(activityIndex);
