@@ -5,8 +5,18 @@ import '../models/activity.dart';
 class ActivityModel extends Model {
   List<Activity> _activities = [];
   int _selectedActivityIndex;
+  bool _showFavorites = false;
 
   List<Activity> get activities {
+    return List.from(_activities);
+  }
+
+  List<Activity> get displayActivities {
+    if (_showFavorites) {
+      return List.from(
+        _activities.where((Activity activity) => activity.isFavorite).toList(),
+      );
+    }
     return List.from(_activities);
   }
 
@@ -19,6 +29,10 @@ class ActivityModel extends Model {
       return null;
     }
     return _activities[_selectedActivityIndex];
+  }
+
+  bool get displayFavoritesOnly {
+    return _showFavorites;
   }
 
   void addActivities(Activity activity) {
@@ -56,5 +70,11 @@ class ActivityModel extends Model {
 
   void selectActivity(int index) {
     _selectedActivityIndex = index;
+    notifyListeners();
+  }
+
+  void toggleDisplayMode() {
+    _showFavorites = !_showFavorites;
+    notifyListeners();
   }
 }

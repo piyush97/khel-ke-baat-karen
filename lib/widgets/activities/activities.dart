@@ -24,7 +24,7 @@ class Activities extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScopedModelDescendant<ActivityModel>(
       builder: (BuildContext context, Widget child, ActivityModel model) {
-        return _buildActivityList(model.activities);
+        return _buildActivityList(model.displayActivities);
       },
     );
   }
