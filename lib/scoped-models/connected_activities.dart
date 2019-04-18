@@ -8,7 +8,7 @@ import '../models/user.dart';
 class ConnectedActivitiesModel extends Model {
   List<Activity> _activities = [];
   User _authenticatedUser;
-  int _selActivityIndex;
+  String _selActivityId;
   bool _isLoading = false;
 
   Future<Null> addActivities(
@@ -60,15 +60,23 @@ class ActivityModel extends ConnectedActivitiesModel {
     return List.from(_activities);
   }
 
+  String get selectedActivityId {
+    return _selActivityId;
+  }
+
   int get selectedActivityIndex {
-    return _selActivityIndex;
+    return _activities.indexWhere((Activity activity) {
+      return activity.id == _selActivityId;
+    });
   }
 
   Activity get selectedActivity {
-    if (selectedActivityIndex == null) {
+    if (selectedActivityId == null) {
       return null;
     }
-    return _activities[selectedActivityIndex];
+    return _activities.firstWhere((Activity activity) {
+      return activity.id == _selActivityId;
+    });
   }
 
   bool get displayFavoritesOnly {
@@ -79,11 +87,11 @@ class ActivityModel extends ConnectedActivitiesModel {
     _isLoading = true;
     final deletedActivityId = selectedActivity.id;
     _activities.removeAt(selectedActivityIndex);
-    _selActivityIndex = null;
+    _selActivityId = null;
     notifyListeners();
     http
         .delete(
-            'https://khel-ke-baat-karen.firebaseio.com/activities/${deletedActivityId.id}.json')
+            'https://khel-ke-baat-karen.firebaseio.com/activities/${deletedActivityId}.json')
         .then((http.Response response) {
       _isLoading = false;
       notifyListeners();
@@ -148,6 +156,10 @@ class ActivityModel extends ConnectedActivitiesModel {
         userEmail: selectedActivity.userEmail,
         userId: selectedActivity.userId,
       );
+      final int selectedActivityIndex =
+          _activities.indexWhere((Activity activity) {
+        return activity.id == _selActivityId;
+      });
       _activities[selectedActivityIndex] = updatedActivity;
       notifyListeners();
     });
@@ -157,6 +169,7 @@ class ActivityModel extends ConnectedActivitiesModel {
     final bool isCurrentlyFavorite = selectedActivity.isFavorite;
     final bool newFavStatus = !isCurrentlyFavorite;
     final Activity updatedActivity = Activity(
+        id: selectedActivity.id,
         title: selectedActivity.title,
         description: selectedActivity.description,
         time: selectedActivity.time,
@@ -168,8 +181,8 @@ class ActivityModel extends ConnectedActivitiesModel {
     notifyListeners();
   }
 
-  void selectActivity(int index) {
-    _selActivityIndex = index;
+  void selectActivity(String activityId) {
+    _selActivityId = activityId;
     notifyListeners();
   }
 

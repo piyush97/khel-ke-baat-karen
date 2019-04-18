@@ -7,8 +7,9 @@ import '../scoped-models/main.dart';
 import '../widgets/ui_elements/title_default.dart';
 
 class ActivityPage extends StatelessWidget {
-  final int activityIndex;
-  ActivityPage(this.activityIndex);
+  final Activity activity;
+
+  ActivityPage(this.activity);
 
   Widget _buildActivityTimeRow(double time) {
     return Row(
@@ -41,33 +42,28 @@ class ActivityPage extends StatelessWidget {
         Navigator.pop(context, false);
         return Future.value(false);
       },
-      child: ScopedModelDescendant<MainModel>(
-        builder: (BuildContext context, Widget child, MainModel model) {
-          final Activity activity = model.allActivities[activityIndex];
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(activity.title),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(activity.title),
+        ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Image.network(activity.image),
+            Container(
+              padding: EdgeInsets.all(10.0),
+              child: TitleDefault(activity.title),
             ),
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Image.network(activity.image),
-                Container(
-                  padding: EdgeInsets.all(10.0),
-                  child: TitleDefault(activity.title),
-                ),
-                _buildActivityTimeRow(activity.time),
-                Container(
-                  padding: EdgeInsets.all(10.0),
-                  child: Text(
-                    activity.description,
-                    textAlign: TextAlign.center,
-                  ),
-                )
-              ],
-            ),
-          );
-        },
+            _buildActivityTimeRow(activity.time),
+            Container(
+              padding: EdgeInsets.all(10.0),
+              child: Text(
+                activity.description,
+                textAlign: TextAlign.center,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

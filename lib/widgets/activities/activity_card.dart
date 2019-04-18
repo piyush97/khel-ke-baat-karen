@@ -29,30 +29,30 @@ class ActivityCard extends StatelessWidget {
   }
 
   Widget _buildActionButtons(BuildContext context) {
-    return ButtonBar(
-      alignment: MainAxisAlignment.center,
-      children: <Widget>[
-        IconButton(
-          icon: Icon(Icons.info),
-          color: Theme.of(context).accentColor,
-          onPressed: () => Navigator.pushNamed<bool>(
-                context,
-                '/activity/' + activityIndex.toString(),
-              ),
-        ),
-        ScopedModelDescendant<MainModel>(
-            builder: (BuildContext context, Widget child, MainModel model) {
-          return IconButton(
-            icon: Icon(model.allActivities[activityIndex].isFavorite ? Icons.favorite : Icons.favorite_border),
+    return ScopedModelDescendant<MainModel>(
+        builder: (BuildContext context, Widget child, MainModel model) {
+      return ButtonBar(
+        alignment: MainAxisAlignment.center,
+        children: <Widget>[
+          IconButton(
+            icon: Icon(Icons.info),
+            color: Theme.of(context).accentColor,
+            onPressed: () => Navigator.pushNamed<bool>(
+                context, '/activity/' + model.allActivities[activityIndex].id),
+          ),
+          IconButton(
+            icon: Icon(model.allActivities[activityIndex].isFavorite
+                ? Icons.favorite
+                : Icons.favorite_border),
             color: Colors.red,
             onPressed: () {
-              model.selectActivity(activityIndex);
+              model.selectActivity(model.allActivities[activityIndex].id);
               model.toggleFavActivity();
             },
-          );
-        }),
-      ],
-    );
+          ),
+        ],
+      );
+    });
   }
 
   @override
@@ -60,7 +60,12 @@ class ActivityCard extends StatelessWidget {
     return Card(
       child: Column(
         children: <Widget>[
-          Image.network(activity.image ?? ''),
+          FadeInImage(
+            image: NetworkImage(activity.image),
+            height: 300.0,
+            fit: BoxFit.cover,
+            placeholder: AssetImage('assets/food.jpg'),
+          ),
           SizedBox(
             height: 10.0,
           ),

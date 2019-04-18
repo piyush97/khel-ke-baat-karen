@@ -7,6 +7,8 @@ import './pages/activites_admin.dart';
 import './pages/activites.dart';
 import './pages/auth.dart';
 import './scoped-models/main.dart';
+import './models/activity.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -43,10 +45,13 @@ class _MyAppState extends State<MyApp> {
             return null;
           }
           if (pathElements[1] == 'activity') {
-            final int index = int.parse(pathElements[2]);
+            final String activityId = pathElements[2];
+            final Activity activity =
+                model.allActivities.firstWhere((Activity activity) {
+              return activity.id == activityId;
+            });
             return MaterialPageRoute<bool>(
-              builder: (BuildContext context) =>
-                  ActivityPage(index),
+              builder: (BuildContext context) => ActivityPage(activity),
             );
           }
           return null;

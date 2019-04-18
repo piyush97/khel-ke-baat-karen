@@ -11,7 +11,7 @@ class Activity {
   final String userId;
 
   Activity({
-    this.id,
+    @required this.id,
     @required this.title,
     @required this.description,
     @required this.time,

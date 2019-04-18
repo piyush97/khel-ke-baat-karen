@@ -26,7 +26,7 @@ class _ActivityListPageState extends State<ActivityListPage> {
     return IconButton(
       icon: Icon(Icons.edit),
       onPressed: () {
-        model.selectActivity(index);
+        model.selectActivity(model.allActivities[index].id);
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (BuildContext context) {
@@ -48,7 +48,7 @@ class _ActivityListPageState extends State<ActivityListPage> {
               key: Key(model.allActivities[index].title),
               onDismissed: (DismissDirection direction) {
                 if (direction == DismissDirection.endToStart) {
-                  model.selectActivity(index);
+                  model.selectActivity(model.allActivities[index].id);
                   model.deleteActivities();
                 } else if (direction == DismissDirection.startToEnd) {
                   print('Swiped start to end');

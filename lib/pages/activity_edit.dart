@@ -151,7 +151,7 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
       return;
     }
     _formKey.currentState.save();
-    if (selectedActivityIndex == null) {
+    if (selectedActivityIndex == -1) {
       addActivities(
         _formData['title'],
         _formData['description'],
@@ -175,7 +175,7 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
       builder: (BuildContext context, Widget child, MainModel model) {
         final Widget pageContent =
             _buildPageContent(context, model.selectedActivity);
-        return model.selectedActivityIndex == null
+        return model.selectedActivityIndex == -1
             ? pageContent
             : Scaffold(
                 appBar: AppBar(
