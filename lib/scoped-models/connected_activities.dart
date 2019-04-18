@@ -76,8 +76,18 @@ class ActivityModel extends ConnectedActivitiesModel {
   }
 
   void deleteActivities() {
+    _isLoading = true;
+    final deletedActivityId = selectedActivity.id;
     _activities.removeAt(selectedActivityIndex);
+    _selActivityIndex = null;
     notifyListeners();
+    http
+        .delete(
+            'https://khel-ke-baat-karen.firebaseio.com/activities/${deletedActivityId.id}.json')
+        .then((http.Response response) {
+      _isLoading = false;
+      notifyListeners();
+    });
   }
 
   void fetchActivities() {
