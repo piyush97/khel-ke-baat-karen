@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:rect_getter/rect_getter.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../widgets/activities/activities.dart';
 import '../scoped-models/main.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
+
 class ActivitiesPage extends StatefulWidget {
   final MainModel model;
   ActivitiesPage(this.model);
@@ -47,7 +49,11 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
         if (model.displayActivities.length > 0 && !model.isLoading) {
           content = Activities();
         } else if (model.isLoading) {
-          content = Center(child: CircularProgressIndicator());
+          content = Center(
+              child: SpinKitCubeGrid(
+            color: Colors.black,
+            size: 50.0,
+          ));
         }
         return RefreshIndicator(
             onRefresh: model.fetchActivities, child: content);
@@ -105,16 +111,11 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
             ],
           ),
           body: _buildActivitiesList(),
-          bottomNavigationBar: FancyBottomNavigation(
-    tabs: [
-        TabData(iconData: Icons.home, title: "Home"),
-        TabData(iconData: Icons.search, title: "Search activities"),
-        TabData(iconData: Icons.games, title: "Game")
-    ],
-    onTabChangedListener: (_)=> {}
-       
-    
-),
+          bottomNavigationBar: FancyBottomNavigation(tabs: [
+            TabData(iconData: Icons.home, title: "Home"),
+            TabData(iconData: Icons.search, title: "Search activities"),
+            TabData(iconData: Icons.games, title: "Game")
+          ], onTabChangedListener: (_) => {}),
           floatingActionButton: RectGetter(
             key: rectGetterKey,
             child:
@@ -167,7 +168,10 @@ class NewPage extends StatelessWidget {
       body: Center(
         child: Card(
           child: Center(
-            child: Text("300!!!", style: TextStyle(fontSize: 200),),
+            child: Text(
+              "300!!!",
+              style: TextStyle(fontSize: 200),
+            ),
           ),
         ),
       ),
