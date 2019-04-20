@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:fluttery/layout.dart';
 
 import './activity_card.dart';
 import '../../models/activity.dart';

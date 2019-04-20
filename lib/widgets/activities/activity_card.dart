@@ -3,7 +3,6 @@ import 'package:scoped_model/scoped_model.dart';
 
 import './time.dart';
 import '../ui_elements/title_default.dart';
-import './description_tag.dart';
 import '../../models/activity.dart';
 import '../../scoped-models/main.dart';
 

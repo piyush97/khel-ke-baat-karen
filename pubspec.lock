@@ -36,6 +36,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
+  fancy_bottom_navigation:
+    dependency: "direct main"
+    description:
+      name: fancy_bottom_navigation
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.2"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -46,20 +53,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_tts:
-    dependency: "direct main"
-    description:
-      name: flutter_tts
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.4"
-  fluttery:
-    dependency: "direct main"
-    description:
-      name: fluttery
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.8"
   http:
     dependency: "direct main"
     description:

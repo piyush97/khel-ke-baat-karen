@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rect_getter/rect_getter.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import '../widgets/activities/activities.dart';
 import '../scoped-models/main.dart';
-
+import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 class ActivitiesPage extends StatefulWidget {
   final MainModel model;
   ActivitiesPage(this.model);
@@ -79,8 +78,6 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
 
   @override
   Widget build(BuildContext context) {
-    FlutterTts flutterTts = new FlutterTts();
-    flutterTts.speak('hello');
     return Stack(
       children: <Widget>[
         Scaffold(
@@ -108,6 +105,16 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
             ],
           ),
           body: _buildActivitiesList(),
+          bottomNavigationBar: FancyBottomNavigation(
+    tabs: [
+        TabData(iconData: Icons.home, title: "Home"),
+        TabData(iconData: Icons.search, title: "Search"),
+        TabData(iconData: Icons.shopping_cart, title: "Basket")
+    ],
+    onTabChangedListener: (_)=> {}
+       
+    
+),
           floatingActionButton: RectGetter(
             key: rectGetterKey,
             child:
