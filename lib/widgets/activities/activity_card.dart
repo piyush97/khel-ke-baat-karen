@@ -14,7 +14,7 @@ class ActivityCard extends StatelessWidget {
 
   Widget _buildTitleTimeRow() {
     return Container(
-      padding: EdgeInsets.only(top: 10.0),
+      padding: EdgeInsets.only(top: 20.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
@@ -57,26 +57,29 @@ class ActivityCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Column(
-        children: <Widget>[
-                    SizedBox(
-            height: 150.0,
-          ),
-          Container(
-            padding: EdgeInsets.all(30.0),
-            child: FadeInImage(
-            
-            image: NetworkImage(activity.image),
-            height: 200.0,
-            fit:BoxFit.scaleDown,
-            placeholder: AssetImage('assets/food.jpg'),
-          ),
-          ),
-          _buildTitleTimeRow(),
-          Text(activity.userEmail),
-          _buildActionButtons(context),
-        ],
+    return Center(
+      child: Card(
+        elevation: 1,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            SizedBox(
+              height: 10.0,
+            ),
+            Container(
+              padding: EdgeInsets.all(30.0),
+              child: FadeInImage(
+                image: NetworkImage(activity.image),
+                height: 200.0,
+                fit: BoxFit.scaleDown,
+                placeholder: AssetImage('assets/food.jpg'),
+              ),
+            ),
+            _buildTitleTimeRow(),
+            Text(activity.userEmail),
+            _buildActionButtons(context),
+          ],
+        ),
       ),
     );
   }
