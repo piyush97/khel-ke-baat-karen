@@ -10,25 +10,11 @@ class ActivityPage extends StatelessWidget {
   ActivityPage(this.activity);
 
   Widget _buildActivityTimeRow(double time) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          'Healthy Food',
-          style: TextStyle(fontFamily: 'Oswald', color: Colors.grey),
-        ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 5.0),
-          child: Text(
-            '|',
-            style: TextStyle(color: Colors.grey),
-          ),
-        ),
-        Text(
-          'Time: ' + time.toString(),
-          style: TextStyle(fontFamily: 'Oswald', color: Colors.grey),
-        )
-      ],
+    return Center(
+      child: Text(
+        'Time: ' + time.toString(),
+        style: TextStyle(fontFamily: 'Oswald', color: Colors.grey),
+      ),
     );
   }
 
@@ -36,7 +22,6 @@ class ActivityPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        print('Back button pressed!');
         Navigator.pop(context, false);
         return Future.value(false);
       },
@@ -44,22 +29,30 @@ class ActivityPage extends StatelessWidget {
         appBar: AppBar(
           title: Text(activity.title),
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        body: ListView(
           children: <Widget>[
-            Image.network(activity.image),
-            Container(
-              padding: EdgeInsets.all(10.0),
-              child: TitleDefault(activity.title),
+            Image.network(
+              activity.image,
+              scale: 0.1,
+              height: 400,
             ),
-            _buildActivityTimeRow(activity.time),
             Container(
               padding: EdgeInsets.all(10.0),
-              child: Text(
-                activity.description,
-                textAlign: TextAlign.center,
-              ),
-            )
+              child: Center(child: TitleDefault(activity.title)),
+            ),
+            Center(
+              child: _buildActivityTimeRow(activity.time),
+            ),
+            Center(
+                child: Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Center(
+                        child: Center(
+                      child: Text(
+                        activity.description,
+                        textAlign: TextAlign.center,
+                      ),
+                    ))))
           ],
         ),
       ),
