@@ -51,8 +51,8 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
         } else if (model.isLoading) {
           content = Center(
               child: SpinKitCubeGrid(
-            color: Colors.black,
-            size: 50.0,
+            color: Colors.black26,
+            size: 80.0,
           ));
         }
         return RefreshIndicator(

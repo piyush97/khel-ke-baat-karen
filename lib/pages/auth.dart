@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
-
+import 'package:animated_text_kit/animated_text_kit.dart';
 import '../scoped-models/main.dart';
 
 class AuthPage extends StatefulWidget {
@@ -21,7 +21,7 @@ class _AuthPageState extends State<AuthPage> {
   DecorationImage _buildBackgroundImage() {
     return DecorationImage(
       fit: BoxFit.cover,
-      image: AssetImage('assets/background.jpg'),
+      image: AssetImage('assets/backgrond.jpg'),
     );
   }
 
@@ -98,6 +98,33 @@ class _AuthPageState extends State<AuthPage> {
                           onPressed: () => _submitForm(model.login),
                         );
                       },
+                    ),
+                    Center(
+                      child: SizedBox(
+                        width: 750.0,
+                        height: 300.0,
+                        child: ColorizeAnimatedTextKit(
+                            onTap: () {
+                              print("Tap Event");
+                            },
+                            text: [
+                              "Khel ke Baat Karen",
+                              "App for scheduling",
+                              "App for your kid"
+                            ],
+                            textStyle:
+                                TextStyle(fontSize: 90.0, fontFamily: "Oswald"),
+                            colors: [
+                              Colors.purple,
+                              Colors.blue,
+                              Colors.yellow,
+                              Colors.red,
+                            ],
+                            textAlign: TextAlign.start,
+                            alignment: AlignmentDirectional
+                                .topStart // or Alignment.topLeft
+                            ),
+                      ),
                     )
                   ],
                 ),
