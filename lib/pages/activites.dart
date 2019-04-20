@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rect_getter/rect_getter.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import '../widgets/activities/activities.dart';
@@ -55,39 +56,113 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
     );
   }
 
+  final Duration animationDuration = Duration(milliseconds: 300);
+  final Duration delay = Duration(milliseconds: 300);
+  GlobalKey rectGetterKey = RectGetter.createGlobalKey();
+  Rect rect;
+  void _onTap() async {
+    setState(() => rect = RectGetter.getRectFromKey(rectGetterKey));
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      //<-- on the next frame...
+      setState(() => rect = rect.inflate(1.3 *
+          MediaQuery.of(context).size.longestSide)); //<-- set rect to be big
+      Future.delayed(animationDuration + delay,
+          _goToNextPage); //<-- after delay, go to next page
+    });
+  }
+
+  void _goToNextPage() {
+    Navigator.of(context)
+        .push(FadeRouteBuilder(page: NewPage()))
+        .then((_) => setState(() => rect = null));
+  }
+
   @override
   Widget build(BuildContext context) {
     FlutterTts flutterTts = new FlutterTts();
     flutterTts.speak('hello');
-    return Scaffold(
-      drawer: _buildSideDrawer(context),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        title: Text(
-          'Khel Ke Baat Karen',
-        ),
-        actions: <Widget>[
-          ScopedModelDescendant<MainModel>(
-            builder: (BuildContext context, Widget widget, MainModel model) {
-              return IconButton(
-                icon: Icon(model.displayFavoritesOnly
-                    ? Icons.favorite
-                    : Icons.favorite_border),
-                onPressed: () {
-                  model.toggleDisplayMode();
+    return Stack(
+      children: <Widget>[
+        Scaffold(
+          drawer: _buildSideDrawer(context),
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0.0,
+            title: Text(
+              'Khel Ke Baat Karen',
+            ),
+            actions: <Widget>[
+              ScopedModelDescendant<MainModel>(
+                builder:
+                    (BuildContext context, Widget widget, MainModel model) {
+                  return IconButton(
+                    icon: Icon(model.displayFavoritesOnly
+                        ? Icons.favorite
+                        : Icons.favorite_border),
+                    onPressed: () {
+                      model.toggleDisplayMode();
+                    },
+                  );
                 },
-              );
-            },
-          )
-        ],
+              )
+            ],
+          ),
+          body: _buildActivitiesList(),
+          floatingActionButton: RectGetter(
+            key: rectGetterKey,
+            child:
+                FloatingActionButton(child: Text('Points'), onPressed: _onTap),
+          ),
+        ),
+        _ripple()
+      ],
+    );
+  }
+
+  Widget _ripple() {
+    if (rect == null) {
+      return Container();
+    }
+    return AnimatedPositioned(
+      //<--replace Positioned with AnimatedPositioned
+      duration: animationDuration, //<--specify the animation duration
+      left: rect.left,
+      right: MediaQuery.of(context).size.width - rect.right,
+      top: rect.top,
+      bottom: MediaQuery.of(context).size.height - rect.bottom,
+      child: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.lime,
+        ),
       ),
-      body: _buildActivitiesList(),
-      floatingActionButton: FloatingActionButton(
-        child: Text('Points'),
-        onPressed: () {SimpleDialog(title: Text(
-          "Loooser"
-        ),);},
+    );
+  }
+}
+
+class FadeRouteBuilder<T> extends PageRouteBuilder<T> {
+  final Widget page;
+
+  FadeRouteBuilder({@required this.page})
+      : super(
+          pageBuilder: (context, animation1, animation2) => page,
+          transitionsBuilder: (context, animation1, animation2, child) {
+            return FadeTransition(opacity: animation1, child: child);
+          },
+        );
+}
+
+class NewPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Points Chart')),
+      body: Center(
+        child: Card(
+          child: Center(
+            child: Text("300!!!", style: TextStyle(fontSize: 200),),
+          ),
+        ),
       ),
     );
   }
