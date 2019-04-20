@@ -22,23 +22,6 @@ class Activities extends StatelessWidget {
     return activityCards;
   }
 
-  Widget _buildCardStack() {
-    return new AnchoredOverlay(
-        showOverlay: true,
-        child: new Center(),
-        overlayBuilder:
-            (BuildContext context, Rect anchorBounds, Offset anchor) {
-          return CenterAbout(
-            position: anchor,
-            child: new Container(
-              width: anchorBounds.width,
-              height: anchorBounds.height,
-              padding: const EdgeInsets.all(16.0),
-            ),
-          );
-        });
-  }
-
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<MainModel>(
