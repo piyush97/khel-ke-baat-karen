@@ -83,6 +83,12 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
         ],
       ),
       body: _buildActivitiesList(),
+      floatingActionButton: FloatingActionButton(
+        child: Text('Points'),
+        onPressed: () {SimpleDialog(title: Text(
+          "Loooser"
+        ),);},
+      ),
     );
   }
 }
