@@ -9,7 +9,9 @@ class Activities extends StatelessWidget {
   Widget _buildActivityList(List<Activity> activities) {
     Widget activityCards;
     if (activities.length > 0) {
-      activityCards = ListView.builder(
+      activityCards = PageView.builder(
+        
+         controller: PageController(viewportFraction: .67),
         scrollDirection: Axis.values[0],
         itemBuilder: (BuildContext context, int index) =>
             ActivityCard(activities[index], index),
