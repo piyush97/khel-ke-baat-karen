@@ -65,7 +65,7 @@ class _ActivityListPageState extends State<ActivityListPage> {
                     ),
                     title: Text(model.allActivities[index].title),
                     subtitle:
-                        Text('\$${model.allActivities[index].time.toString()}'),
+                        Text('Time:${model.allActivities[index].time.toString()}'),
                     trailing: _buildEditButton(context, index, model),
                   ),
                   Divider()

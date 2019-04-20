@@ -28,7 +28,7 @@ class _MyAppState extends State<MyApp> {
       model: model,
       child: MaterialApp(
         theme: ThemeData(
-          brightness: Brightness.dark,
+          brightness: Brightness.light,
           primarySwatch: Colors.lime,
           secondaryHeaderColor: Colors.amber,
           buttonColor: Colors.yellow,

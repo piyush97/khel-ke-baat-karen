@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
-
+import 'package:flutter_tts/flutter_tts.dart';
 import '../widgets/activities/activities.dart';
 import '../scoped-models/main.dart';
 
@@ -57,10 +57,16 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
 
   @override
   Widget build(BuildContext context) {
+    FlutterTts flutterTts = new FlutterTts();
+    flutterTts.speak('hello');
     return Scaffold(
       drawer: _buildSideDrawer(context),
       appBar: AppBar(
-        title: Text('Khel Ke Baat Karen'),
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        title: Text(
+          'Khel Ke Baat Karen',
+        ),
         actions: <Widget>[
           ScopedModelDescendant<MainModel>(
             builder: (BuildContext context, Widget widget, MainModel model) {

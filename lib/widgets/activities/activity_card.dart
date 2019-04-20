@@ -60,17 +60,20 @@ class ActivityCard extends StatelessWidget {
     return Card(
       child: Column(
         children: <Widget>[
-          FadeInImage(
+                    SizedBox(
+            height: 150.0,
+          ),
+          Container(
+            padding: EdgeInsets.all(30.0),
+            child: FadeInImage(
+            
             image: NetworkImage(activity.image),
-            height: 300.0,
-            fit: BoxFit.cover,
+            height: 200.0,
+            fit:BoxFit.scaleDown,
             placeholder: AssetImage('assets/food.jpg'),
           ),
-          SizedBox(
-            height: 10.0,
           ),
           _buildTitleTimeRow(),
-          DescriptionTag('Swimming is good for health'),
           Text(activity.userEmail),
           _buildActionButtons(context),
         ],
