@@ -108,8 +108,8 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
           bottomNavigationBar: FancyBottomNavigation(
     tabs: [
         TabData(iconData: Icons.home, title: "Home"),
-        TabData(iconData: Icons.search, title: "Search"),
-        TabData(iconData: Icons.shopping_cart, title: "Basket")
+        TabData(iconData: Icons.search, title: "Search activities"),
+        TabData(iconData: Icons.games, title: "Game")
     ],
     onTabChangedListener: (_)=> {}
        

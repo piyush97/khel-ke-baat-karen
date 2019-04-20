@@ -10,7 +10,10 @@ import './scoped-models/main.dart';
 import './models/activity.dart';
 
 void main() {
-  runApp(MyApp());
+   SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight])
+    .then((_) {
+      runApp(new MyApp());
+});
 }
 
 class MyApp extends StatefulWidget {
