@@ -10,7 +10,9 @@ import './scoped-models/main.dart';
 import './models/activity.dart';
 
 void main() {
+      SystemChrome.setEnabledSystemUIOverlays([]);
    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight])
+   
     .then((_) {
       runApp(new MyApp());
 });

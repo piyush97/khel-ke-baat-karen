@@ -28,7 +28,10 @@ class _AuthPageState extends State<AuthPage> {
   Widget _buildEmailTextField() {
     return TextFormField(
       decoration: InputDecoration(
-          labelText: 'Full Name', filled: true, fillColor: Colors.white),
+          border: InputBorder.none,
+          labelText: 'Full Name',
+          filled: true,
+          fillColor: Colors.white),
       keyboardType: TextInputType.emailAddress,
       validator: (String value) {
         if (value.isEmpty) {
@@ -44,7 +47,24 @@ class _AuthPageState extends State<AuthPage> {
   Widget _buildPasswordTextField() {
     return TextFormField(
       decoration: InputDecoration(
-          labelText: 'gender', filled: true, fillColor: Colors.white),
+          border: InputBorder.none,
+          labelText: 'Habits',
+          helperText: 'seperated with commas',
+          filled: true,
+          fillColor: Colors.white),
+      onSaved: (String value) {
+        _formData['password'] = value;
+      },
+    );
+  }
+
+  Widget _buildGenderField() {
+    return TextFormField(
+      decoration: InputDecoration(
+          labelText: 'Habits',
+          helperText: 'seperated with commas',
+          filled: true,
+          fillColor: Colors.white),
       onSaved: (String value) {
         _formData['password'] = value;
       },
@@ -65,9 +85,6 @@ class _AuthPageState extends State<AuthPage> {
     final double deviceWidth = MediaQuery.of(context).size.width;
     final double targetWidth = deviceWidth > 550.0 ? 500.0 : deviceWidth * 0.95;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-      ),
       body: Container(
         decoration: BoxDecoration(
           image: _buildBackgroundImage(),
@@ -81,6 +98,7 @@ class _AuthPageState extends State<AuthPage> {
                 key: _formKey,
                 child: Column(
                   children: <Widget>[
+                    Text("Enter your details. We want to know you better"),
                     _buildEmailTextField(),
                     SizedBox(
                       height: 10.0,

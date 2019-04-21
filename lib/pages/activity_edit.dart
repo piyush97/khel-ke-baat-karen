@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../widgets/helpers/ensure_visible.dart';
 import '../models/activity.dart';
@@ -17,12 +18,14 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
     'title': null,
     'description': null,
     'time': null,
-    'image': 'assets/food.jpg'
+    'image': 'assets/food.jpg',
+    'day': null,
   };
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _titleFocusNode = FocusNode();
   final _descriptionFocusNode = FocusNode();
   final _priceFocusNode = FocusNode();
+  final _dayFocusNode = FocusNode();
 
   Widget _buildTitleTextField(Activity activity) {
     return EnsureVisibleWhenFocused(
@@ -86,6 +89,23 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
     );
   }
 
+  Widget _imageInput() {
+    return Column(
+      children: <Widget>[
+        OutlineButton(
+          onPressed: () {},
+          child: Row(
+            children: <Widget>[
+              Icon(Icons.camera_alt),
+              SizedBox(width: 5.0),
+              Text("Add Image"),
+            ],
+          ),
+        )
+      ],
+    );
+  }
+
   Widget _buildSubmitButton() {
     return ScopedModelDescendant<MainModel>(
       builder: (BuildContext context, Widget child, MainModel model) {
@@ -128,6 +148,7 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
               SizedBox(
                 height: 10.0,
               ),
+              _imageInput(),
               _buildSubmitButton(),
               // GestureDetector(
               //   onTap: _submitForm,

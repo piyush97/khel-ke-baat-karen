@@ -57,7 +57,7 @@ class ActivityCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Card(
+      child: Card(margin: EdgeInsets.all(18.0),
         elevation: 1,
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -71,7 +71,7 @@ class ActivityCard extends StatelessWidget {
                 image: NetworkImage(activity.image),
                 height: 200.0,
                 fit: BoxFit.scaleDown,
-                placeholder: AssetImage('assets/food.jpg'),
+                placeholder: AssetImage('assets/loader.jpg'),
               ),
             ),
             _buildTitleTimeRow(),
