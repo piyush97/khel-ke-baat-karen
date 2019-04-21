@@ -72,3 +72,4 @@
 key.dart
 secrets.json
 lib/scoped-models/connected_activities.dart
+connected_activities.dart
