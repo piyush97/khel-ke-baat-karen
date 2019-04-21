@@ -10,12 +10,11 @@ import './scoped-models/main.dart';
 import './models/activity.dart';
 
 void main() {
-      SystemChrome.setEnabledSystemUIOverlays([]);
-   SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight])
-   
-    .then((_) {
-      runApp(new MyApp());
-});
+  SystemChrome.setEnabledSystemUIOverlays([]);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight])
+      .then((_) {
+    runApp(new MyApp());
+  });
 }
 
 class MyApp extends StatefulWidget {
@@ -26,11 +25,17 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final MainModel _model = MainModel();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final MainModel model = MainModel();
     return ScopedModel<MainModel>(
-      model: model,
+      model: _model,
       child: MaterialApp(
         theme: ThemeData(
           brightness: Brightness.light,
@@ -41,8 +46,8 @@ class _MyAppState extends State<MyApp> {
         // home: AuthPage(),
         routes: {
           '/': (BuildContext context) => AuthPage(),
-          '/activities': (BuildContext context) => ActivitiesPage(model),
-          '/admin': (BuildContext context) => ActivitiesAdminPage(model),
+          '/activities': (BuildContext context) => ActivitiesPage(_model),
+          '/admin': (BuildContext context) => ActivitiesAdminPage(_model),
         },
         onGenerateRoute: (RouteSettings settings) {
           final List<String> pathElements = settings.name.split('/');
@@ -52,7 +57,7 @@ class _MyAppState extends State<MyApp> {
           if (pathElements[1] == 'activity') {
             final String activityId = pathElements[2];
             final Activity activity =
-                model.allActivities.firstWhere((Activity activity) {
+                _model.allActivities.firstWhere((Activity activity) {
               return activity.id == activityId;
             });
             return MaterialPageRoute<bool>(
@@ -63,7 +68,7 @@ class _MyAppState extends State<MyApp> {
         },
         onUnknownRoute: (RouteSettings settings) {
           return MaterialPageRoute(
-            builder: (BuildContext context) => ActivitiesPage(model),
+            builder: (BuildContext context) => ActivitiesPage(_model),
           );
         },
       ),
