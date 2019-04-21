@@ -89,18 +89,52 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
     );
   }
 
+  void _openImagePicker(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+              height: 150.0,
+              padding: EdgeInsets.all(10.0),
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    'Pick an Image',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  FlatButton(
+                    child: Text('Use Camera'),
+                    onPressed: () {},
+                    textColor: Theme.of(context).primaryColor,
+                  ),
+                  FlatButton(
+                    child: Text('Use Gallery'),
+                    onPressed: () {},
+                    textColor: Theme.of(context).primaryColor,
+                  )
+                ],
+              ));
+        });
+  }
+
   Widget _imageInput() {
     return Column(
       children: <Widget>[
         OutlineButton(
           borderSide: BorderSide(color: Theme.of(context).accentColor),
-          onPressed: () {},
+          onPressed: () {
+            _openImagePicker(context);
+          },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Icon(Icons.camera_alt),
               SizedBox(width: 5.0),
-              Text("Add Image", style: TextStyle(color: Theme.of(context).accentColor)),
+              Text("Add Image",
+                  style: TextStyle(color: Theme.of(context).accentColor)),
             ],
           ),
         )
