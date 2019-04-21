@@ -3,11 +3,14 @@ import 'package:http/http.dart' as http;
 import 'package:scoped_model/scoped_model.dart';
 import 'dart:async';
 import 'dart:io';
+import 'dart:async' show Future;
+import 'dart:convert' show json;
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:mime/mime.dart';
 import 'package:http_parser/http_parser.dart';
 import '../models/activity.dart';
 import '../models/user.dart';
-import './key.dart';
+
 class ConnectedActivitiesModel extends Model {
   List<Activity> _activities = [];
   User _authenticatedUser;
@@ -54,7 +57,7 @@ class ActivityModel extends ConnectedActivitiesModel {
     return showFavorites;
   }
 
- Future<Map<String, dynamic>> signup(String email, String password) async {
+  Future<Map<String, dynamic>> signup(String email, String password) async {
     _isLoading = true;
     notifyListeners();
     final Map<String, dynamic> authData = {
@@ -62,11 +65,13 @@ class ActivityModel extends ConnectedActivitiesModel {
       'password': password,
       'returnSecureToken': true
     };
+    Future<Secret> secret = SecretLoader(secretPath: "secrets.json").load();
     final http.Response response = await http.post(
-      'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${returner}',
+      'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${secret}',
       body: json.encode(authData),
       headers: {'Content-Type': 'application/json'},
     );
+    print(json.decode(response.body));
     final Map<String, dynamic> responseData = json.decode(response.body);
     bool hasError = true;
     String message = 'Something went wrong.';
@@ -80,7 +85,6 @@ class ActivityModel extends ConnectedActivitiesModel {
     notifyListeners();
     return {'success': !hasError, 'message': message};
   }
-}
 
   Future<Map<String, dynamic>> uploadImage(File image,
       {String imagePath}) async {
@@ -302,5 +306,28 @@ class UserModel extends ConnectedActivitiesModel {
 class UtilityModel extends ConnectedActivitiesModel {
   bool get isLoading {
     return _isLoading;
+  }
+}
+
+class Secret {
+  final String apiKey;
+
+  Secret({this.apiKey = ""});
+
+  factory Secret.fromJson(Map<String, dynamic> jsonMap) {
+    return new Secret(apiKey: jsonMap["api_key"]);
+  }
+}
+class SecretLoader {
+  final String secretPath;
+  
+  SecretLoader({this.secretPath});
+
+  Future<Secret> load() {
+    return rootBundle.loadStructuredData<Secret>(this.secretPath,
+        (jsonStr) async {
+      final secret = Secret.fromJson(json.decode(jsonStr));
+      return secret;
+    });
   }
 }
