@@ -5,7 +5,6 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:async' show Future;
 import 'dart:convert' show json;
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:mime/mime.dart';
 import 'package:http_parser/http_parser.dart';
 import '../models/activity.dart';
@@ -17,6 +16,20 @@ class ConnectedActivitiesModel extends Model {
   String _selActivityId;
   bool _isLoading = false;
 }
+
+// class SecretLoader {
+//   final String secretPath;
+
+//   SecretLoader({this.secretPath});
+
+//   Future<Secret> load() {
+//     return rootBundle.loadStructuredData<Secret>(this.secretPath,
+//         (jsonStr) async {
+//       final secret = Secret.fromJson(json.decode(jsonStr));
+//       return secret;
+//     });
+//   }
+// }
 
 class ActivityModel extends ConnectedActivitiesModel {
   bool showFavorites = false;
@@ -65,9 +78,9 @@ class ActivityModel extends ConnectedActivitiesModel {
       'password': password,
       'returnSecureToken': true
     };
-    Future<Secret> secret = SecretLoader(secretPath: "secrets.json").load();
+
     final http.Response response = await http.post(
-      'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${secret}',
+      'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=',
       body: json.encode(authData),
       headers: {'Content-Type': 'application/json'},
     );
@@ -306,28 +319,5 @@ class UserModel extends ConnectedActivitiesModel {
 class UtilityModel extends ConnectedActivitiesModel {
   bool get isLoading {
     return _isLoading;
-  }
-}
-
-class Secret {
-  final String apiKey;
-
-  Secret({this.apiKey = ""});
-
-  factory Secret.fromJson(Map<String, dynamic> jsonMap) {
-    return new Secret(apiKey: jsonMap["api_key"]);
-  }
-}
-class SecretLoader {
-  final String secretPath;
-  
-  SecretLoader({this.secretPath});
-
-  Future<Secret> load() {
-    return rootBundle.loadStructuredData<Secret>(this.secretPath,
-        (jsonStr) async {
-      final secret = Secret.fromJson(json.decode(jsonStr));
-      return secret;
-    });
   }
 }
