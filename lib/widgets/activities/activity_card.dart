@@ -46,7 +46,7 @@ class ActivityCard extends StatelessWidget {
             color: Colors.red,
             onPressed: () {
               model.selectActivity(model.allActivities[activityIndex].id);
-              model.toggleFavActivity();
+              model.toggleActivityFavoriteStatus();
             },
           ),
         ],
