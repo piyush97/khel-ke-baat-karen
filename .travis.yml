@@ -1,83 +1,77 @@
 matrix:
-  # This causes the build to complete immediately upon first failure or once
-  # required jobs are green.
   fast_finish: true
-
-  # Building APK/IPA takes a long time; do not wait for them to finish.
   allow_failures:
-    - env: JOB=APK
-    - env: JOB=IPA
-
+  - env: JOB=APK
+  - env: JOB=IPA
   include:
-    # Runs unit tests without emulators.
-    - env: JOB=PR
-      os: linux
-      language: generic
-      sudo: false
-      addons:
-        apt:
-          # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
-          sources:
-            - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
-          packages:
-            - libstdc++6
-            - fonts-droid
-      before_script:
-        - git clone https://github.com/flutter/flutter.git  
-      script:
-        - ./flutter/bin/flutter test
-
-    # Builds an APK.
-    - env: JOB=APK
-      os: linux
-      language: android
-      licenses:
-        - 'android-sdk-preview-license-.+'
-        - 'android-sdk-license-.+'
-        - 'google-gdk-license-.+'
-      android:
-        components:
-          - tools
-          - platform-tools
-          - build-tools-25.0.3
-          - android-25
-          - sys-img-armeabi-v7a-google_apis-25
-          - extra-android-m2repository
-          - extra-google-m2repository
-          - extra-google-android-support
-      jdk: oraclejdk8
-      sudo: false
-      addons:
-        apt:
-          # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
-          sources:
-            - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
-          packages:
-            - libstdc++6
-            - fonts-droid
-      before_script:
-        - wget http://services.gradle.org/distributions/gradle-3.5-bin.zip
-        - unzip -qq gradle-3.5-bin.zip
-        - export GRADLE_HOME=$PWD/gradle-3.5
-        - export PATH=$GRADLE_HOME/bin:$PATH
-        - git clone https://github.com/flutter/flutter.git  
-      script:
-        - ./flutter/bin/flutter test
-
-    # Builds an IPA.
-    - env: JOB=IPA
-      os: osx
-      language: generic
-      osx_image: xcode8.3
-      before_script:
-        - brew update
-        - brew install libimobiledevice
-        - brew install ideviceinstaller
-        - brew install ios-deploy
-        - git clone https://github.com/flutter/flutter.git
-      script:
-        - ./flutter/bin/flutter test
-
+  - env: JOB=PR
+    os: linux
+    language: generic
+    sudo: false
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        packages:
+        - libstdc++6
+        - fonts-droid
+    before_script:
+    - git clone https://github.com/flutter/flutter.git
+    script:
+    - "./flutter/bin/flutter doctor"
+  - env: JOB=APK
+    os: linux
+    language: android
+    licenses:
+    - android-sdk-preview-license-.+
+    - android-sdk-license-.+
+    - google-gdk-license-.+
+    android:
+      components:
+      - tools
+      - platform-tools
+      - build-tools-25.0.3
+      - android-25
+      - sys-img-armeabi-v7a-google_apis-25
+      - extra-android-m2repository
+      - extra-google-m2repository
+      - extra-google-android-support
+    jdk: oraclejdk8
+    sudo: false
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        packages:
+        - libstdc++6
+        - fonts-droid
+    before_script:
+    - wget http://services.gradle.org/distributions/gradle-3.5-bin.zip
+    - unzip -qq gradle-3.5-bin.zip
+    - export GRADLE_HOME=$PWD/gradle-3.5
+    - export PATH=$GRADLE_HOME/bin:$PATH
+    - git clone https://github.com/flutter/flutter.git
+    script:
+    - "./flutter/bin/flutter build android --debug"
+  - env: JOB=IPA
+    os: osx
+    language: generic
+    osx_image: xcode8.3
+    before_script:
+    - brew update
+    - brew install libimobiledevice
+    - brew install ideviceinstaller
+    - brew install ios-deploy
+    - git clone https://github.com/flutter/flutter.git
+    script:
+    - "./flutter/bin/flutter build ios --debug"
 cache:
   directories:
-    - $HOME/.pub-caches
+  - "$HOME/.pub-caches"
+deploy:
+  provider: releases
+  api_key:
+    secure: woVwL3GvHMbpssppslq4pdGT08HwW7Lx9dqoDjQ9EkT2VAaZ7Yt9jllYF+L0Du8sEj9GlxFhzbjHDuJZKzoyIBNBb5Sz3HORDWCuFVHKE3pEp7SyLpMyMR3SSceEVeL6lY/WEGd4YzPfOBhfZPHBOaYbMoMXkvj0TAFAujl2Z/jIjCnyFUAtWfbNiD4Ub/6SkSow158cn9hF0bnWDrTTArdMq9skzVFKpJKKN2qCGN5NHHXZHSIoY3+n13aGdGbnSetHVKSk9t2Dd0vdmLiCd+DTrgm71plHi8gWAf0z31kSw7nuxRAYa/0iFzxkkl2vB6p9z+QdZ8YvB9EPvuVWfRqllY6mxswh4Dt4U2CwhIE+BdyscMvSb2viLvrVXlsYRkhj9zAyMSJgj4HwNR0SJBEfrVEaw36zIOG9RpB0JBQxoTOfYkyTUQIkktu2NPmDZpRZMtIw4HireJpGIQ6LLUbbwd9vKqbkS4wdAeHcc866PlnZsiW8pQDIZT6L+YXiRJLkhUUZOBZfhfGU+f3hPa2Ibn/ueVFKTgN6fPQy77EGgANdMnoXlWY4LEOxMQtvtal00qe+m+jk+7OgEnXxgCGJ7SMUFTbuLWpjMU4HTsS4Dq3kt3cpUiphJhatuPd+SRbVFhzYMt1ws2AVJAFwUQ8BdiWU9XCH+ircF+EWgTU=
+  file: "/build/app/outputs/apk/release/app-release.apk build/ios/iphoneos/Runner.app" 
+  on:
+    repo: piyush97/khel-ke-baat-karen
