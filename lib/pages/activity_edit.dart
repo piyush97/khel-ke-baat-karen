@@ -28,14 +28,28 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
   final _titleFocusNode = FocusNode();
   final _descriptionFocusNode = FocusNode();
   final _priceFocusNode = FocusNode();
+  final _titleTextController = TextEditingController();
+  final _descriptionTextController = TextEditingController();
 
   Widget _buildTitleTextField(Activity activity) {
+     if (activity == null && _titleTextController.text.trim() == '') {
+      _titleTextController.text = '';
+    } else if (activity != null && _titleTextController.text.trim() == '') {
+      _titleTextController.text = activity.title;
+    } else if (activity != null && _titleTextController.text.trim() != '') {
+      _titleTextController.text = _titleTextController.text;
+    } else if (activity == null && _titleTextController.text.trim() != '') {
+      _titleTextController.text = _titleTextController.text;
+    } else {
+      _titleTextController.text = '';
+    }
     return EnsureVisibleWhenFocused(
       focusNode: _titleFocusNode,
       child: TextFormField(
         focusNode: _titleFocusNode,
         decoration: InputDecoration(labelText: 'Activity Title'),
-        initialValue: activity == null ? '' : activity.title,
+        controller: _titleTextController,
+        // initialValue: product == null ? '' : product.title,
         validator: (String value) {
           // if (value.trim().length <= 0) {
           if (value.isEmpty || value.length < 5) {
@@ -49,13 +63,14 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
     );
   }
 
+
   Widget _buildDescriptionTextField(Activity activity) {
     return EnsureVisibleWhenFocused(
       focusNode: _descriptionFocusNode,
       child: TextFormField(
         focusNode: _descriptionFocusNode,
         maxLines: 4,
-        decoration: InputDecoration(labelText: 'Product Description'),
+        decoration: InputDecoration(labelText: 'activity Description'),
         initialValue: activity == null ? '' : activity.description,
         validator: (String value) {
           // if (value.trim().length <= 0) {
