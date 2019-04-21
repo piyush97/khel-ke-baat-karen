@@ -93,12 +93,14 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
     return Column(
       children: <Widget>[
         OutlineButton(
+          borderSide: BorderSide(color: Theme.of(context).accentColor),
           onPressed: () {},
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Icon(Icons.camera_alt),
               SizedBox(width: 5.0),
-              Text("Add Image"),
+              Text("Add Image", style: TextStyle(color: Theme.of(context).accentColor)),
             ],
           ),
         )
