@@ -54,7 +54,7 @@ class ActivityModel extends ConnectedActivitiesModel {
     return showFavorites;
   }
 
-  Future<Map<String, String>> uploadImage(File image,
+  Future<Map<String, dynamic>> uploadImage(File image,
       {String imagePath}) async {
     final mimneTypeData = lookupMimeType(image.path).split('/');
     final imageUploadRequest = http.MultipartRequest(
