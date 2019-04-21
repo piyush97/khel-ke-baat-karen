@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 import '../widgets/helpers/ensure_visible.dart';
 import '../models/activity.dart';
@@ -89,6 +91,15 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
     );
   }
 
+  void _getImage(BuildContext context, ImageSource source) {
+    ImagePicker.pickImage(
+      source: source,
+      maxWidth: 400.0,
+    ).then((File image) {
+      Navigator.pop(context);
+    });
+  }
+
   void _openImagePicker(BuildContext context) {
     showModalBottomSheet(
         context: context,
@@ -107,12 +118,16 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
                   ),
                   FlatButton(
                     child: Text('Use Camera'),
-                    onPressed: () {},
+                    onPressed: () {
+                      _getImage(context, ImageSource.camera);
+                    },
                     textColor: Theme.of(context).primaryColor,
                   ),
                   FlatButton(
                     child: Text('Use Gallery'),
-                    onPressed: () {},
+                    onPressed: () {
+                      _getImage(context, ImageSource.gallery);
+                    },
                     textColor: Theme.of(context).primaryColor,
                   )
                 ],
