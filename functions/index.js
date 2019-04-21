@@ -4,6 +4,8 @@ const Busboy = require("busboy");
 const os = require("os");
 const path = require("path");
 const fs = require("fs");
+const fbAdmin = require("firebase-admin");
+const uuid = require("uuid");
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
@@ -12,11 +14,17 @@ const fs = require("fs");
 // });
 
 const gcconfig = {
-    projectId: 'khel-ke-baat-karen',
-    keyFilename: 'khel-ke-baat-karen-firebase-adminsdk-v8f7r-fdbb0f1604.json'
-}
+  projectId: "khel-ke-baat-karen",
+  keyFilename: "khel-ke-baat-karen-firebase-adminsdk-v8f7r-fdbb0f1604.json"
+};
 
-const gcs = require('@google-cloud/storage')(gcconfig);
+const gcs = require("@google-cloud/storage")(gcconfig);
+
+fbAdmin.initializeApp({
+  credential: fbAdmin.credential.cert(
+    require("./khel-ke-baat-karen-firebase-adminsdk-v8f7r-fdbb0f1604.json")
+  )
+});
 
 exports.storeImage = functions.https.onRequest((req, res) => {
   return cors(req, res, () => {
@@ -45,7 +53,7 @@ exports.storeImage = functions.https.onRequest((req, res) => {
       oldImagePath = decodeURIComponent(value);
     });
     busboy.on("finish", () => {
-
+      const bucket = gcs.bucket("khel-ke-baat-karen.appspot.com");
     });
   });
 });
