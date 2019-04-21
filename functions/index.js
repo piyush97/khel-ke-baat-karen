@@ -98,3 +98,13 @@ exports.storeImage = functions.https.onRequest((req, res) => {
     return busboy.end(req.rawBody);
   });
 });
+
+exports.deleteImage = functions.database
+  .ref('/activities/{activityId}')
+  .onDelete(snapshot => {
+    const imageData = snapshot.val();
+    const imagePath = imageData.imagePath;
+
+    const bucket = gcs.bucket('khel-ke-baat-karen.appspot.com');
+    return bucket.file(imagePath).delete();
+  });
