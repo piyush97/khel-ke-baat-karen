@@ -5,6 +5,7 @@ import 'package:scoped_model/scoped_model.dart';
 import '../widgets/activities/activities.dart';
 import '../scoped-models/main.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
+import '../widgets/ui_elements/logout_list_tile.dart';
 
 class ActivitiesPage extends StatefulWidget {
   final MainModel model;
@@ -36,7 +37,9 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
             onTap: () {
               Navigator.pushReplacementNamed(context, '/admin');
             },
-          )
+          ),
+          Divider(),
+          LogoutListTile()
         ],
       ),
     );
