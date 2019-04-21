@@ -8,7 +8,17 @@ const cors = require("cors")({ origin: true });
 // });
 
 exports.storeImage = functions.https.onRequest((req, res) => {
-    return cors(req,res,() =>{
-        
-    });
+  return cors(req, res, () => {
+    if (req.method !== "POST") {
+      return res.status(500).json({ message: "Not Allowed." });
+    }
+    if (
+      req.headers.authorization ||
+      !req.headers.authorization.startsWith("Bearer ")
+    ) {
+      return res.status(401).json({ error: "Unauthorized." });
+    }
+    let idToken;
+    idToken = req.headers.authorization.split("Bearer ")[1];
+  });
 });
