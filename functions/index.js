@@ -1,18 +1,24 @@
-const functions = require("firebase-functions");
-const cors = require("cors")({ origin: true });
-const Busboy = require("busboy");
-const os = require("os");
-const path = require("path");
-const fs = require("fs");
-const fbAdmin = require("firebase-admin");
-const uuid = require("uuid/v4");
+const functions = require('firebase-functions');
+const cors = require('cors')({ origin: true });
+const Busboy = require('busboy');
+const os = require('os');
+const path = require('path');
+const fs = require('fs');
+const fbAdmin = require('firebase-admin');
+const uuid = require('uuid/v4');
+// Imports the Google Cloud client library
+const {Storage} = require('@google-cloud/storage');
 
-const gcconfig = {
-  projectId: "khel-ke-baat-karen",
-  keyFilename: "khel-ke-baat-karen-firebase-adminsdk-v8f7r-fdbb0f1604.json"
-};
+// Your Google Cloud Platform project ID
+const projectId = 'khel-ke-baat-karen';
 
-const gcs = require("@google-cloud/storage");
+// Creates a client
+const storage = new Storage({
+  projectId: projectId,
+});
+
+// The name for the new bucket
+const bucketName = 'khel-ke-baat-karen';
 
 fbAdmin.initializeApp({
   credential: fbAdmin.credential.cert(
@@ -51,7 +57,7 @@ exports.storeImage = functions.https.onRequest((req, res) => {
     });
 
     busboy.on("finish", () => {
-      const bucket = gcs.bucket("khel-ke-baat-karen.appspot.com");
+      const bucket = storage.bucket("khel-ke-baat-karen.appspot.com");
       const id = uuid();
       let imagePath = "images/" + id + "-" + uploadData.name;
       if (oldImagePath) {
