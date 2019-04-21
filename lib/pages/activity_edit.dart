@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
+import '../widgets/form_inputs/image.dart';
 import '../widgets/helpers/ensure_visible.dart';
 import '../models/activity.dart';
 import '../scoped-models/main.dart';
@@ -20,14 +21,13 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
     'title': null,
     'description': null,
     'time': null,
-    'image': 'assets/food.jpg',
+    'image': null,
     'day': null,
   };
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _titleFocusNode = FocusNode();
   final _descriptionFocusNode = FocusNode();
   final _priceFocusNode = FocusNode();
-  
 
   Widget _buildTitleTextField(Activity activity) {
     return EnsureVisibleWhenFocused(
@@ -91,85 +91,8 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
     );
   }
 
-  File _imageFile;
-
-  void _getImage(BuildContext context, ImageSource source) {
-    ImagePicker.pickImage(
-      source: source,
-      maxWidth: 400.0,
-    ).then((File image) {
-      setState(() {
-        _imageFile = image;
-      });
-      Navigator.pop(context);
-    });
-  }
-
-  void _openImagePicker(BuildContext context) {
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext context) {
-          return Container(
-              height: 150.0,
-              padding: EdgeInsets.all(10.0),
-              child: Column(
-                children: <Widget>[
-                  Text(
-                    'Pick an Image',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  FlatButton(
-                    child: Text('Use Camera'),
-                    onPressed: () {
-                      _getImage(context, ImageSource.camera);
-                    },
-                    textColor: Theme.of(context).primaryColor,
-                  ),
-                  FlatButton(
-                    child: Text('Use Gallery'),
-                    onPressed: () {
-                      _getImage(context, ImageSource.gallery);
-                    },
-                    textColor: Theme.of(context).primaryColor,
-                  )
-                ],
-              ));
-        });
-  }
-
-  Widget _imageInput() {
-    return Column(
-      children: <Widget>[
-        OutlineButton(
-          borderSide: BorderSide(color: Theme.of(context).accentColor),
-          onPressed: () {
-            _openImagePicker(context);
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Icon(Icons.camera_alt),
-              SizedBox(width: 5.0),
-              Text("Add Image",
-                  style: TextStyle(color: Theme.of(context).accentColor)),
-            ],
-          ),
-        ),
-        SizedBox(
-          height: 10.0,
-        ),
-        _imageFile == null
-            ? Text('Please Pick an Image')
-            : Image.file(_imageFile,
-                fit: BoxFit.cover,
-                height: 300.0,
-                width: MediaQuery.of(context).size.width,
-                alignment: Alignment.topCenter),
-      ],
-    );
+  void _setImage(File image) {
+    _formData['image'] = image;
   }
 
   Widget _buildSubmitButton() {
@@ -214,7 +137,7 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
               SizedBox(
                 height: 10.0,
               ),
-              _imageInput(),
+              ImageInput(_setImage, activity),
               _buildSubmitButton(),
               // GestureDetector(
               //   onTap: _submitForm,
