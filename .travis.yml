@@ -62,7 +62,7 @@ matrix:
         - export PATH=$GRADLE_HOME/bin:$PATH
         - git clone https://github.com/flutter/flutter.git  
       script:
-        - ./flutter/bin/flutter -v build apk
+        - ./flutter/bin/flutter doctor
 
     # Builds an IPA.
     - env: JOB=IPA
@@ -76,7 +76,7 @@ matrix:
         - brew install ios-deploy
         - git clone https://github.com/flutter/flutter.git
       script:
-        - ./flutter/bin/flutter -v build ios --no-codesign
+        - ./flutter/bin/flutter doctor
 
 cache:
   directories:
