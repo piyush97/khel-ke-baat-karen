@@ -56,28 +56,33 @@ class ActivityCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Card(margin: EdgeInsets.all(18.0),
-        elevation: 1,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            SizedBox(
-              height: 10.0,
-            ),
-            Container(
-              padding: EdgeInsets.all(30.0),
-              child: FadeInImage(
-                image: NetworkImage(activity.image),
-                height: 200.0,
-                fit: BoxFit.scaleDown,
-                placeholder: AssetImage('assets/loader.jpg'),
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: Center(
+        child: Card(
+          margin: EdgeInsets.all(18.0),
+          elevation: 1,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              SizedBox(
+                height: 10.0,
               ),
-            ),
-            _buildTitleTimeRow(),
-            Text(activity.userEmail),
-            _buildActionButtons(context),
-          ],
+              Container(
+                padding: EdgeInsets.all(30.0),
+                child: FadeInImage(
+                  image: NetworkImage(activity.image),
+                  height: 150.0,
+                  width: MediaQuery.of(context).size.width,
+                  fit: BoxFit.scaleDown,
+                  placeholder: AssetImage('assets/loader.jpg'),
+                ),
+              ),
+              _buildTitleTimeRow(),
+              Text(activity.userEmail),
+              _buildActionButtons(context),
+            ],
+          ),
         ),
       ),
     );
