@@ -2,6 +2,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:scoped_model/scoped_model.dart';
 import 'dart:async';
+import 'dart:io';
+import 'package:mime/mime.dart';
+
 import '../models/activity.dart';
 import '../models/user.dart';
 
@@ -51,8 +54,15 @@ class ActivityModel extends ConnectedActivitiesModel {
     return showFavorites;
   }
 
+  Future<Map<String, String>> uploadImage(File image,
+      {String imagePath}) async {
+        final mimneTypeData = lookupMimeType(image.path).split('/');
+        final imageUploadRequest = http.MultipartRequest('POST', Uri.parse(''));
+        final file = http.MultipartFile.fromPath('image', image.path)
+      }
+
   Future<bool> addActivities(
-      String title, String description, String image, double time) async {
+      String title, String description, File image, double time) async {
     _isLoading = true;
     notifyListeners();
     final Map<String, dynamic> activityData = {
