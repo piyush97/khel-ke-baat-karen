@@ -67,17 +67,43 @@ class ActivityModel extends ConnectedActivitiesModel {
     if (imagePath != null) {
       imageUploadRequest.fields['imagePath'] = Uri.encodeComponent(imagePath);
     }
+    imageUploadRequest.headers['Authorization'] =
+        'Bearer ${_authenticatedUser.token}';
+
+    try {
+      final streamedResponse = await imageUploadRequest.send();
+      final response = await http.Response.fromStream(streamedResponse);
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        print('Something went wrong');
+        print(json.decode(response.body));
+        return null;
+      }
+      final responseData = json.decode(response.body);
+      return responseData;
+    } catch (error) {
+      print(error);
+      return null;
+    }
   }
 
   Future<bool> addActivities(
       String title, String description, File image, double time) async {
     _isLoading = true;
     notifyListeners();
+    final uploadData = await uploadImage(image);
+
+    if (uploadData == null) {
+      print('Upload Failed');
+      return false;
+    }
+
     final Map<String, dynamic> activityData = {
       'title': title,
       'description': description,
       'image': 'http://images.huffingtonpost.com/2013-12-27-food12.jpg',
       'time': time,
+      'imagePath': uploadData['imagePath'],
+      'imageUrl': uploadData['imageUrl'],
       'userEmail': _authenticatedUser.email,
       'userId': _authenticatedUser.id,
     };
@@ -95,7 +121,7 @@ class ActivityModel extends ConnectedActivitiesModel {
         id: responseData['name'],
         title: title,
         description: description,
-        image: image,
+        image: uploadData['imageUrl'],
         time: time,
         userEmail: _authenticatedUser.email,
         userId: _authenticatedUser.id,
