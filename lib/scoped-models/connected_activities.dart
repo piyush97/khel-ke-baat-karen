@@ -63,7 +63,7 @@ class ActivityModel extends ConnectedActivitiesModel {
       'returnSecureToken': true
     };
     final http.Response response = await http.post(
-      'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=',
+      'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${returner}',
       body: json.encode(authData),
       headers: {'Content-Type': 'application/json'},
     );
