@@ -32,6 +32,7 @@ dependencies:
   image_picker: ^0.5.4
   mime: ^0.9.6+2
   shared_preferences: ^0.5.2
+  rxdart: ^0.21.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
