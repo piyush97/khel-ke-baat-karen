@@ -112,9 +112,9 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
           ),
           body: _buildActivitiesList(),
           bottomNavigationBar: FancyBottomNavigation(tabs: [
-            TabData(iconData: Icons.home, title: "Home"),
-            TabData(iconData: Icons.search, title: "Search activities"),
-            TabData(iconData: Icons.games, title: "Game")
+            TabData(iconData: Icons.today, title: "Today"),
+            TabData(iconData: Icons.access_time, title: "Tomorrow"),
+            TabData(iconData: Icons.games, title: "Games")
           ], onTabChangedListener: (_) => {}),
           floatingActionButton: RectGetter(
             key: rectGetterKey,
