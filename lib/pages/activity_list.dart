@@ -33,6 +33,10 @@ class _ActivityListPageState extends State<ActivityListPage> {
               return ActivityEditPage();
             },
           ),
+        ).then(
+          (_) {
+            model.selectActivity(null);
+          },
         );
       },
     );
@@ -51,6 +55,7 @@ class _ActivityListPageState extends State<ActivityListPage> {
                   model.selectActivity(model.allActivities[index].id);
                   model.deleteActivities();
                 } else if (direction == DismissDirection.startToEnd) {
+                  print('Swiped start to end');
                 } else {
                   print('Other swiping');
                 }
@@ -64,8 +69,8 @@ class _ActivityListPageState extends State<ActivityListPage> {
                           NetworkImage(model.allActivities[index].image),
                     ),
                     title: Text(model.allActivities[index].title),
-                    subtitle:
-                        Text('Time:${model.allActivities[index].time.toString()}'),
+                    subtitle: Text(
+                        'Time:${model.allActivities[index].time.toString()}'),
                     trailing: _buildEditButton(context, index, model),
                   ),
                   Divider()
