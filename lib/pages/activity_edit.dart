@@ -32,7 +32,7 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
   final _descriptionTextController = TextEditingController();
 
   Widget _buildTitleTextField(Activity activity) {
-     if (activity == null && _titleTextController.text.trim() == '') {
+    if (activity == null && _titleTextController.text.trim() == '') {
       _titleTextController.text = '';
     } else if (activity != null && _titleTextController.text.trim() == '') {
       _titleTextController.text = activity.title;
@@ -63,15 +63,22 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
     );
   }
 
-
   Widget _buildDescriptionTextField(Activity activity) {
+    if (activity == null && _descriptionTextController.text.trim() == '') {
+      _descriptionTextController.text = '';
+    } else if (activity != null &&
+        _descriptionTextController.text.trim() == '') {
+      _descriptionTextController.text = activity.description;
+    }
+
     return EnsureVisibleWhenFocused(
       focusNode: _descriptionFocusNode,
       child: TextFormField(
         focusNode: _descriptionFocusNode,
         maxLines: 4,
-        decoration: InputDecoration(labelText: 'activity Description'),
-        initialValue: activity == null ? '' : activity.description,
+        decoration: InputDecoration(labelText: 'Activity Description'),
+        // initialValue: Activity == null ? '' : Activity.description,
+        controller: _descriptionTextController,
         validator: (String value) {
           // if (value.trim().length <= 0) {
           if (value.isEmpty || value.length < 10) {
@@ -85,7 +92,7 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
     );
   }
 
-  Widget _buildPriceTextField(Activity activity) {
+  Widget _buildTimeTextField(Activity activity) {
     return EnsureVisibleWhenFocused(
       focusNode: _priceFocusNode,
       child: TextFormField(
@@ -148,11 +155,12 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
             children: <Widget>[
               _buildTitleTextField(activity),
               _buildDescriptionTextField(activity),
-              _buildPriceTextField(activity),
+              _buildTimeTextField(activity),
               SizedBox(
                 height: 10.0,
               ),
               ImageInput(_setImage, activity),
+              SizedBox(height: 10.0),
               _buildSubmitButton(),
               // GestureDetector(
               //   onTap: _submitForm,
@@ -172,14 +180,15 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
   void _submitForm(Function addActivities, Function updateActivities,
       Function setSelectedActivity,
       [int selectedActivityIndex]) {
-    if (!_formKey.currentState.validate()) {
+    if (!_formKey.currentState.validate() ||
+        (_formData['image'] == null && selectedActivityIndex == -1)) {
       return;
     }
     _formKey.currentState.save();
     if (selectedActivityIndex == -1) {
       addActivities(
-        _formData['title'],
-        _formData['description'],
+        _titleTextController.text,
+        _descriptionTextController.text,
         _formData['image'],
         _formData['time'],
       ).then(
@@ -192,8 +201,8 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: Text('Great!'),
-                  content: Text("Activity Added"),
+                  title: Text('Something went wrong'),
+                  content: Text("Please try again!"),
                   actions: <Widget>[
                     FlatButton(
                       child: Text('Okay'),
@@ -208,10 +217,14 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
       );
     } else {
       updateActivities(
-        _formData['title'],
-        _formData['description'],
+        _titleTextController.text,
+        _descriptionTextController.text,
         _formData['image'],
         _formData['time'],
+      ).then(
+        (_) => Navigator.pushReplacementNamed(context, '/activities').then(
+              (_) => setSelectedActivity(null),
+            ),
       );
     }
   }
