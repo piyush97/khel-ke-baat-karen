@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import './activity_list.dart';
 import './activity_edit.dart';
 import '../scoped-models/main.dart';
+import '../widgets/ui_elements/logout_list_tile.dart';
 
 class ActivitiesAdminPage extends StatelessWidget {
   final MainModel model;
@@ -22,7 +23,9 @@ class ActivitiesAdminPage extends StatelessWidget {
             onTap: () {
               Navigator.pushReplacementNamed(context, '/activities');
             },
-          )
+          ),
+          Divider(),
+          LogoutListTile()
         ],
       ),
     );
