@@ -25,7 +25,7 @@ matrix:
       before_script:
         - git clone https://github.com/flutter/flutter.git  
       script:
-        - ./flutter/bin/flutter test
+        - ./flutter/bin/flutter doctor
 
     # Builds an APK.
     - env: JOB=APK
