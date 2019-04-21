@@ -27,7 +27,7 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
   final _titleFocusNode = FocusNode();
   final _descriptionFocusNode = FocusNode();
   final _priceFocusNode = FocusNode();
-  final _dayFocusNode = FocusNode();
+  
 
   Widget _buildTitleTextField(Activity activity) {
     return EnsureVisibleWhenFocused(
