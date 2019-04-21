@@ -62,7 +62,29 @@ exports.storeImage = functions.https.onRequest((req, res) => {
       return fbAdmin
         .auth()
         .verifyIdToken(idToken)
-        .token()
+        .token(decodedToken => {
+          return bucket.upload(uploadData.filePath, {
+            uploadType: "media",
+            destination: imagePath,
+            metadata: {
+              metadata: {
+                contentType: uploadData.type,
+                firebaseStorageDownloadToken: id
+              }
+            }
+          });
+        })
+        .then(() => {
+          return res.status(201).jsoon({
+            imageUrl:
+              "https://firebasestorage.googleapis.com/v0/b/" +
+              bucket.name +
+              "/0/" +
+              encodeURIComponent(imagePath) +
+              "?alt=media&token=" +
+              id
+          });
+        })
         .catch(error => {
           return res.status(401).json({ error: "Unauthorized" });
         });
