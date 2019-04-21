@@ -11,6 +11,13 @@ const fs = require("fs");
 //  response.send("Hello from Firebase!");
 // });
 
+const gcconfig = {
+    projectId: 'khel-ke-baat-karen',
+    keyFilename: 'khel-ke-baat-karen-firebase-adminsdk-v8f7r-fdbb0f1604.json'
+}
+
+const gcs = require('@google-cloud/storage')(gcconfig);
+
 exports.storeImage = functions.https.onRequest((req, res) => {
   return cors(req, res, () => {
     if (req.method !== "POST") {
@@ -37,6 +44,8 @@ exports.storeImage = functions.https.onRequest((req, res) => {
     busboy.on("field", (fieldname, value) => {
       oldImagePath = decodeURIComponent(value);
     });
-    busboy.on("finish", () => {});
+    busboy.on("finish", () => {
+
+    });
   });
 });
