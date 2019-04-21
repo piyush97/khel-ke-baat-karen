@@ -3,6 +3,8 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import '../scoped-models/main.dart';
 
+enum AuthMode { Signup, Login }
+
 class AuthPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -17,25 +19,20 @@ class _AuthPageState extends State<AuthPage> {
     'acceptTerms': true
   };
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  DecorationImage _buildBackgroundImage() {
-    return DecorationImage(
-      fit: BoxFit.cover,
-      image: AssetImage('assets/backgrond.jpg'),
-    );
-  }
+  final TextEditingController _passwordTextController = TextEditingController();
+  AuthMode _authMode = AuthMode.Login;
 
   Widget _buildEmailTextField() {
     return TextFormField(
       decoration: InputDecoration(
           border: InputBorder.none,
-          labelText: 'Full Name',
+          labelText: 'Email',
           filled: true,
           fillColor: Colors.white),
       keyboardType: TextInputType.emailAddress,
       validator: (String value) {
         if (value.isEmpty) {
-          return 'Please enter a valid name';
+          return 'Please enter a valid email';
         }
       },
       onSaved: (String value) {
@@ -46,12 +43,34 @@ class _AuthPageState extends State<AuthPage> {
 
   Widget _buildPasswordTextField() {
     return TextFormField(
+      obscureText: true,
+      controller: _passwordTextController,
       decoration: InputDecoration(
           border: InputBorder.none,
-          labelText: 'Habits',
-          helperText: 'seperated with commas',
+          labelText: 'Password',
+          helperText: '+6 characters',
           filled: true,
           fillColor: Colors.white),
+      onSaved: (String value) {
+        _formData['password'] = value;
+      },
+    );
+  }
+
+  Widget _buildPasswordConfirmTextField() {
+    return TextFormField(
+      obscureText: true,
+      decoration: InputDecoration(
+          border: InputBorder.none,
+          labelText: 'Password',
+          helperText: '+6 characters',
+          filled: true,
+          fillColor: Colors.white),
+      validator: (String value) {
+        if (_passwordTextController.text != value) {
+          return 'Passwords do not match';
+        }
+      },
       onSaved: (String value) {
         _formData['password'] = value;
       },
@@ -86,9 +105,6 @@ class _AuthPageState extends State<AuthPage> {
     final double targetWidth = deviceWidth > 550.0 ? 500.0 : deviceWidth * 0.95;
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          image: _buildBackgroundImage(),
-        ),
         padding: EdgeInsets.all(10.0),
         child: Center(
           child: SingleChildScrollView(
@@ -107,6 +123,9 @@ class _AuthPageState extends State<AuthPage> {
                     SizedBox(
                       height: 10.0,
                     ),
+                    _authMode == AuthMode.Signup
+                        ? _buildPasswordConfirmTextField()
+                        : Container(),
                     ScopedModelDescendant<MainModel>(
                       builder: (BuildContext context, Widget child,
                           MainModel model) {
@@ -117,33 +136,17 @@ class _AuthPageState extends State<AuthPage> {
                         );
                       },
                     ),
-                    Center(
-                      child: SizedBox(
-                        width: 750.0,
-                        height: 300.0,
-                        child: ColorizeAnimatedTextKit(
-                            onTap: () {
-                              print("Tap Event");
-                            },
-                            text: [
-                              "Khel ke Baat Karen",
-                              "App for scheduling",
-                              "App for your kid"
-                            ],
-                            textStyle:
-                                TextStyle(fontSize: 90.0, fontFamily: "Oswald"),
-                            colors: [
-                              Colors.purple,
-                              Colors.blue,
-                              Colors.yellow,
-                              Colors.red,
-                            ],
-                            textAlign: TextAlign.start,
-                            alignment: AlignmentDirectional
-                                .topStart // or Alignment.topLeft
-                            ),
-                      ),
-                    )
+                    FlatButton(
+                      child: Text(
+                          "${_authMode == AuthMode.Login ? 'SignUp' : 'Login'}"),
+                      onPressed: () {
+                        setState(() {
+                          _authMode = _authMode == AuthMode.Login
+                              ? AuthMode.Signup
+                              : AuthMode.Login;
+                        });
+                      },
+                    ),
                   ],
                 ),
               ),

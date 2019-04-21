@@ -54,6 +54,34 @@ class ActivityModel extends ConnectedActivitiesModel {
     return showFavorites;
   }
 
+ Future<Map<String, dynamic>> signup(String email, String password) async {
+    _isLoading = true;
+    notifyListeners();
+    final Map<String, dynamic> authData = {
+      'email': email,
+      'password': password,
+      'returnSecureToken': true
+    };
+    final http.Response response = await http.post(
+      'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyDDo7uBXpMmkhMfxuSh21M2JkRX6gh1Uwc',
+      body: json.encode(authData),
+      headers: {'Content-Type': 'application/json'},
+    );
+    final Map<String, dynamic> responseData = json.decode(response.body);
+    bool hasError = true;
+    String message = 'Something went wrong.';
+    if (responseData.containsKey('idToken')) {
+      hasError = false;
+      message = 'Authentication succeeded!';
+    } else if (responseData['error']['message'] == 'EMAIL_EXISTS') {
+      message = 'This email already exists.';
+    }
+    _isLoading = false;
+    notifyListeners();
+    return {'success': !hasError, 'message': message};
+  }
+}
+
   Future<Map<String, dynamic>> uploadImage(File image,
       {String imagePath}) async {
     final mimneTypeData = lookupMimeType(image.path).split('/');
@@ -67,8 +95,8 @@ class ActivityModel extends ConnectedActivitiesModel {
     if (imagePath != null) {
       imageUploadRequest.fields['imagePath'] = Uri.encodeComponent(imagePath);
     }
-    imageUploadRequest.headers['Authorization'] =
-        'Bearer ${_authenticatedUser.token}';
+    // imageUploadRequest.headers['Authorization'] =
+    //     'Bearer ${_authenticatedUser.token}';
 
     try {
       final streamedResponse = await imageUploadRequest.send();
