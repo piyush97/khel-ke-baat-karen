@@ -5,7 +5,7 @@ const os = require("os");
 const path = require("path");
 const fs = require("fs");
 const fbAdmin = require("firebase-admin");
-const uuid = require("uuid");
+const uuid = require("uuid/v4");
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
@@ -54,6 +54,18 @@ exports.storeImage = functions.https.onRequest((req, res) => {
     });
     busboy.on("finish", () => {
       const bucket = gcs.bucket("khel-ke-baat-karen.appspot.com");
+      const id = uuid();
+      let imagePath = "images/" + id + "-" + uploadData.name;
+      if (oldImagePath) {
+        imagePath = oldImagePath;
+      }
+      return fbAdmin
+        .auth()
+        .verifyIdToken(idToken)
+        .token()
+        .catch(error => {
+          return res.status(401).json({ error: "Unauthorized" });
+        });
     });
   });
 });
