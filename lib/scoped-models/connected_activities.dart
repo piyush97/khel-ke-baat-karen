@@ -4,7 +4,7 @@ import 'package:scoped_model/scoped_model.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:mime/mime.dart';
-
+import 'package:http_parser/http_parser.dart';
 import '../models/activity.dart';
 import '../models/user.dart';
 
@@ -56,10 +56,18 @@ class ActivityModel extends ConnectedActivitiesModel {
 
   Future<Map<String, String>> uploadImage(File image,
       {String imagePath}) async {
-        final mimneTypeData = lookupMimeType(image.path).split('/');
-        final imageUploadRequest = http.MultipartRequest('POST', Uri.parse(''));
-        final file = http.MultipartFile.fromPath('image', image.path)
-      }
+    final mimneTypeData = lookupMimeType(image.path).split('/');
+    final imageUploadRequest = http.MultipartRequest(
+        'POST',
+        Uri.parse(
+            ' https://us-central1-khel-ke-baat-karen.cloudfunctions.net/storeImage'));
+    final file = await http.MultipartFile.fromPath('image', image.path,
+        contentType: MediaType(mimneTypeData[0], mimneTypeData[1]));
+    imageUploadRequest.files.add(file);
+    if (imagePath != null) {
+      imageUploadRequest.fields['imagePath'] = Uri.encodeComponent(imagePath);
+    }
+  }
 
   Future<bool> addActivities(
       String title, String description, File image, double time) async {
