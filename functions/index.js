@@ -82,7 +82,8 @@ exports.storeImage = functions.https.onRequest((req, res) => {
               "/0/" +
               encodeURIComponent(imagePath) +
               "?alt=media&token=" +
-              id
+              id,
+              imagePath: imagePath
           });
         })
         .catch(error => {
