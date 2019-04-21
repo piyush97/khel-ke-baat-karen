@@ -127,9 +127,6 @@ class _AuthPageState extends State<AuthPage> {
     final double deviceWidth = MediaQuery.of(context).size.width;
     final double targetWidth = deviceWidth > 550.0 ? 500.0 : deviceWidth * 0.95;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-      ),
       body: Container(
         decoration: BoxDecoration(
           image: _buildBackgroundImage(),
