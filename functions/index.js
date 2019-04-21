@@ -24,6 +24,7 @@ exports.storeImage = functions.https.onRequest((req, res) => {
     }
     let idToken;
     let uploadData;
+    let oldImagePath;
     idToken = req.headers.authorization.split("Bearer ")[1];
 
     const busboy = Busboy({ headers: req.headers });
@@ -33,5 +34,9 @@ exports.storeImage = functions.https.onRequest((req, res) => {
       uploadData = { filePath: filePath, type: mimetype, name: filename };
       file.pipe(fs.createWriteStream(filePath));
     });
+    busboy.on("field", (fieldname, value) => {
+      oldImagePath = decodeURIComponent(value);
+    });
+    busboy.on("finish", () => {});
   });
 });
