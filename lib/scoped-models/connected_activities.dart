@@ -7,7 +7,7 @@ import 'package:mime/mime.dart';
 import 'package:http_parser/http_parser.dart';
 import '../models/activity.dart';
 import '../models/user.dart';
-
+import './key.dart';
 class ConnectedActivitiesModel extends Model {
   List<Activity> _activities = [];
   User _authenticatedUser;
@@ -63,7 +63,7 @@ class ActivityModel extends ConnectedActivitiesModel {
       'returnSecureToken': true
     };
     final http.Response response = await http.post(
-      'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyDDo7uBXpMmkhMfxuSh21M2JkRX6gh1Uwc',
+      'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=',
       body: json.encode(authData),
       headers: {'Content-Type': 'application/json'},
     );
