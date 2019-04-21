@@ -72,14 +72,16 @@ class _MyAppState extends State<MyApp> {
               return activity.id == activityId;
             });
             return MaterialPageRoute<bool>(
-              builder: (BuildContext context) => ActivityPage(activity),
+              builder: (BuildContext context) =>
+                  !_isAuthenticated ? AuthPage() : ActivityPage(activity),
             );
           }
           return null;
         },
         onUnknownRoute: (RouteSettings settings) {
           return MaterialPageRoute(
-            builder: (BuildContext context) => ActivitiesPage(_model),
+            builder: (BuildContext context) =>
+                !_isAuthenticated ? AuthPage() : ActivitiesPage(_model),
           );
         },
       ),
