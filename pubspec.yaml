@@ -33,9 +33,9 @@ dependencies:
   mime: ^0.9.6+2
   shared_preferences: ^0.5.2
   rxdart: ^0.21.0
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
+# dev_dependencies:
+#   flutter_test:
+#     sdk: flutter
 
 
 # For information on the generic Dart part of this file, see the
