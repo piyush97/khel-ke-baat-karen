@@ -52,7 +52,7 @@ matrix:
     - export PATH=$GRADLE_HOME/bin:$PATH
     - git clone https://github.com/flutter/flutter.git
     script:
-    - "./flutter/bin/flutter build android --debug"
+    - "./flutter/bin/flutter doctor"
   - env: JOB=IPA
     os: osx
     language: generic
@@ -64,14 +64,7 @@ matrix:
     - brew install ios-deploy
     - git clone https://github.com/flutter/flutter.git
     script:
-    - "./flutter/bin/flutter build ios --debug"
+    - "./flutter/bin/flutter doctor"
 cache:
   directories:
   - "$HOME/.pub-caches"
-deploy:
-  provider: releases
-  api_key:
-    secure: cRFA5/HO7Xgq2Z+DlP8M7ccpS+OG77XIYBMHG6tO7R0mkK4EOS4lFQbxu/oajCuNfvTE8lfwycWM/7aCZrY0+El50+nDa958PVlbbi+2ABV3rbTVrlabDh0MvUAfvfrml4l1IY0oF1TOppGxg8wYG7iIj01/Dw9WBR5mPh/0BmHI5wCgb3OAn2VtPxIlu2yIbtNWATea0q++S+OVsDhB+9aUAzSmbw27dzaHNU1K2zvzyFLJ4yPTWJnvG241/TJS1N3zhTTH3ji4IXhqjAulemDkSMSIkvd/O65n8SLSN7ItZyEztH+39Z8zQ6ViLwYWXTbDs1yb6QNXK4SawF9v3mcu+TlCJz+uLyXodAJeE+oaEMnnutFer4hQQZxJPX7xNA0FPbVGO5CcKhd0zJyUCdcSVA0wFHATVD8lKCUf/R4pEvKbYex4uxqL1u2IJ8dA/B6lZ9ZZawJZdknbgxn0IC+rRX+fLkBPk7i/7Fyzm6sXRFqGA0ep0CELosNWiHx+b8RKnjBSPy0FW7y0PmjSOBnpnYeyKppG3S5CAXMv6f8GFdYA7jbCwSMFNFQ1yax1aFHqRTzNkmV3DJq8RtlmhVoK3TBj7TGDMb0CM5jOqzdqsAS7gjmlJqLS7muOM9med2RHszF5wlo6tad5E1IiaWLAEKSnnxX295n/hVBtYSM=
-  file: "./build/ios/iphoneos/Runner.app ./build/app/outputs/apk/release/app-release.apk"
-  on:
-    repo: piyush97/khel-ke-baat-karen
