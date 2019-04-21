@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import '../scoped-models/main.dart';
 
@@ -133,12 +134,19 @@ class _AuthPageState extends State<AuthPage> {
                     ScopedModelDescendant<MainModel>(
                       builder: (BuildContext context, Widget child,
                           MainModel model) {
-                        return RaisedButton(
-                          textColor: Colors.white,
-                          child: Text('LOGIN'),
-                          onPressed: () =>
-                              _submitForm(model.login, model.signup),
-                        );
+                        return model.isLoading
+                            ? SpinKitFadingFour(
+                                color: Colors.black,
+                                size: 50.0,
+                              )
+                            : RaisedButton(
+                                textColor: Colors.white,
+                                child: Text(_authMode == AuthMode.Login
+                                    ? 'Login'
+                                    : 'SignUp'),
+                                onPressed: () =>
+                                    _submitForm(model.login, model.signup),
+                              );
                       },
                     ),
                     FlatButton(
