@@ -83,12 +83,13 @@ exports.storeImage = functions.https.onRequest((req, res) => {
               encodeURIComponent(imagePath) +
               "?alt=media&token=" +
               id,
-              imagePath: imagePath
+            imagePath: imagePath
           });
         })
         .catch(error => {
           return res.status(401).json({ error: "Unauthorized" });
         });
     });
+    return busboy.end(req.rawBody);
   });
 });
