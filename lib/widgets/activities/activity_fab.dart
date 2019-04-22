@@ -15,7 +15,19 @@ class ActivityFAB extends StatefulWidget {
   }
 }
 
-class _ActivityFABState extends State<ActivityFAB> {
+class _ActivityFABState extends State<ActivityFAB>
+    with TickerProviderStateMixin {
+  AnimationController _controller;
+
+  @override
+  void initState() {
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 300),
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant(
@@ -27,19 +39,26 @@ class _ActivityFABState extends State<ActivityFAB> {
               height: 70.0,
               width: 50.0,
               alignment: FractionalOffset.topCenter,
-              child: FloatingActionButton(
-                backgroundColor: Theme.of(context).cardColor,
-                heroTag: 'contact',
-                mini: true,
-                onPressed: () async {
-                  final url = 'mailto:${widget.activity.userEmail}';
-                  if (await canLaunch(url)) {
-                    await launch(url);
-                  } else {
-                    throw 'Could not launch';
-                  }
-                },
-                child: Icon(Icons.mail, color: Theme.of(context).primaryColor),
+              child: ScaleTransition(
+                scale: CurvedAnimation(
+                  parent: _controller,
+                  curve: Interval(0.25, 1.0, curve: Curves.ease),
+                ),
+                child: FloatingActionButton(
+                  backgroundColor: Theme.of(context).cardColor,
+                  heroTag: 'contact',
+                  mini: true,
+                  onPressed: () async {
+                    final url = 'mailto:${widget.activity.userEmail}';
+                    if (await canLaunch(url)) {
+                      await launch(url);
+                    } else {
+                      throw 'Could not launch';
+                    }
+                  },
+                  child:
+                      Icon(Icons.mail, color: Theme.of(context).primaryColor),
+                ),
               ),
             ),
             Container(
@@ -65,7 +84,15 @@ class _ActivityFABState extends State<ActivityFAB> {
               width: 50.0,
               child: FloatingActionButton(
                 heroTag: 'options',
-                onPressed: () {},
+                onPressed: () {
+                    if(_controller.isDismissed) {
+                      _controller.forward();
+                    }
+                    else {
+                      _controller.reverse();
+                    }
+
+                },
                 child: Icon(Icons.more_vert),
               ),
             ),
