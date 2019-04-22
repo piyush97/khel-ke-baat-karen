@@ -54,7 +54,7 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
         } else if (model.isLoading) {
           content = Center(
               child: SpinKitCubeGrid(
-            color: Colors.black26,
+            color: Theme.of(context).accentColor,
             size: 80.0,
           ));
         }

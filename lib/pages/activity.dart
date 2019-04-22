@@ -27,37 +27,54 @@ class ActivityPage extends StatelessWidget {
         return Future.value(false);
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(activity.title),
-        ),
-        body: ListView(
-          children: <Widget>[
-            Hero(
-              tag: activity.id,
-              child: FadeInImage(
-                image: NetworkImage(activity.image),
-                height: 400,
-                fit: BoxFit.cover,
-                placeholder: AssetImage('assets/food.jpg'),
+        // appBar: AppBar(
+        //   title: Text(activity.title),
+        // ),
+        body: CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar(
+              expandedHeight: 256.0,
+              pinned: true,
+              flexibleSpace: FlexibleSpaceBar(
+                title: Text(
+                  activity.title,
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
+                ),
+                background: Hero(
+                  tag: activity.id,
+                  child: FadeInImage(
+                    image: NetworkImage(activity.image),
+                    height: 400,
+                    fit: BoxFit.cover,
+                    placeholder: AssetImage('assets/food.jpg'),
+                  ),
+                ),
               ),
             ),
-            Container(
-              padding: EdgeInsets.all(10.0),
-              child: Center(child: TitleDefault(activity.title)),
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  Container(
+                      padding: EdgeInsets.all(10.0),
+                      alignment: Alignment.center,
+                      child: TitleDefault(activity.title)),
+                  Center(
+                    child: _buildActivityTimeRow(activity.time),
+                  ),
+                  Center(
+                      child: Container(
+                          padding: EdgeInsets.all(10.0),
+                          child: Center(
+                              child: Center(
+                            child: Text(
+                              activity.description,
+                              textAlign: TextAlign.center,
+                            ),
+                          ))))
+                ],
+              ),
             ),
-            Center(
-              child: _buildActivityTimeRow(activity.time),
-            ),
-            Center(
-                child: Container(
-                    padding: EdgeInsets.all(10.0),
-                    child: Center(
-                        child: Center(
-                      child: Text(
-                        activity.description,
-                        textAlign: TextAlign.center,
-                      ),
-                    ))))
           ],
         ),
         floatingActionButton: ActivityFAB(activity),
