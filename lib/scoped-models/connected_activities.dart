@@ -14,6 +14,7 @@ import 'package:http_parser/http_parser.dart';
 import '../models/activity.dart';
 import '../models/user.dart';
 import '../models/auth.dart';
+import '../shared/global_config.dart';
 
 class ConnectedActivitiesModel extends Model {
   List<Activity> _activities = [];
@@ -368,13 +369,13 @@ class UserModel extends ConnectedActivitiesModel {
     http.Response response;
     if (mode == AuthMode.Login) {
       response = await http.post(
-        'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=',
+        'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=$apiKey',
         body: json.encode(authData),
         headers: {'Content-Type': 'application/json'},
       );
     } else {
       response = await http.post(
-        'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=',
+        'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=$apiKey',
         body: json.encode(authData),
         headers: {'Content-Type': 'application/json'},
       );

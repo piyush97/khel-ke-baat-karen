@@ -69,7 +69,5 @@
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 
-key.dart
-secrets.json
-lib/scoped-models/connected_activities.dart
-connected_activities.dart
+# API KEY FILES
+lib/shared/
