@@ -8,7 +8,7 @@ import './pages/activites.dart';
 import './pages/auth.dart';
 import './scoped-models/main.dart';
 import './models/activity.dart';
-
+import './widgets/helpers/custom_route.dart';
 void main() {
   SystemChrome.setEnabledSystemUIOverlays([]);
   SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight])
@@ -71,7 +71,7 @@ class _MyAppState extends State<MyApp> {
                 _model.allActivities.firstWhere((Activity activity) {
               return activity.id == activityId;
             });
-            return MaterialPageRoute<bool>(
+            return CustomRoute<bool>(
               builder: (BuildContext context) =>
                   !_isAuthenticated ? AuthPage() : ActivityPage(activity),
             );
