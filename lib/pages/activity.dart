@@ -32,10 +32,14 @@ class ActivityPage extends StatelessWidget {
         ),
         body: ListView(
           children: <Widget>[
-            Image.network(
-              activity.image,
-              scale: 0.1,
-              height: 400,
+            Hero(
+              tag: activity.id,
+              child: FadeInImage(
+                image: NetworkImage(activity.image),
+                height: 400,
+                fit: BoxFit.cover,
+                placeholder: AssetImage('assets/food.jpg'),
+              ),
             ),
             Container(
               padding: EdgeInsets.all(10.0),
