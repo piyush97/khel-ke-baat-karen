@@ -3,7 +3,7 @@ import 'dart:async';
 
 import '../models/activity.dart';
 import '../widgets/ui_elements/title_default.dart';
-
+import '../widgets/activities/activity_fab.dart';
 class ActivityPage extends StatelessWidget {
   final Activity activity;
 
@@ -26,36 +26,36 @@ class ActivityPage extends StatelessWidget {
         return Future.value(false);
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(activity.title),
-        ),
-        body: ListView(
-          children: <Widget>[
-            Image.network(
-              activity.image,
-              scale: 0.1,
-              height: 400,
-            ),
-            Container(
-              padding: EdgeInsets.all(10.0),
-              child: Center(child: TitleDefault(activity.title)),
-            ),
-            Center(
-              child: _buildActivityTimeRow(activity.time),
-            ),
-            Center(
-                child: Container(
-                    padding: EdgeInsets.all(10.0),
-                    child: Center(
-                        child: Center(
-                      child: Text(
-                        activity.description,
-                        textAlign: TextAlign.center,
-                      ),
-                    ))))
-          ],
-        ),
-      ),
+          appBar: AppBar(
+            title: Text(activity.title),
+          ),
+          body: ListView(
+            children: <Widget>[
+              Image.network(
+                activity.image,
+                scale: 0.1,
+                height: 400,
+              ),
+              Container(
+                padding: EdgeInsets.all(10.0),
+                child: Center(child: TitleDefault(activity.title)),
+              ),
+              Center(
+                child: _buildActivityTimeRow(activity.time),
+              ),
+              Center(
+                  child: Container(
+                      padding: EdgeInsets.all(10.0),
+                      child: Center(
+                          child: Center(
+                        child: Text(
+                          activity.description,
+                          textAlign: TextAlign.center,
+                        ),
+                      ))))
+            ],
+          ),
+          floatingActionButton: ActivityFAB(),
     );
   }
 }
