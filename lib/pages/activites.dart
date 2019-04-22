@@ -6,7 +6,9 @@ import '../widgets/activities/activities.dart';
 import '../scoped-models/main.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import '../widgets/ui_elements/logout_list_tile.dart';
-import '../widgets/helpers/speech_rec.dart';
+import 'dart:async';
+import 'dart:io';
+import 'package:flutter_tts/flutter_tts.dart';
 
 class ActivitiesPage extends StatefulWidget {
   final MainModel model;
@@ -82,7 +84,7 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
 
   void _goToNextPage() {
     Navigator.of(context)
-        .push(FadeRouteBuilder(page: New()))
+        .push(FadeRouteBuilder(page: MyAppTTS()))
         .then((_) => setState(() => rect = null));
   }
 
@@ -173,5 +175,214 @@ class New extends StatelessWidget {
       ),
       body: Container(),
     );
+  }
+}
+
+class MyAppTTS extends StatefulWidget {
+  @override
+  _MyAppTTSState createState() => _MyAppTTSState();
+}
+
+enum TtsState { playing, stopped }
+
+class _MyAppTTSState extends State<MyAppTTS> {
+  FlutterTts flutterTts;
+  dynamic languages;
+  dynamic voices;
+  String language;
+  String voice;
+
+  String _newVoiceText;
+
+  TtsState ttsState = TtsState.stopped;
+
+  get isPlaying => ttsState == TtsState.playing;
+  get isStopped => ttsState == TtsState.stopped;
+
+  @override
+  initState() {
+    super.initState();
+    initTts();
+  }
+
+  initTts() {
+    flutterTts = FlutterTts();
+
+    if (Platform.isAndroid) {
+      flutterTts.ttsInitHandler(() {
+        _getLanguages();
+        _getVoices();
+      });
+    } else if (Platform.isIOS) {
+      _getLanguages();
+    }
+
+    flutterTts.setStartHandler(() {
+      setState(() {
+        ttsState = TtsState.playing;
+      });
+    });
+
+    flutterTts.setCompletionHandler(() {
+      setState(() {
+        ttsState = TtsState.stopped;
+      });
+    });
+
+    flutterTts.setErrorHandler((msg) {
+      setState(() {
+        ttsState = TtsState.stopped;
+      });
+    });
+  }
+
+  Future _getLanguages() async {
+    languages = await flutterTts.getLanguages;
+    if (languages != null) setState(() => languages);
+  }
+
+  Future _getVoices() async {
+    voices = await flutterTts.getVoices;
+    if (voices != null) setState(() => voices);
+  }
+
+  Future _speak() async {
+    if (_newVoiceText != null) {
+      if (_newVoiceText.isNotEmpty) {
+        var result = await flutterTts.speak(_newVoiceText);
+        if (result == 1) setState(() => ttsState = TtsState.playing);
+      }
+    }
+  }
+
+  Future _stop() async {
+    var result = await flutterTts.stop();
+    if (result == 1) setState(() => ttsState = TtsState.stopped);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    flutterTts.stop();
+  }
+
+  List<DropdownMenuItem<String>> getLanguageDropDownMenuItems() {
+    var items = List<DropdownMenuItem<String>>();
+    for (String type in languages) {
+      items.add(DropdownMenuItem(value: type, child: Text(type)));
+    }
+    return items;
+  }
+
+  List<DropdownMenuItem<String>> getVoiceDropDownMenuItems() {
+    var items = List<DropdownMenuItem<String>>();
+    for (String type in voices) {
+      items.add(DropdownMenuItem(value: type, child: Text(type)));
+    }
+    return items;
+  }
+
+  void changedLanguageDropDownItem(String selectedType) {
+    setState(() {
+      language = selectedType;
+      flutterTts.setLanguage('en-IN');
+    });
+  }
+
+  void changedVoiceDropDownItem(String selectedType) {
+    setState(() {
+      voice = selectedType;
+      flutterTts.setVoice(voice);
+    });
+  }
+
+  void _onChange(String text) {
+    setState(() {
+      _newVoiceText = text;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        home: Scaffold(
+            appBar: AppBar(
+              title: Text('Baat Karen'),
+              backgroundColor: Theme.of(context).accentColor,
+            ),
+            body: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(children: [
+                  inputSection(),
+                  btnSection(),
+                  languages != null ? languageDropDownSection() : Text(""),
+                  voices != null ? voiceDropDownSection() : Text("")
+                ]))));
+  }
+
+  Widget inputSection() => Container(
+        alignment: Alignment.topCenter,
+        padding: EdgeInsets.only(top: 25.0, left: 95.0, right: 95.0),
+        child: TextField(
+          decoration: InputDecoration(
+              helperStyle: TextStyle(
+                fontSize: 28,
+              ),
+              helperText: "Write here what you want to say!"),
+          onChanged: (String value) {
+            _onChange(value);
+          },
+        ),
+      );
+
+  Widget btnSection() => Container(
+      padding: EdgeInsets.only(top: 50.0),
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        _buildButtonColumn(Colors.green, Colors.greenAccent,
+            Icons.play_circle_outline, 'PLAY', _speak),
+        _buildButtonColumn(
+            Colors.red, Colors.redAccent, Icons.stop, 'STOP', _stop)
+      ]));
+
+  Widget languageDropDownSection() => Container(
+      padding: EdgeInsets.only(top: 50.0),
+      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        DropdownButton(
+          value: language,
+          items: getLanguageDropDownMenuItems(),
+          onChanged: changedLanguageDropDownItem,
+        )
+      ]));
+
+  Widget voiceDropDownSection() => Container(
+      padding: EdgeInsets.only(top: 50.0),
+      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        DropdownButton(
+          value: voice,
+          items: getVoiceDropDownMenuItems(),
+          onChanged: changedVoiceDropDownItem,
+        )
+      ]));
+
+  Column _buildButtonColumn(Color color, Color splashColor, IconData icon,
+      String label, Function func) {
+    return Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          IconButton(
+              iconSize: 80.0,
+              icon: Icon(icon),
+              color: color,
+              splashColor: splashColor,
+              onPressed: () => func()),
+          Container(
+              margin: const EdgeInsets.only(top: 8.0),
+              child: Text(label,
+                  style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w400,
+                      color: color)))
+        ]);
   }
 }

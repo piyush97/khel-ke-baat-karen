@@ -34,7 +34,7 @@ dependencies:
   shared_preferences: ^0.5.2
   rxdart: ^0.21.0
   url_launcher: ^5.0.2
-  speech_recognition: "^0.3.0"
+  flutter_tts: ^0.2.4
 dev_dependencies:
   flutter_test:
     sdk: flutter

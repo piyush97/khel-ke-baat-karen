@@ -67,6 +67,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_tts:
+    dependency: "direct main"
+    description:
+      name: flutter_tts
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.4"
   http:
     dependency: "direct main"
     description:
@@ -170,13 +177,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.5.4"
-  speech_recognition:
-    dependency: "direct main"
-    description:
-      name: speech_recognition
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.0+1"
   stack_trace:
     dependency: transitive
     description:
