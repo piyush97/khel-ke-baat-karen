@@ -8,8 +8,7 @@ import '../../scoped-models/main.dart';
 
 class ActivityCard extends StatelessWidget {
   final Activity activity;
-  final int activityIndex;
-  ActivityCard(this.activity, this.activityIndex);
+  ActivityCard(this.activity);
 
   Widget _buildTitleTimeRow() {
     return Container(
@@ -37,19 +36,19 @@ class ActivityCard extends StatelessWidget {
             icon: Icon(Icons.info),
             color: Theme.of(context).accentColor,
             onPressed: () {
-              model.selectActivity(model.allActivities[activityIndex].id);
+              model.selectActivity(activity.id);
               Navigator.pushNamed<bool>(context,
-                      '/activity/' + model.allActivities[activityIndex].id)
+                      '/activity/' + activity.id)
                   .then((_) => model.selectActivity(null));
             },
           ),
           IconButton(
-            icon: Icon(model.allActivities[activityIndex].isFavorite
+            icon: Icon(activity.isFavorite
                 ? Icons.favorite
                 : Icons.favorite_border),
             color: Colors.red,
             onPressed: () {
-              model.selectActivity(model.allActivities[activityIndex].id);
+              model.selectActivity(activity.id);
               model.toggleActivityFavoriteStatus();
             },
           ),

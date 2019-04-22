@@ -13,7 +13,7 @@ class Activities extends StatelessWidget {
         controller: PageController(viewportFraction: .67),
         scrollDirection: Axis.values[0],
         itemBuilder: (BuildContext context, int index) =>
-            ActivityCard(activities[index], index),
+            ActivityCard(activities[index]),
         itemCount: activities.length,
       );
     } else {
