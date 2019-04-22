@@ -25,7 +25,7 @@ class _ActivityFABState extends State<ActivityFAB>
   void initState() {
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 300),
+      duration: Duration(milliseconds: 200),
     );
     super.initState();
   }
