@@ -1,4 +1,4 @@
-package com.example.khel;
+package com.example.k2bk;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
