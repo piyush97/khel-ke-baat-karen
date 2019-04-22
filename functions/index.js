@@ -81,7 +81,7 @@ exports.storeImage = functions.https.onRequest((req, res) => {
         })
         .then(() => {
           return res.status(201).json({
-            imageUrl:
+            image:
               "https://firebasestorage.googleapis.com/v0/b/" +
               bucket.name +
               "/o/" +
