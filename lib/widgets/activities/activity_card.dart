@@ -79,7 +79,6 @@ class ActivityCard extends StatelessWidget {
                 ),
               ),
               _buildTitleTimeRow(),
-              Text(activity.userEmail),
               _buildActionButtons(context),
             ],
           ),
