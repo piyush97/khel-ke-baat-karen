@@ -62,29 +62,31 @@ class ActivityCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
-      child: Center(
-        child: Card(
-          margin: EdgeInsets.all(18.0),
-          elevation: 1,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              SizedBox(
-                height: 10.0,
-              ),
-              Container(
-                padding: EdgeInsets.all(30.0),
-                child: FadeInImage(
-                  image: NetworkImage(activity.image),
-                  height: 150.0,
-                  width: MediaQuery.of(context).size.width,
-                  fit: BoxFit.scaleDown,
-                  placeholder: AssetImage('assets/loader.jpg'),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          minHeight: 600,
+        ),
+        child: Center(
+          child: Card(
+            margin: EdgeInsets.all(18.0),
+            elevation: 1,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Hero(
+                  tag: activity.id,
+                  child: FadeInImage(
+                    image: NetworkImage(activity.image),
+                    height: 300,
+                    width: MediaQuery.of(context).size.width,
+                    fit: BoxFit.cover,
+                    placeholder: AssetImage('assets/loader.jpg'),
+                  ),
                 ),
-              ),
-              _buildTitleTimeRow(),
-              _buildActionButtons(context),
-            ],
+                _buildTitleTimeRow(),
+                _buildActionButtons(context),
+              ],
+            ),
           ),
         ),
       ),
