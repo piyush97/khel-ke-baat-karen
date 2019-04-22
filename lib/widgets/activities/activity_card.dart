@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import './time.dart';
-import '../ui_elements/title_default.dart';
 import '../../models/activity.dart';
 import '../../scoped-models/main.dart';
 
@@ -16,11 +15,20 @@ class ActivityCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          TitleDefault(activity.title),
-          SizedBox(
-            width: 8.0,
+          Flexible(
+            child: Text(
+              (activity.title),
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 28.0),
+              softWrap: true,
+            ),
           ),
-          TimeTag(activity.time.toString()),
+          Flexible(
+            child: SizedBox(
+              width: 8.0,
+            ),
+          ),
+          Flexible(child: TimeTag(activity.time.toString())),
         ],
       ),
     );
@@ -37,15 +45,13 @@ class ActivityCard extends StatelessWidget {
             color: Theme.of(context).accentColor,
             onPressed: () {
               model.selectActivity(activity.id);
-              Navigator.pushNamed<bool>(context,
-                      '/activity/' + activity.id)
+              Navigator.pushNamed<bool>(context, '/activity/' + activity.id)
                   .then((_) => model.selectActivity(null));
             },
           ),
           IconButton(
-            icon: Icon(activity.isFavorite
-                ? Icons.favorite
-                : Icons.favorite_border),
+            icon: Icon(
+                activity.isFavorite ? Icons.favorite : Icons.favorite_border),
             color: Colors.red,
             onPressed: () {
               model.selectActivity(activity.id);

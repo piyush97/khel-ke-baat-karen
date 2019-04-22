@@ -175,7 +175,7 @@ class ActivityModel extends ConnectedActivitiesModel {
     notifyListeners();
     return http
         .delete(
-            'https://khel-ke-baat-karen.firebaseio.com/activities/${deletedActivityId}.json?auth=${_authenticatedUser.token}')
+            'https://khel-ke-baat-karen.firebaseio.com/activities/$deletedActivityId.json?auth=${_authenticatedUser.token}')
         .then((http.Response response) {
       _isLoading = false;
       notifyListeners();
@@ -259,7 +259,7 @@ class ActivityModel extends ConnectedActivitiesModel {
       'userId': selectedActivity.userId
     };
     try {
-      final http.Response response = await http.put(
+      await http.put(
           'https://khel-ke-baat-karen.firebaseio.com/activities/${selectedActivity.id}.json?auth=${_authenticatedUser.token}',
           body: json.encode(updateData));
       _isLoading = false;
@@ -321,6 +321,7 @@ class ActivityModel extends ConnectedActivitiesModel {
       _activities[selectedActivityIndex] = updatedactivity;
       notifyListeners();
     }
+    _selActivityId = null;
   }
 
   void selectActivity(String activityId) {
@@ -361,7 +362,8 @@ class UserModel extends ConnectedActivitiesModel {
       Map decoded = jsonDecode('assets/secrets.json');
       return decoded['api_key'];
     }
-      print(_loadApi.toString());
+
+    print(_loadApi.toString());
 
     http.Response response;
     if (mode == AuthMode.Login) {
@@ -441,7 +443,7 @@ class UserModel extends ConnectedActivitiesModel {
     _authenticatedUser = null;
     _authTimer.cancel();
     _userSubject.add(false);
-  _selActivityId = null;
+    _selActivityId = null;
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove('token');
     prefs.remove('userEmail');

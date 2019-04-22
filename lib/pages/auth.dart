@@ -198,7 +198,10 @@ class _AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
                       builder: (BuildContext context, Widget child,
                           MainModel model) {
                         return model.isLoading
-                            ? CircularProgressIndicator()
+                            ? SpinKitCubeGrid(
+                                color: Theme.of(context).accentColor,
+                                size: 80.0,
+                              )
                             : RaisedButton(
                                 textColor: Colors.white,
                                 child: Text(_authMode == AuthMode.Login
