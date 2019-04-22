@@ -42,7 +42,7 @@ class _ActivityFABState extends State<ActivityFAB>
               child: ScaleTransition(
                 scale: CurvedAnimation(
                   parent: _controller,
-                  curve: Interval(0.25, 1.0, curve: Curves.ease),
+                  curve: Interval(0, 1, curve: Curves.easeOut),
                 ),
                 child: FloatingActionButton(
                   backgroundColor: Theme.of(context).cardColor,
@@ -65,18 +65,24 @@ class _ActivityFABState extends State<ActivityFAB>
               height: 70.0,
               width: 50.0,
               alignment: FractionalOffset.topCenter,
-              child: FloatingActionButton(
-                backgroundColor: Theme.of(context).cardColor,
-                heroTag: 'favorite',
-                mini: true,
-                onPressed: () {
-                  model.toggleActivityFavoriteStatus();
-                },
-                child: Icon(
-                    model.selectedActivity.isFavorite
-                        ? Icons.favorite
-                        : Icons.favorite_border,
-                    color: Colors.red),
+              child: ScaleTransition(
+                scale: CurvedAnimation(
+                  parent: _controller,
+                  curve: Interval(0, 0.1, curve: Curves.easeOut),
+                ),
+                child: FloatingActionButton(
+                  backgroundColor: Theme.of(context).cardColor,
+                  heroTag: 'favorite',
+                  mini: true,
+                  onPressed: () {
+                    model.toggleActivityFavoriteStatus();
+                  },
+                  child: Icon(
+                      model.selectedActivity.isFavorite
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: Colors.red),
+                ),
               ),
             ),
             Container(
@@ -85,13 +91,11 @@ class _ActivityFABState extends State<ActivityFAB>
               child: FloatingActionButton(
                 heroTag: 'options',
                 onPressed: () {
-                    if(_controller.isDismissed) {
-                      _controller.forward();
-                    }
-                    else {
-                      _controller.reverse();
-                    }
-
+                  if (_controller.isDismissed) {
+                    _controller.forward();
+                  } else {
+                    _controller.reverse();
+                  }
                 },
                 child: Icon(Icons.more_vert),
               ),
