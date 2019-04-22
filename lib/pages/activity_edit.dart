@@ -29,7 +29,7 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
   final _priceFocusNode = FocusNode();
   final _titleTextController = TextEditingController();
   final _descriptionTextController = TextEditingController();
-
+  final _timeTextController = TextEditingController();
   Widget _buildTitleTextField(Activity activity) {
     if (activity == null && _titleTextController.text.trim() == '') {
       _titleTextController.text = '';
@@ -92,13 +92,19 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
   }
 
   Widget _buildTimeTextField(Activity activity) {
+    if (activity == null && _timeTextController.text.trim() == '') {
+      _timeTextController.text = '';
+    } else if (activity != null && _timeTextController.text.trim() == '') {
+      _timeTextController.text = activity.description;
+    }
     return EnsureVisibleWhenFocused(
       focusNode: _priceFocusNode,
       child: TextFormField(
         focusNode: _priceFocusNode,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(labelText: 'Activity Time'),
-        initialValue: activity == null ? '' : activity.time.toString(),
+        controller: _timeTextController,
+        // initialValue: activity == null ? '' : activity.time.toString(),
         validator: (String value) {
           // if (value.trim().length <= 0) {
           if (value.isEmpty) {
@@ -189,7 +195,7 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
         _titleTextController.text,
         _descriptionTextController.text,
         _formData['image'],
-        _formData['time'],
+        double.parse(_timeTextController.text),
       ).then(
         (bool success) {
           if (success) {
@@ -219,7 +225,7 @@ class _ActivityEditPageState extends State<ActivityEditPage> {
         _titleTextController.text,
         _descriptionTextController.text,
         _formData['image'],
-        _formData['time'],
+        double.parse(_timeTextController.text),
       ).then(
         (_) => Navigator.pushReplacementNamed(context, '/activities').then(
               (_) => setSelectedActivity(null),
