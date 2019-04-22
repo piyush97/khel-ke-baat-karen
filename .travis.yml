@@ -67,4 +67,4 @@ matrix:
     - "./flutter/bin/flutter test"
 cache:
   directories:
-  - "$HOME/.pub-caches"
+  - "$HOME/.pub-cache"
