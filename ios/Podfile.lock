@@ -4,6 +4,8 @@ PODS:
     - Flutter
   - shared_preferences (0.0.1):
     - Flutter
+  - speech_recognition (0.3.0):
+    - Flutter
   - url_launcher (0.0.1):
     - Flutter
 
@@ -11,6 +13,7 @@ DEPENDENCIES:
   - Flutter (from `.symlinks/flutter/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
+  - speech_recognition (from `.symlinks/plugins/speech_recognition/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
 
 EXTERNAL SOURCES:
@@ -20,6 +23,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/image_picker/ios"
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
+  speech_recognition:
+    :path: ".symlinks/plugins/speech_recognition/ios"
   url_launcher:
     :path: ".symlinks/plugins/url_launcher/ios"
 
@@ -27,6 +32,7 @@ SPEC CHECKSUMS:
   Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
   image_picker: 86b84c4fe89267356a1f17297a45b5d317ebd2e7
   shared_preferences: 5a1d487c427ee18fcd3ea1f2a131569481834b53
+  speech_recognition: acf2b916cd7aff5d4b76a238740afe2aff85e6bc
   url_launcher: 92b89c1029a0373879933c21642958c874539095
 
 PODFILE CHECKSUM: aff02bfeed411c636180d6812254b2daeea14d09

@@ -6,6 +6,7 @@ import '../widgets/activities/activities.dart';
 import '../scoped-models/main.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import '../widgets/ui_elements/logout_list_tile.dart';
+import '../widgets/helpers/speech_rec.dart';
 
 class ActivitiesPage extends StatefulWidget {
   final MainModel model;
@@ -81,7 +82,7 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
 
   void _goToNextPage() {
     Navigator.of(context)
-        .push(FadeRouteBuilder(page: NewPage()))
+        .push(FadeRouteBuilder(page: New()))
         .then((_) => setState(() => rect = null));
   }
 
@@ -121,8 +122,8 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
           ], onTabChangedListener: (_) => {}),
           floatingActionButton: RectGetter(
             key: rectGetterKey,
-            child:
-                FloatingActionButton(child: Text('Points'), onPressed: _onTap),
+            child: FloatingActionButton(
+                child: Icon(Icons.question_answer), onPressed: _onTap),
           ),
         ),
         _ripple()
@@ -163,21 +164,14 @@ class FadeRouteBuilder<T> extends PageRouteBuilder<T> {
         );
 }
 
-class NewPage extends StatelessWidget {
+class New extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Points Chart')),
-      body: Center(
-        child: Card(
-          child: Center(
-            child: Text(
-              "300!!!",
-              style: TextStyle(fontSize: 200),
-            ),
-          ),
-        ),
+      appBar: AppBar(
+        title: Text("Deciding what to put here"),
       ),
+      body: Container(),
     );
   }
 }
