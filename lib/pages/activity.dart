@@ -56,7 +56,7 @@ class ActivityPage extends StatelessWidget {
                     ))))
           ],
         ),
-        floatingActionButton: ActivityFAB(),
+        floatingActionButton: ActivityFAB(activity),
       ),
     );
   }
