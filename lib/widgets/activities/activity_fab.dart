@@ -13,13 +13,38 @@ class _ActivityFABState extends State<ActivityFAB> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        FloatingActionButton(
-          onPressed: () {},
-          child: Icon(Icons.more_vert),
+        Container(
+          height: 70.0,
+          width: 50.0,
+          alignment: FractionalOffset.topCenter,
+          child: FloatingActionButton(
+            backgroundColor: Theme.of(context).cardColor,
+            heroTag: 'contact',
+            mini: true,
+            onPressed: () {},
+            child: Icon(Icons.mail, color:Theme.of(context).primaryColor),
+          ),
         ),
-        FloatingActionButton(
-          onPressed: () {},
-          child: Icon(Icons.more_vert),
+        Container(
+          height: 70.0,
+          width: 50.0,
+          alignment: FractionalOffset.topCenter,
+          child: FloatingActionButton(
+            backgroundColor: Theme.of(context).cardColor,
+            heroTag: 'favorite',
+            mini: true,
+            onPressed: () {},
+            child: Icon(Icons.favorite,color:Colors.red),
+          ),
+        ),
+        Container(
+          height: 70.0,
+          width: 50.0,
+          child: FloatingActionButton(
+            heroTag: 'options',
+            onPressed: () {},
+            child: Icon(Icons.more_vert),
+          ),
         ),
       ],
     );
