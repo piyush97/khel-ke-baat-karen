@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../models/activity.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../models/activity.dart';
 import '../../scoped-models/main.dart';
 
 class ActivityFAB extends StatefulWidget {
@@ -29,7 +31,14 @@ class _ActivityFABState extends State<ActivityFAB> {
                 backgroundColor: Theme.of(context).cardColor,
                 heroTag: 'contact',
                 mini: true,
-                onPressed: () {},
+                onPressed: () async {
+                  final url = 'mailto:${widget.activity.userEmail}';
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    throw 'Could not launch';
+                  }
+                },
                 child: Icon(Icons.mail, color: Theme.of(context).primaryColor),
               ),
             ),
