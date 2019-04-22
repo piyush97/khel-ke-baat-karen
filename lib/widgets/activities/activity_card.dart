@@ -36,8 +36,12 @@ class ActivityCard extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.info),
             color: Theme.of(context).accentColor,
-            onPressed: () => Navigator.pushNamed<bool>(
-                context, '/activity/' + model.allActivities[activityIndex].id),
+            onPressed: () {
+              model.selectActivity(model.allActivities[activityIndex].id);
+              Navigator.pushNamed<bool>(context,
+                      '/activity/' + model.allActivities[activityIndex].id)
+                  .then((_) => model.selectActivity(null));
+            },
           ),
           IconButton(
             icon: Icon(model.allActivities[activityIndex].isFavorite

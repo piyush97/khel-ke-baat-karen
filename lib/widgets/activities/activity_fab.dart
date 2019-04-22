@@ -41,8 +41,14 @@ class _ActivityFABState extends State<ActivityFAB> {
                 backgroundColor: Theme.of(context).cardColor,
                 heroTag: 'favorite',
                 mini: true,
-                onPressed: () {},
-                child: Icon(Icons.favorite, color: Colors.red),
+                onPressed: () {
+                  model.toggleActivityFavoriteStatus();
+                },
+                child: Icon(
+                    model.selectedActivity.isFavorite
+                        ? Icons.favorite
+                        : Icons.favorite_border,
+                    color: Colors.red),
               ),
             ),
             Container(
