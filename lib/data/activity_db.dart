@@ -32,11 +32,14 @@ class ActivityDatabase {
         ACTIVITY_TABLE_NAME +
         " ("
         "id STRING PRIMARY KEY, "
-        "name TEXT, "
-        "time INTEGER, "
+        "title TEXT, "
+        "time REAL, "
         "description TEXT, "
         "url TEXT, "
-        "photo TEXT) ");
+        "imagePath TEXT, "
+        "isFavorite INT, "
+        "userEmail TEXT, "
+        "userId TEXT) ");
   }
 
   Future closeDb() async {
