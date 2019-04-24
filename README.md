@@ -6,6 +6,9 @@
 
 [![Codemagic build status](https://api.codemagic.io/apps/5cbcc5954bb6740c7a724452/5cbcc5954bb6740c7a724451/status_badge.svg)](https://codemagic.io/apps/5cbcc5954bb6740c7a724452/5cbcc5954bb6740c7a724451/latest_build)
 
+App: 
+<img src="https://user-images.githubusercontent.com/18229627/56513082-e841ed80-654e-11e9-844e-6f7d15838b52.gif">
+
 # Plugins:
     cupertino_icons: ^0.1.2
     scoped_model: "1.0.1"
