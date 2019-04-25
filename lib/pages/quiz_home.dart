@@ -18,6 +18,9 @@ class _TutorialHomeState extends State<TutorialHome> {
   Widget build(BuildContext context) {
     // Scaffold is a layout for the major Material Components.
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Questions"),
+      ),
       body: FutureBuilder(
         future: DBProvider.db.getQuestion(123),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -25,7 +28,7 @@ class _TutorialHomeState extends State<TutorialHome> {
           if (data != null) _answer = data.answer;
           return Center(
             child: Container(
-              color: Color(0xFFFFFFFF),
+              color: Colors.white,
               child: Row(
                 children: <Widget>[
                   Container(
@@ -36,7 +39,7 @@ class _TutorialHomeState extends State<TutorialHome> {
                         Padding(
                           padding: const EdgeInsets.only(top: 60),
                           child: Text(
-                            'Question 1/7',
+                            'Ye fake hai',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -78,7 +81,7 @@ class _TutorialHomeState extends State<TutorialHome> {
                     width: (MediaQuery.of(context).size.width) * .5,
                     child: Center(
                       child: Container(
-                        color: Color(0xFF4294ac),
+                        color: Theme.of(context).secondaryHeaderColor,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[

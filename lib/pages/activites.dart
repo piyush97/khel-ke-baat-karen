@@ -10,6 +10,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter_tts/flutter_tts.dart';
 import './add_question.dart';
+import './quiz_home.dart';
 
 class ActivitiesPage extends StatefulWidget {
   final MainModel model;
@@ -43,7 +44,7 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
             },
           ),
           ListTile(
-              leading: Icon(Icons.local_activity),
+              leading: Icon(Icons.question_answer),
               title: Text('Add Questions'),
               onTap: () {
                 Navigator.of(context).push(
@@ -54,6 +55,13 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
                   ),
                 );
               }),
+          ListTile(
+            leading: Icon(Icons.local_activity),
+            title: Text('Set Reward'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/admin');
+            },
+          ),
           Divider(),
           LogoutListTile()
         ],
@@ -130,11 +138,33 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
             ],
           ),
           body: _buildActivitiesList(),
-          bottomNavigationBar: FancyBottomNavigation(tabs: [
-            TabData(iconData: Icons.today, title: "Today"),
-            TabData(iconData: Icons.access_time, title: "Tomorrow"),
-            TabData(iconData: Icons.games, title: "Games")
-          ], onTabChangedListener: (_) => {}),
+          bottomNavigationBar: FancyBottomNavigation(
+              tabs: [
+                TabData(iconData: Icons.today, title: "Today"),
+                TabData(
+                  iconData: Icons.games,
+                  title: "Games",
+                  onclick: () {
+                    return Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return TutorialHome();
+                        },
+                      ),
+                    );
+                  },
+                ),
+                TabData(iconData: Icons.access_alarm, title: "clock")
+              ],
+              onTabChangedListener: (_) => {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return TutorialHome();
+                        },
+                      ),
+                    ),
+                  }),
           floatingActionButton: RectGetter(
             key: rectGetterKey,
             child: FloatingActionButton(
