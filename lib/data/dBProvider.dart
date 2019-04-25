@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import '../models/question_model.dart';
 import 'package:sqflite/sqflite.dart';
+import '../models/reward_model.dart';
 
 class DBProvider {
   DBProvider._();
@@ -25,11 +25,15 @@ class DBProvider {
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
       await db.execute("CREATE TABLE Questions ("
-          "id INTEGER PRIMARY KEY,"
           "q_title TEXT,"
           "q_options TEXT,"
           "answer TEXT,"
           "image_file_path TEXT"
+          ")");
+      await db.execute("CREATE TABLE Rewards ("
+          "id INTEGER PRIMARY KEY,"
+          "image_path TEXT,"
+          "reward_points TEXT"
           ")");
     });
   }
@@ -40,10 +44,22 @@ class DBProvider {
     return res;
   }
 
-  getQuestion(int id) async {
+  newReward(RewardModel newReward) async {
     final db = await database;
-    var res = await db.query("Questions", where: "id = ?", whereArgs: [id]);
-    return res.isNotEmpty ? Question.fromMap(res.first) : null;
+    var res = await db.insert("Rewards", newReward.toMap());
+    return res;
+  }
+
+  // getQuestion(int id) async {
+  //   final db = await database;
+  //   var res = await db.query("Questions", where: "id = ?", whereArgs: [id]);
+  //   return res.isNotEmpty ? Question.fromMap(res.first) : null;
+  // }
+
+  getReward(int id) async {
+    final db = await database;
+    var res = await db.query("Rewards", where: "id = ?", whereArgs: [id]);
+    return res.isNotEmpty ? RewardModel.fromMap(res.first) : null;
   }
 
   Future<List<Question>> getAllQuestions() async {
@@ -58,6 +74,11 @@ class DBProvider {
   deleteClient(int id) async {
     final db = await database;
     return db.delete("Questions", where: "id = ?", whereArgs: [id]);
+  }
+
+  deleteReward(int id) async {
+    final db = await database;
+    return db.delete("Rewards", where: "id = ?", whereArgs: [id]);
   }
 
   deleteAll() async {

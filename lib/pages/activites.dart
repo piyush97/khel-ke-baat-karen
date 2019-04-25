@@ -11,6 +11,7 @@ import 'dart:io';
 import 'package:flutter_tts/flutter_tts.dart';
 import './add_question.dart';
 import './quiz_home.dart';
+import '../pages/reward_page.dart';
 
 class ActivitiesPage extends StatefulWidget {
   final MainModel model;
@@ -59,7 +60,13 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
             leading: Icon(Icons.local_activity),
             title: Text('Set Reward'),
             onTap: () {
-              Navigator.pushReplacementNamed(context, '/admin');
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return Reward();
+                  },
+                ),
+              );
             },
           ),
           Divider(),
