@@ -57,6 +57,10 @@ class _RewardState extends State<Reward> {
         id: 1, imagePath: _image.path, rewardPoints: _minPoints.text);
     if (!_hasData) {
       await DBProvider.db.newReward(reward);
+      print("created new table");
+    } else {
+      await DBProvider.db.updateReward(reward);
+      print("updated");
     }
   }
 

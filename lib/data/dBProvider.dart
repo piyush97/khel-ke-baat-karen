@@ -62,6 +62,13 @@ class DBProvider {
     return res.isNotEmpty ? RewardModel.fromMap(res.first) : null;
   }
 
+  updateReward(RewardModel newReward) async {
+    final db = await database;
+    var res = await db.update("Rewards", newReward.toMap(),
+        where: "id = ?", whereArgs: [newReward.id]);
+    return res;
+  }
+
   Future<List<Question>> getAllQuestions() async {
     final db = await database;
     var res = await db.query("Questions");
