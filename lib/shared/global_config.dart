@@ -1,1 +1,1 @@
-final String apiKey = 'AIzaSyDDo7uBXpMmkhMfxuSh21M2JkRX6gh1Uwc';
+final String apiKey = $firebase_api_key;
