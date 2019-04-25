@@ -41,255 +41,244 @@ class _AddQuestionState extends State<AddQuestion> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Add Questions'),
-        ),
         body: Row(
-          children: <Widget>[
-            Container(
-              width: (MediaQuery.of(context).size.width) * .6,
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      bottom: 0, left: 30, right: 30, top: 0),
-                  child: SingleChildScrollView(
-                    child: Form(
-                        child: Column(
-                      children: <Widget>[
-                        TextFormField(
-                          controller: _question,
-                          decoration: new InputDecoration(
-                            labelText: "Enter the question for child",
-                            fillColor: Colors.white,
-                            border: new OutlineInputBorder(
-                              borderRadius: new BorderRadius.circular(25.0),
-                              borderSide: new BorderSide(),
-                            ),
-                            //fillColor: Colors.green
-                          ),
-                          validator: (val) {
-                            if (val.length == 0) {
-                              return "Question cannot be empty";
-                            } else {
-                              return null;
-                            }
-                          },
-                          keyboardType: TextInputType.text,
-                          style: new TextStyle(
-                            fontFamily: "Poppins",
-                          ),
+      children: <Widget>[
+        Container(
+          width: (MediaQuery.of(context).size.width) * .6,
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  bottom: 0, left: 30, right: 30, top: 35),
+              child: SingleChildScrollView(
+                child: Form(
+                    child: Column(
+                  children: <Widget>[
+                    TextFormField(
+                      controller: _question,
+                      decoration: new InputDecoration(
+                        labelText: "Enter the question for child",
+                        fillColor: Colors.white,
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                          borderSide: new BorderSide(),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(28.0),
-                          child: Row(
-                            children: <Widget>[
-                              Text(
-                                "1) ",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 30),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 30, right: 50),
-                                  child: TextFormField(
-                                    controller: _option1,
-                                    decoration: InputDecoration(
-                                        labelText: "Option 1",
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25.0),
-                                            borderSide: BorderSide())),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 0, bottom: 28, left: 28, right: 28),
-                          child: Row(
-                            children: <Widget>[
-                              Text(
-                                "2) ",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 30),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 30, right: 50),
-                                  child: TextFormField(
-                                    controller: _option2,
-                                    decoration: InputDecoration(
-                                        labelText: "Option 2",
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25.0),
-                                            borderSide: BorderSide())),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 0, bottom: 28, left: 28, right: 28),
-                          child: Row(
-                            children: <Widget>[
-                              Text(
-                                "3) ",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 30),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 30, right: 50),
-                                  child: TextFormField(
-                                    controller: _option3,
-                                    decoration: InputDecoration(
-                                        labelText: "Option 3",
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25.0),
-                                            borderSide: BorderSide())),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 0, bottom: 5, left: 28, right: 28),
-                          child: Row(
-                            children: <Widget>[
-                              Text(
-                                "4) ",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 30),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 30, right: 50),
-                                  child: TextFormField(
-                                    controller: _option4,
-                                    decoration: InputDecoration(
-                                        labelText: "Option 4",
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25.0),
-                                            borderSide: BorderSide())),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15.0,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              "Select correct option:    ",
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                            DropdownButton<String>(
-                              value: answerIndex,
-                              onChanged: (String newValue) {
-                                setState(() {
-                                  answerIndex = newValue;
-                                });
-                              },
-                              items: <String>[
-                                '1',
-                                '2',
-                                '3',
-                                '4'
-                              ].map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        Container(
-                          width: 200,
-                          child: FlatButton(
-                            padding: const EdgeInsets.all(8.0),
-                            textColor: Colors.white,
-                            color: Colors.blue,
-                            child: new Text("Add"),
-                            onPressed: () {
-                              _collectData();
-                            },
-                          ),
-                        ),
-                      ],
-                    )),
-                  ),
-                ),
-              ),
-            ),
-            Container(
-                margin: EdgeInsets.only(top: 30),
-                width: (MediaQuery.of(context).size.width) * .4,
-                height: (MediaQuery.of(context).size.width) * .4,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        width: (MediaQuery.of(context).size.width) * .25,
-                        height: (MediaQuery.of(context).size.width) * .25,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                fit: BoxFit.fill,
-                                // change this to AssetImage if in localStorage
-                                image: _image == null
-                                    ? AssetImage('assets/background.jpg')
-                                    : FileImage(_image))),
+                        //fillColor: Colors.green
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      validator: (val) {
+                        if (val.length == 0) {
+                          return "Question cannot be empty";
+                        } else {
+                          return null;
+                        }
+                      },
+                      keyboardType: TextInputType.text,
+                      style: new TextStyle(
+                        fontFamily: "Poppins",
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(28.0),
+                      child: Row(
                         children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: RaisedButton(
-                              onPressed: () {
-                                getImageFromCamera();
-                              },
-                              child: Text("Camera"),
-                            ),
+                          Text(
+                            "1) ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 30),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: RaisedButton(
-                              onPressed: () {
-                                getImageFromGalerry();
-                              },
-                              child: Text("Gallery"),
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 30, right: 50),
+                              child: TextFormField(
+                                controller: _option1,
+                                decoration: InputDecoration(
+                                    labelText: "Option 1",
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(25.0),
+                                        borderSide: BorderSide())),
+                              ),
                             ),
                           )
                         ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 0, bottom: 28, left: 28, right: 28),
+                      child: Row(
+                        children: <Widget>[
+                          Text(
+                            "2) ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 30),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 30, right: 50),
+                              child: TextFormField(
+                                controller: _option2,
+                                decoration: InputDecoration(
+                                    labelText: "Option 2",
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(25.0),
+                                        borderSide: BorderSide())),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 0, bottom: 28, left: 28, right: 28),
+                      child: Row(
+                        children: <Widget>[
+                          Text(
+                            "3) ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 30),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 30, right: 50),
+                              child: TextFormField(
+                                controller: _option3,
+                                decoration: InputDecoration(
+                                    labelText: "Option 3",
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(25.0),
+                                        borderSide: BorderSide())),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 0, bottom: 5, left: 28, right: 28),
+                      child: Row(
+                        children: <Widget>[
+                          Text(
+                            "4) ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 30),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 30, right: 50),
+                              child: TextFormField(
+                                controller: _option4,
+                                decoration: InputDecoration(
+                                    labelText: "Option 4",
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(25.0),
+                                        borderSide: BorderSide())),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          "Select correct option:    ",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        DropdownButton<String>(
+                          value: answerIndex,
+                          onChanged: (String newValue) {
+                            setState(() {
+                              answerIndex = newValue;
+                            });
+                          },
+                          items: <String>['1', '2', '3', '4']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    ),
+                    Container(
+                      width: 200,
+                      child: RaisedButton(
+                        padding: const EdgeInsets.all(8.0),
+                        textColor: Colors.white,
+                        color: Colors.blue,
+                        child: new Text("Add"),
+                        onPressed: () {
+                          _collectData().then((_) {
+                            Navigator.pop(context);
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                )),
+              ),
+            ),
+          ),
+        ),
+        Container(
+            margin: EdgeInsets.only(top: 30),
+            width: (MediaQuery.of(context).size.width) * .4,
+            height: (MediaQuery.of(context).size.width) * .4,
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    width: (MediaQuery.of(context).size.width) * .25,
+                    height: (MediaQuery.of(context).size.width) * .25,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                            fit: BoxFit.fill,
+                            // change this to AssetImage if in localStorage
+                            image: _image == null
+                                ? AssetImage('assets/avtar.png')
+                                : FileImage(_image))),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: RaisedButton(
+                          onPressed: () {
+                            getImageFromCamera();
+                          },
+                          child: Text("Camera"),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: RaisedButton(
+                          onPressed: () {
+                            getImageFromGalerry();
+                          },
+                          child: Text("Gallery"),
+                        ),
                       )
                     ],
-                  ),
-                ))
-          ],
-        ));
+                  )
+                ],
+              ),
+            ))
+      ],
+    ));
   }
 
   Future _collectData() async {
@@ -303,7 +292,6 @@ class _AddQuestionState extends State<AddQuestion> {
     print("$question \n$opt1\n$opt2\n$opt3\n$opt4\n$answer\n$imageFilePath");
     Question queObj = Question(
         answer: answer,
-        id: 123,
         imageFilePath: imageFilePath,
         qTitle: question,
         qOptions: "$opt1, $opt2, $opt3, $opt4");

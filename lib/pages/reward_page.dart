@@ -13,6 +13,7 @@ class Reward extends StatefulWidget {
 class _RewardState extends State<Reward> {
   final _minPoints = TextEditingController();
   File _image;
+  bool _hasData = false;
 
   @override
   initState() {
@@ -26,6 +27,7 @@ class _RewardState extends State<Reward> {
       _minPoints.text = rewardModel.rewardPoints;
       setState(() {
         _image = File(rewardModel.imagePath);
+        _hasData = true;
       });
     } on NoSuchMethodError {
       print("Error occured");
@@ -53,11 +55,18 @@ class _RewardState extends State<Reward> {
   Future _saveData() async {
     RewardModel reward = RewardModel(
         id: 1, imagePath: _image.path, rewardPoints: _minPoints.text);
-    await DBProvider.db.newReward(reward);
+    if (!_hasData) {
+      await DBProvider.db.newReward(reward);
+      print("created new table");
+    } else {
+      await DBProvider.db.updateReward(reward);
+      print("updated");
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    // TODO: implement build
     return Scaffold(
       body: Row(
         children: <Widget>[
@@ -106,7 +115,7 @@ class _RewardState extends State<Reward> {
                             fit: BoxFit.fill,
                             // change this to AssetImage if in localStorage
                             image: _image == null
-                                ? AssetImage('assets/background.jpg')
+                                ? AssetImage('assets/reward.png')
                                 : FileImage(_image))),
                   ),
                 ),
@@ -159,7 +168,28 @@ class _RewardState extends State<Reward> {
                       style: TextStyle(fontSize: 20),
                     ),
                     onPressed: () {
-                      _saveData();
+                      _saveData().then((_) {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text("Reward settings!!"),
+                                content: Text(
+                                    "Reward settings saved or updated if alredy exist!!"),
+                                actions: <Widget>[
+                                  RaisedButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text(
+                                      "Dismiss",
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  )
+                                ],
+                              );
+                            });
+                      });
                     },
                     icon: Icon(Icons.done),
                   ),
