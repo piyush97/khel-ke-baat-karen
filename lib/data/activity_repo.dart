@@ -12,7 +12,7 @@ class ActivityRepository {
   static const int MILLISECONDS_IN_HOUR = 3600000;
   static const int REFRESH_THRESHOLD = 3 * MILLISECONDS_IN_HOUR;
 
-  static Future<List<Activity>> _getEventsFromDatabase() async {
+  static Future<List<Activity>> _getActivitiesromDatabase() async {
     Database dbClient = await ActivityDatabase().db;
     List<Map<String, dynamic>> eventRecords =
         await dbClient.query(ACTIVITY_TABLE_NAME);

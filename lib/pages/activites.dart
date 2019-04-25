@@ -9,6 +9,7 @@ import '../widgets/ui_elements/logout_list_tile.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter_tts/flutter_tts.dart';
+import './add_question.dart';
 
 class ActivitiesPage extends StatefulWidget {
   final MainModel model;
@@ -41,6 +42,18 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
               Navigator.pushReplacementNamed(context, '/admin');
             },
           ),
+          ListTile(
+              leading: Icon(Icons.local_activity),
+              title: Text('Add Questions'),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return AddQuestion();
+                    },
+                  ),
+                );
+              }),
           Divider(),
           LogoutListTile()
         ],
