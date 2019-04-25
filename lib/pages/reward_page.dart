@@ -58,6 +58,7 @@ class _RewardState extends State<Reward> {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: implement build
     return Scaffold(
       body: Row(
         children: <Widget>[
@@ -106,7 +107,7 @@ class _RewardState extends State<Reward> {
                             fit: BoxFit.fill,
                             // change this to AssetImage if in localStorage
                             image: _image == null
-                                ? AssetImage('assets/background.jpg')
+                                ? AssetImage('assets/reward.png')
                                 : FileImage(_image))),
                   ),
                 ),

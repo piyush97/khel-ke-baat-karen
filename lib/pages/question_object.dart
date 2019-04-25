@@ -181,7 +181,8 @@ class _QuestionObjState extends State<QuestionObj> {
                                     image: _data[_index] != null
                                         ? FileImage(
                                             File(_data[_index].imageFilePath))
-                                        : AssetImage('assets/background.jpg'))),
+                                        : NetworkImage(
+                                            "https://www.homepersonalcareva.com/wp-content/uploads/2013/12/home-care-for-children-with-disabilities1.jpg"))),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(24.0),
