@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:async';
 import 'dart:io';
-
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:scoped_model/scoped_model.dart';

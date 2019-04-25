@@ -9,6 +9,7 @@ import './pages/auth.dart';
 import './scoped-models/main.dart';
 import './models/activity.dart';
 import './widgets/helpers/custom_route.dart';
+
 void main() {
   SystemChrome.setEnabledSystemUIOverlays([]);
   SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight])

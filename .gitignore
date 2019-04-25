@@ -71,3 +71,4 @@
 
 #Lock file related
 pubspec.lock
+.env
