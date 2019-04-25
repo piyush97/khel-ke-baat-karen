@@ -220,7 +220,9 @@ class _AddQuestionState extends State<AddQuestion> {
                         color: Colors.blue,
                         child: new Text("Add"),
                         onPressed: () {
-                          _collectData();
+                          _collectData().then((_) {
+                            Navigator.pop(context);
+                          });
                         },
                       ),
                     ),

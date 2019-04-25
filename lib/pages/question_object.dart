@@ -105,30 +105,7 @@ class _QuestionObjState extends State<QuestionObj> {
 
   @override
   Widget build(BuildContext context) {
-    print(_minRewardPoints);
     return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            ListTile(
-              title: Text("Add Questions"),
-              trailing: Icon(Icons.add),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AddQuestion()));
-              },
-            ),
-            ListTile(
-              title: Text("Reward Settings"),
-              trailing: Icon(Icons.settings),
-              onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Reward()));
-              },
-            ),
-          ],
-        ),
-      ),
       floatingActionButton: Container(
         margin: EdgeInsets.only(top: 140.0),
         child: FloatingActionButton(
@@ -147,6 +124,7 @@ class _QuestionObjState extends State<QuestionObj> {
           if (snapshot.hasData) {
             _data = snapshot.data;
             String answer = (_data != null ? _data[_index].answer : "");
+            print("datat lenght :${_data.length}, indes: $_index");
 
             return Center(
               child: Container(
@@ -210,7 +188,7 @@ class _QuestionObjState extends State<QuestionObj> {
                             children: <Widget>[
                               GestureDetector(
                                 onTap: () {
-                                  onClick("0", answer, context);
+                                  onClick("1", answer, context);
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.only(
@@ -235,7 +213,7 @@ class _QuestionObjState extends State<QuestionObj> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  onClick("1", answer, context);
+                                  onClick("2", answer, context);
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.only(
@@ -260,7 +238,7 @@ class _QuestionObjState extends State<QuestionObj> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  onClick("2", answer, context);
+                                  onClick("3", answer, context);
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.only(
@@ -285,7 +263,7 @@ class _QuestionObjState extends State<QuestionObj> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  onClick("3", answer, context);
+                                  onClick("4", answer, context);
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.only(
@@ -374,11 +352,16 @@ class _QuestionObjState extends State<QuestionObj> {
             actions: <Widget>[
               RaisedButton(
                 textColor: Colors.white,
-                child: Text("Next Question"),
+                child: Text(
+                    _index + 1 < _data.length ? "Next Question" : "End quiz"),
                 onPressed: () {
-                  setState(() {
-                    _index = _index + 1;
-                  });
+                  if (_index + 1 < _data.length) {
+                    setState(() {
+                      _index = _index + 1;
+                    });
+                  } else {
+                    Navigator.pop(context);
+                  }
                   Navigator.pop(context);
                 },
               )
