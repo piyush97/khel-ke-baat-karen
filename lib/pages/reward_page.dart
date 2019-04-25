@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import '../data/DBProvider.dart';
+import '../data/dBProvider.dart';
 import '../models/reward_model.dart';
 
 class Reward extends StatefulWidget {
