@@ -22,6 +22,15 @@ class DatabaseHelper {
     }
     return _databaseHelper;
   }
+  Future<Database> initializeDb() async {
+    Directory directory = await getApplicationDocumentsDirectory();
+    String path = directory.path + 'activities.db';
+
+    var activityDatabase =
+        await openDatabase(path, version: 1, onCreate: _createDb);
+    return activityDatabase;
+  }
+
   void _createDb(Database db, int newVersion) async {
     await db.execute(
         'CREATE TABLE $activityTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colTitle TEXT, $colDescription TEXT, $coltime TEXT,$colimage TEXT, $colimagePath TEXT ) ');
