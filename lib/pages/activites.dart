@@ -15,6 +15,8 @@ import './add_question.dart';
 import './quiz_home.dart';
 import '../models/activity_sqflite.dart';
 import '../pages/reward_page.dart';
+import '../utils/db_helper.dart';
+import 'package:sqflite/sqflite.dart';
 
 class ActivitiesPage extends StatefulWidget {
   final MainModel model;
@@ -124,11 +126,27 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
         .then((_) => setState(() => rect = null));
   }
 
+  void updateActivityView() {
+    final Future<Database> dbFuture = databaseHelper.initializeDatabase();
+    dbFuture.then((database) {
+      Future<List<ActivitySQFLITE>> noteListFuture =
+          databaseHelper.getActivityList();
+      noteListFuture.then((activityList) {
+        setState(() {
+          this.activityList = activityList;
+          this.count = activityList.length;
+        });
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     if (activityList == null) {
       activityList = List<ActivitySQFLITE>();
+      updateActivityView();
     }
+
     return Stack(
       children: <Widget>[
         Scaffold(
