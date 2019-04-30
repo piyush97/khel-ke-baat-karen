@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:khel_ke_baat_karen/pages/draggable_game.dart';
+import 'package:khel_ke_baat_karen/utils/db_helper.dart';
 import 'package:rect_getter/rect_getter.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../widgets/activities/activities.dart';
@@ -12,6 +13,7 @@ import 'dart:io';
 import 'package:flutter_tts/flutter_tts.dart';
 import './add_question.dart';
 import './quiz_home.dart';
+import '../models/activity_sqflite.dart';
 import '../pages/reward_page.dart';
 
 class ActivitiesPage extends StatefulWidget {
@@ -25,7 +27,9 @@ class ActivitiesPage extends StatefulWidget {
 
 class _ActivitiesPageState extends State<ActivitiesPage> {
   int currentPage = 0;
-
+  DatabaseHelper databaseHelper = DatabaseHelper();
+  List<ActivitySQFLITE> activityList;
+  int count = 0;
   GlobalKey bottomNavigationKey = GlobalKey();
   @override
   initState() {
@@ -122,6 +126,9 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (activityList == null) {
+      activityList = List<ActivitySQFLITE>();
+    }
     return Stack(
       children: <Widget>[
         Scaffold(
