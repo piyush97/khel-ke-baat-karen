@@ -73,4 +73,13 @@ class DatabaseHelper {
         await db.rawDelete('DELETE FROM $activityTable WHERE $colId = $id');
     return result;
   }
+
+  // Get number of activity objects in database
+  Future<int> getCount() async {
+    Database db = await this.database;
+    List<Map<String, dynamic>> x =
+        await db.rawQuery('SELECT COUNT (*) from $activityTable');
+    int result = Sqflite.firstIntValue(x);
+    return result;
+  }
 }
