@@ -6,7 +6,7 @@ import '../models/activity_sqflite.dart';
 
 class DatabaseHelper {
   static Database _database; // Singleton Database
-  static DatabaseHelper _databaseHelper;
+  static DatabaseHelper _databaseHelper; //singleton database helper
   String activityTable = 'activity_table';
   String colId = 'id';
   String colTitle = 'title';
