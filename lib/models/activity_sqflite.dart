@@ -34,6 +34,15 @@ class ActivitySQFLITE {
     map['isFavorite'] = _isFavorite;
     return map;
   }
-  // extract activity object from map object
 
+  // extract activity object from map object
+  ActivitySQFLITE.fromMapObject(Map<String, dynamic> map) {
+    this._id = map['id'];
+    this._title = map['title'];
+    this._description = map['description'];
+    this._time = map['time'];
+    this._image = map['image'];
+    this._imagePath = map['imagePath'];
+    this._isFavorite = map['isFavorite'];
+  }
 }
