@@ -51,7 +51,7 @@ class DatabaseHelper {
     // var result = await db.query(activityTable,orderBy: '')
   }
 
-  Future<int> insertActivity(Activity activity) async {
+  Future<int> insertActivity(ActivitySQFLITE activity) async {
     Database db = await this.database;
     var result = await db.insert(activityTable, activity.toMap());
   }
