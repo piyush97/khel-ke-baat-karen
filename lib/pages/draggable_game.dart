@@ -1,47 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:chess_vectors_flutter/chess_vectors_flutter.dart';
+import 'dart:math';
 
-class MyHomePage extends StatefulWidget {
+class DragGame extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _DragGameState createState() => _DragGameState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+class _DragGameState extends State<DragGame> with TickerProviderStateMixin {
   GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text("learn Odd and Even Numbers"),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
+            FlatButton(
+              color: Colors.amber,
+              child: Text("New Number?"),
+              onPressed: () {
+                // randomNumberGenerator;
+              },
+            ),
             Draggable(
-              data: 5,
+              data: 12,
               child: Container(
                 width: 100.0,
                 height: 100.0,
                 child: Center(
                   child: Text(
-                    "5",
+                    "12",
                     style: TextStyle(color: Colors.white, fontSize: 22.0),
                   ),
                 ),
                 color: Colors.pink,
               ),
               feedback: Container(
-                width: 100.0,
-                height: 100.0,
-                child: Center(
-                  child: Text(
-                    "5",
-                    style: TextStyle(color: Colors.white, fontSize: 22.0),
+                  width: 100.0,
+                  height: 100.0,
+                  child: Center(
+                    child: Text(
+                      "12",
+                      style: TextStyle(color: Colors.white, fontSize: 22.0),
+                    ),
                   ),
-                ),
-                color: Colors.pink,
-              ),
+                  color: Colors.pinkAccent),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -63,6 +72,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                       return true;
                     },
                     onAccept: (data) {
+                      print("data: $data");
                       if (data % 2 == 0) {
                         scaffoldKey.currentState
                             .showSnackBar(SnackBar(content: Text("Correct!")));
