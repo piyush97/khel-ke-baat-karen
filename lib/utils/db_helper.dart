@@ -82,4 +82,16 @@ class DatabaseHelper {
     int result = Sqflite.firstIntValue(x);
     return result;
   }
+
+  // get the 'map list' [List<Map>] and convert it to activity list object
+  Future<List<ActivitySQFLITE>> getActivityList() async {
+    var activityMapList = await getActivityMapList(); // get map list from db
+    int count = activityMapList.length;
+
+    List<ActivitySQFLITE> activityList = List<ActivitySQFLITE>();
+    for (int i = 0; i < count; i++) {
+      activityList.add(ActivitySQFLITE.fromMapObject(activityMapList[i]));
+    }
+    return activityList;
+  }
 }
