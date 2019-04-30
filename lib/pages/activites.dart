@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:khel_ke_baat_karen/pages/draggable_game.dart';
 import 'package:rect_getter/rect_getter.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../widgets/activities/activities.dart';
@@ -23,6 +24,9 @@ class ActivitiesPage extends StatefulWidget {
 }
 
 class _ActivitiesPageState extends State<ActivitiesPage> {
+  int currentPage = 0;
+
+  GlobalKey bottomNavigationKey = GlobalKey();
   @override
   initState() {
     widget.model.fetchActivities();
@@ -146,32 +150,34 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
           ),
           body: _buildActivitiesList(),
           bottomNavigationBar: FancyBottomNavigation(
-              tabs: [
-                TabData(iconData: Icons.today, title: "Today"),
-                TabData(
-                  iconData: Icons.games,
-                  title: "Games",
+            tabs: [
+              TabData(
+                  iconData: Icons.calendar_today,
+                  title: "Today",
                   onclick: () {
-                    return Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (BuildContext context) {
-                          return TutorialHome();
-                        },
-                      ),
-                    );
-                  },
-                ),
-                TabData(iconData: Icons.access_alarm, title: "clock")
-              ],
-              onTabChangedListener: (_) => {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (BuildContext context) {
-                          return TutorialHome();
-                        },
-                      ),
-                    ),
+                    final FancyBottomNavigationState fState =
+                        bottomNavigationKey.currentState;
+                    fState.setPage(2);
                   }),
+              TabData(
+                  iconData: Icons.gamepad,
+                  title: "Questions Game",
+                  onclick: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => TutorialHome()))),
+              TabData(
+                  iconData: Icons.games,
+                  title: "Drag game",
+                  onclick: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => DragGame())))
+            ],
+            initialSelection: 1,
+            key: bottomNavigationKey,
+            onTabChangedListener: (position) {
+              setState(() {
+                currentPage = position;
+              });
+            },
+          ),
           floatingActionButton: RectGetter(
             key: rectGetterKey,
             child: FloatingActionButton(
