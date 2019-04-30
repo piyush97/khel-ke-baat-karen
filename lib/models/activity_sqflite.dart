@@ -1,17 +1,18 @@
-import 'package:flutter/material.dart';
+class ActivitySQFLITE {
+  String _id;
+  String _title;
+  String _description;
+  String _time;
+  String _image;
+  String _imagePath;
+  bool _isFavorite;
 
-class Activity {
-  final String _id;
-  final String _title;
-  final String _description;
-  final String _time;
-  final String _image;
-  final String _imagePath;
-  final bool _isFavorite;
-
-  Activity(this._id, this._title, this._description, this._time, this._image,
-      this._imagePath, this._isFavorite);
-
+  ActivitySQFLITE(
+      this._title, this._description, this._time, this._image, this._imagePath,
+      [this._isFavorite]);
+  ActivitySQFLITE.withId(this._id, this._title, this._description, this._time,
+      this._image, this._imagePath,
+      [this._isFavorite]);
   String get id => _id;
   String get title => _title;
   String get description => _description;
@@ -34,4 +35,5 @@ class Activity {
     return map;
   }
   // extract activity object from map object
+
 }
