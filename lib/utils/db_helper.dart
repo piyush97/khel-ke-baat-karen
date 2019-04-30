@@ -5,6 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import '../models/activity_sqflite.dart';
 
 class DatabaseHelper {
+  static Database _database; // Singleton Database
   static DatabaseHelper _databaseHelper;
   String activityTable = 'activity_table';
   String colId = 'id';
@@ -22,7 +23,14 @@ class DatabaseHelper {
     }
     return _databaseHelper;
   }
-  Future<Database> initializeDb() async {
+  Future<Database> get database async {
+    if (_database == null) {
+      _database = await initializeDatabase();
+    }
+    return _database;
+  }
+
+  Future<Database> initializeDatabase() async {
     Directory directory = await getApplicationDocumentsDirectory();
     String path = directory.path + 'activities.db';
 
