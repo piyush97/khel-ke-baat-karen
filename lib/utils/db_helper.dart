@@ -51,8 +51,18 @@ class DatabaseHelper {
     // var result = await db.query(activityTable,orderBy: '')
   }
 
+  // Insert Operation: Insert an Activity object to database
   Future<int> insertActivity(ActivitySQFLITE activity) async {
     Database db = await this.database;
     var result = await db.insert(activityTable, activity.toMap());
+    return result;
+  }
+
+// Update Operation: Update a activity object and save it to database
+  Future<int> updateActivity(ActivitySQFLITE activity) async {
+    var db = await this.database;
+    var result = await db.update(activityTable, activity.toMap(),
+        where: '$colId = ?', whereArgs: [activity.id]);
+    return result;
   }
 }
