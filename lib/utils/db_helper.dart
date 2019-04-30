@@ -43,4 +43,16 @@ class DatabaseHelper {
     await db.execute(
         'CREATE TABLE $activityTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colTitle TEXT, $colDescription TEXT, $coltime TEXT,$colimage TEXT, $colimagePath TEXT ) ');
   }
+
+  Future<List<Map<String, dynamic>>> getActivityMapList() async {
+    Database db = await this.database;
+    var result =
+        await db.rawQuery('SELECT * FROM $activityTable'); //TODO: rawQuery
+    // var result = await db.query(activityTable,orderBy: '')
+  }
+
+  Future<int> insertActivity(Activity activity) async {
+    Database db = await this.database;
+    var result = await db.insert(activityTable, activity.toMap());
+  }
 }
