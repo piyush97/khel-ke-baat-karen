@@ -65,4 +65,12 @@ class DatabaseHelper {
         where: '$colId = ?', whereArgs: [activity.id]);
     return result;
   }
+
+  // Delete Operation: Delete a Activity object from database
+  Future<int> deleteActivity(int id) async {
+    var db = await this.database;
+    int result =
+        await db.rawDelete('DELETE FROM $activityTable WHERE $colId = $id');
+    return result;
+  }
 }
