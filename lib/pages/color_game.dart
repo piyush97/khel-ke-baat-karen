@@ -40,28 +40,30 @@ class ColorGameState extends State<ColorGame> {
           });
         },
       ),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Column(
+      body: SingleChildScrollView(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: choices.keys.map((emoji) {
+                  return Draggable<String>(
+                    data: emoji,
+                    child: Emoji(emoji: score[emoji] == true ? '✅' : emoji),
+                    feedback: Emoji(emoji: emoji),
+                    childWhenDragging: Emoji(emoji: '🌱'),
+                  );
+                }).toList()),
+            Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: choices.keys.map((emoji) {
-                return Draggable<String>(
-                  data: emoji,
-                  child: Emoji(emoji: score[emoji] == true ? '✅' : emoji),
-                  feedback: Emoji(emoji: emoji),
-                  childWhenDragging: Emoji(emoji: '🌱'),
-                );
-              }).toList()),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children:
-                choices.keys.map((emoji) => _buildDragTarget(emoji)).toList()
-                  ..shuffle(Random(seed)),
-          )
-        ],
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children:
+                  choices.keys.map((emoji) => _buildDragTarget(emoji)).toList()
+                    ..shuffle(Random(seed)),
+            )
+          ],
+        ),
       ),
     );
   }
