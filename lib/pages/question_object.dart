@@ -110,9 +110,14 @@ class _QuestionObjState extends State<QuestionObj> {
         margin: EdgeInsets.only(top: 140.0),
         child: FloatingActionButton(
           onPressed: () {
-            _speak(_data[_index].qTitle +
-                ". Options are, " +
-                _data[_index].qOptions);
+            if (_data.length > 0) {
+              _speak(_data[_index].qTitle +
+                  ". Options are, " +
+                  _data[_index].qOptions);
+            } else {
+              _speak(
+                  "There is no questions set please tell speatial educator to set it for you!!");
+            }
           },
           child: Icon(Icons.speaker),
         ),
@@ -121,7 +126,7 @@ class _QuestionObjState extends State<QuestionObj> {
       body: FutureBuilder(
         future: DBProvider.db.getAllQuestions(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
+          if (snapshot.hasData && snapshot.data.length > 0) {
             _data = snapshot.data;
             String answer = (_data != null ? _data[_index].answer : "");
             print("datat lenght :${_data.length}, indes: $_index");
@@ -296,7 +301,21 @@ class _QuestionObjState extends State<QuestionObj> {
               ),
             );
           } else {
-            return Center(child: CircularProgressIndicator());
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  CircularProgressIndicator(),
+                  Padding(
+                    padding: const EdgeInsets.all(28.0),
+                    child: Text(
+                      "There is no questions set please tell speatial educator to set it for you!!",
+                      style: TextStyle(fontSize: 25),
+                    ),
+                  )
+                ],
+              ),
+            );
           }
         },
       ),

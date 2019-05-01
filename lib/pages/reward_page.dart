@@ -58,6 +58,9 @@ class _RewardState extends State<Reward> {
     if (!_hasData) {
       await DBProvider.db.newReward(reward);
       print("created new table");
+      setState(() {
+        _hasData = true;
+      });
     } else {
       await DBProvider.db.updateReward(reward);
       print("updated");
