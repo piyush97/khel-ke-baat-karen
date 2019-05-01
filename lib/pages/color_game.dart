@@ -20,7 +20,7 @@ class ColorGameState extends State<ColorGame> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: Text('Score ${score.length}/6')),
     );
   }
 }
