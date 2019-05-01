@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:khel_ke_baat_karen/pages/color_game.dart';
 import 'package:khel_ke_baat_karen/pages/draggable_game.dart';
 import 'package:rect_getter/rect_getter.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -152,13 +153,10 @@ class _ActivitiesPageState extends State<ActivitiesPage> {
           bottomNavigationBar: FancyBottomNavigation(
             tabs: [
               TabData(
-                  iconData: Icons.calendar_today,
-                  title: "Today",
-                  onclick: () {
-                    final FancyBottomNavigationState fState =
-                        bottomNavigationKey.currentState;
-                    fState.setPage(2);
-                  }),
+                  iconData: Icons.color_lens,
+                  title: "Color Game",
+                  onclick: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => ColorGame()))),
               TabData(
                   iconData: Icons.gamepad,
                   title: "Questions Game",
