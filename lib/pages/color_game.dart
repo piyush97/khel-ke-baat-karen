@@ -20,7 +20,17 @@ class ColorGameState extends State<ColorGame> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Score ${score.length}/6')),
+      appBar: AppBar(
+        title: Text('Score ${score.length}/6'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.refresh),
+        onPressed: () {
+          setState(() {
+            score.clear;
+          });
+        },
+      ),
     );
   }
 }
