@@ -1,6 +1,6 @@
 <p align="center">
   <a href="http://piyushmehta.com/">
-    <img src="icon.jpg" alt="Bootstrap logo" width="72" height="72">
+    <img src="icon.jpg" alt="K2BK Logo" width="72" height="72">
   </a>
 </p>
 <h3 align="center"> khel ke baat karen </h3>
