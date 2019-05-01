@@ -27,9 +27,19 @@ class ColorGameState extends State<ColorGame> {
         child: Icon(Icons.refresh),
         onPressed: () {
           setState(() {
-            score.clear;
+            score.clear();
+            seed++;
           });
         },
+      ),
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.end,
+          )
+        ],
       ),
     );
   }
