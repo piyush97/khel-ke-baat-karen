@@ -36,9 +36,9 @@ class ColorGameState extends State<ColorGame> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.end,
-          )
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: choices.key.map((emoji) {}).toList()),
         ],
       ),
     );
