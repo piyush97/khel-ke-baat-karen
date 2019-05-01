@@ -10,5 +10,11 @@ class ColorGameState extends State<ColorGame> {
   final Map choice = {
     '🍏': Colors.green,
     '🍋': Colors.yellow,
+    '🍅': Colors.red,
+    '🍇': Colors.purple,
+    '🍠': Colors.brown,
+    '🥕': Colors.orange,
   };
+  // Random seed to shuffle order of items
+  int seed = 0;
 }
