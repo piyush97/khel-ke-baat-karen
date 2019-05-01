@@ -39,7 +39,7 @@ dependencies:
   path_provider: ^0.5.0+1
   dotenv: ^1.0.0
   flutter_secure_storage: ^3.2.1+1
-  chess_vectors_flutter: any
+  audioplayers: any
 dev_dependencies:
   flutter_test:
     sdk: flutter
