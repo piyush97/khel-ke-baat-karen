@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:audioplayers/audio_cache.dart';
 
 class ColorGame extends StatefulWidget {
+  ColorGame({Key key}) : super(key: key);
+
   createState() => ColorGameState();
 }
 
