@@ -29,8 +29,8 @@ class ColorGameState extends State<ColorGame> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('Score ${score.length} / 6'),
-          backgroundColor: Colors.pink),
+        title: Text('Score ${score.length} / 6'),
+      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.refresh),
         onPressed: () {
