@@ -17,4 +17,10 @@ class ColorGameState extends State<ColorGame> {
   };
   // Random seed to shuffle order of items
   int seed = 0;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+    );
+  }
 }
