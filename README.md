@@ -1,6 +1,11 @@
-<h1 align="center"> khel ke baat karen </h1>
-<center><img src="icon.jpg" height="100px">
-<p align="center">An app for Autistic Students.</p>
+<p align="center">
+  <a href="http://piyushmehta.com/">
+    <img src="icon.jpg" alt="Bootstrap logo" width="72" height="72">
+  </a>
+</p>
+<h3 align="center"> khel ke baat karen </h3>
+
+<p align="center">An app with games for Autistic Students.</p>
 
 [![Build Status](https://travis-ci.com/piyush97/khel-ke-baat-karen.svg?branch=master)](https://travis-ci.com/piyush97/khel-ke-baat-karen)
 
@@ -31,5 +36,3 @@ dotenv: "^1.0.0"
 flutter_secure_storage: "^3.2.1+1"
 audioplayers: "any"
 ```
-
-</center>
