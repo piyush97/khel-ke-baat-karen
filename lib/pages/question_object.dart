@@ -116,7 +116,7 @@ class _QuestionObjState extends State<QuestionObj> {
                   _data[_index].qOptions);
             } else {
               _speak(
-                  "There is no questions set please tell speatial educator to set it for you!!");
+                  "No questions for now! Enjoy!");
             }
           },
           child: Icon(Icons.speaker),
