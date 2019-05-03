@@ -36,3 +36,8 @@ dotenv: "^1.0.0"
 flutter_secure_storage: "^3.2.1+1"
 audioplayers: "any"
 ```
+
+Tech: 
+1. Flutter
+1. Firebase
+1. SQFLITE
