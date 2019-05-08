@@ -1,5 +1,5 @@
 
-FROM runmymind/docker-android-sdk
+FROM google/dart-runtine
 
 
 MAINTAINER Piyush Mehta
