@@ -122,7 +122,7 @@ class _AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
         authenticate(_formData['email'], _formData['password'], _authMode);
 
     if (successInformation['success']) {
-      // Navigator.pushReplacementNamed(context, '/');
+      Navigator.pushReplacementNamed(context, '/');
     } else {
       showDialog(
         context: context,
