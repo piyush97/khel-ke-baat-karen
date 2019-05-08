@@ -357,13 +357,6 @@ class UserModel extends ConnectedActivitiesModel {
       'password': password,
       'returnSecureToken': true
     };
-    String _loadApi() {
-      rootBundle.loadString('assets/secrets.json');
-      Map decoded = jsonDecode('assets/secrets.json');
-      return decoded['api_key'];
-    }
-
-    print(_loadApi.toString());
 
     http.Response response;
     if (mode == AuthMode.Login) {
