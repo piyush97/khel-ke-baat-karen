@@ -58,10 +58,7 @@ class _AddQuestionState extends State<AddQuestion> {
                       decoration: new InputDecoration(
                         labelText: "Enter the question for child",
                         fillColor: Colors.white,
-                        border: new OutlineInputBorder(
-                          borderRadius: new BorderRadius.circular(25.0),
-                          borderSide: new BorderSide(),
-                        ),
+
                         //fillColor: Colors.green
                       ),
                       validator: (val) {
@@ -94,8 +91,6 @@ class _AddQuestionState extends State<AddQuestion> {
                                 decoration: InputDecoration(
                                     labelText: "Option 1",
                                     border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(25.0),
                                         borderSide: BorderSide())),
                               ),
                             ),
@@ -122,8 +117,6 @@ class _AddQuestionState extends State<AddQuestion> {
                                 decoration: InputDecoration(
                                     labelText: "Option 2",
                                     border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(25.0),
                                         borderSide: BorderSide())),
                               ),
                             ),
@@ -150,8 +143,6 @@ class _AddQuestionState extends State<AddQuestion> {
                                 decoration: InputDecoration(
                                     labelText: "Option 3",
                                     border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(25.0),
                                         borderSide: BorderSide())),
                               ),
                             ),
@@ -178,8 +169,6 @@ class _AddQuestionState extends State<AddQuestion> {
                                 decoration: InputDecoration(
                                     labelText: "Option 4",
                                     border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(25.0),
                                         borderSide: BorderSide())),
                               ),
                             ),
@@ -217,7 +206,7 @@ class _AddQuestionState extends State<AddQuestion> {
                       child: RaisedButton(
                         padding: const EdgeInsets.all(8.0),
                         textColor: Colors.white,
-                        color: Colors.blue,
+                        color: Theme.of(context).accentColor,
                         child: new Text("Add"),
                         onPressed: () {
                           _collectData().then((_) {
@@ -257,6 +246,7 @@ class _AddQuestionState extends State<AddQuestion> {
                       Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: RaisedButton(
+                          color: Theme.of(context).accentColor,
                           onPressed: () {
                             getImageFromCamera();
                           },
@@ -266,6 +256,7 @@ class _AddQuestionState extends State<AddQuestion> {
                       Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: RaisedButton(
+                          color: Theme.of(context).accentColor,
                           onPressed: () {
                             getImageFromGalerry();
                           },
