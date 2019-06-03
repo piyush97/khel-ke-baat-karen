@@ -8,9 +8,15 @@ class DragGame extends StatefulWidget {
 
 class _DragGameState extends State<DragGame> with TickerProviderStateMixin {
   GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey();
+  int rng = 0;
 
   @override
   Widget build(BuildContext context) {
+    Random random = new Random();
+    void changeIndex() {
+      setState(() => rng = random.nextInt(100));
+    }
+
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
@@ -21,20 +27,17 @@ class _DragGameState extends State<DragGame> with TickerProviderStateMixin {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             FlatButton(
-              color: Colors.amber,
-              child: Text("New Number?"),
-              onPressed: () {
-                // randomNumberGenerator;
-              },
-            ),
+                color: Colors.amber,
+                child: Text("New Number?"),
+                onPressed: () => changeIndex()),
             Draggable(
-              data: 12,
+              data: rng,
               child: Container(
                 width: 100.0,
                 height: 100.0,
                 child: Center(
                   child: Text(
-                    "12",
+                    rng.toString(),
                     style: TextStyle(color: Colors.white, fontSize: 22.0),
                   ),
                 ),
@@ -45,7 +48,7 @@ class _DragGameState extends State<DragGame> with TickerProviderStateMixin {
                   height: 100.0,
                   child: Center(
                     child: Text(
-                      "12",
+                      rng.toString(),
                       style: TextStyle(color: Colors.white, fontSize: 22.0),
                     ),
                   ),
