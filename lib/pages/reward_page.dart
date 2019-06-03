@@ -142,7 +142,7 @@ class _RewardState extends State<Reward> {
                 Text(
                   "Set minimum points needed for getting this reward.",
                   style: TextStyle(
-                      fontSize: 25,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
@@ -152,14 +152,11 @@ class _RewardState extends State<Reward> {
                   child: TextFormField(
                     controller: _minPoints,
                     decoration: InputDecoration(
-                        labelText: "Minimun points needed.",
-                        labelStyle:
-                            TextStyle(fontSize: 20, color: Colors.black),
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25.0),
-                            borderSide: BorderSide())),
+                      labelText: "Minimun points needed.",
+                      labelStyle: TextStyle(fontSize: 20, color: Colors.black),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
                     keyboardType: TextInputType.numberWithOptions(),
                   ),
                 ),
