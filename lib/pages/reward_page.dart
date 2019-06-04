@@ -86,7 +86,7 @@ class _RewardState extends State<Reward> {
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
                               Text(
-                                "Choose a image ",
+                                "Choose a Reward",
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
@@ -126,7 +126,7 @@ class _RewardState extends State<Reward> {
                   padding:
                       const EdgeInsets.only(top: 60.0, left: 20, right: 20),
                   child: Text(
-                    "Select a Image represents the reward ",
+                    "Select an Image that represents the reward ",
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                 )
@@ -152,7 +152,7 @@ class _RewardState extends State<Reward> {
                   child: TextFormField(
                     controller: _minPoints,
                     decoration: InputDecoration(
-                      labelText: "Minimun points needed.",
+                      labelText: "Minimum points needed.",
                       labelStyle: TextStyle(fontSize: 20, color: Colors.black),
                       filled: true,
                       fillColor: Colors.white,
@@ -173,9 +173,9 @@ class _RewardState extends State<Reward> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: Text("Reward settings!!"),
+                                title: Text("Reward Settings"),
                                 content: Text(
-                                    "Reward settings saved or updated if alredy exist!!"),
+                                    "Reward settings saved or updated if already exist"),
                                 actions: <Widget>[
                                   RaisedButton(
                                     onPressed: () {
