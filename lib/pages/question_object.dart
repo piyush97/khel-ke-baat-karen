@@ -115,8 +115,7 @@ class _QuestionObjState extends State<QuestionObj> {
                   ". Options are, " +
                   _data[_index].qOptions);
             } else {
-              _speak(
-                  "No questions for now! Enjoy!");
+              _speak("No questions for now! Enjoy!");
             }
           },
           child: Icon(Icons.speaker),
@@ -344,7 +343,7 @@ class _QuestionObjState extends State<QuestionObj> {
                 Padding(
                   padding: const EdgeInsets.only(top: 15.0),
                   child: Text(
-                    "Rerward of todays quiz ",
+                    "Reward of todays quiz ",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
